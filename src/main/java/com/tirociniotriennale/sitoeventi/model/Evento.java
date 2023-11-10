@@ -9,7 +9,7 @@ public class Evento {
     @Id
     @Column(name= "idevento")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name ="idtipologia")
     private long idtipo;
