@@ -12,10 +12,10 @@ public class Evento {
     private long id;
 
     @Column(name ="idtipologia")//si
-    private long idtipo;
+    private long idtipologia;
 
     @Column(name="user")//si
-    private String userevento;
+    private String user;
 
     @Column(name="nome")//si
     private String nomeevento;
@@ -27,7 +27,7 @@ public class Evento {
     private String desclong;
 
     @Column(name = "prezzo")
-    private float prezz;
+    private float prezzo;
 
     @Column(name = "luogo")
     private String luogoevento;
@@ -42,20 +42,21 @@ public class Evento {
     private String nomeimmagine;
 
     //--------------------------------------- Manca la data------------------------------------------------------
-    public Evento() {
+    public Evento() { //Costruttore vuoto
         //-------------------------------------Da rivedere se vuoto----------------------------------------------
     }
 
-    public Evento(long id, long idtipo, String userevento, String nomeevento, String descbrv, String desclong, float prezz,
+    // Costruttore con dati
+    public Evento(long id, long idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
        String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine ){
 
         this.id = id;
-        this.idtipo = idtipo;
-        this.userevento = userevento;
+        this.idtipologia = idtipologia;
+        this.user = user;
         this.nomeevento = nomeevento;
         this.descbrv = descbrv;
         this.desclong = desclong;
-        this.prezz = prezz;
+        this.prezzo = prezzo;
         this.luogoevento = luogoevento;
         this.bigliettimax = bigliettimax;
         this.biglietirimanenti = biglietirimanenti;
@@ -64,39 +65,50 @@ public class Evento {
     }
 
     public long getId() {
+
         return id;
     }
 
-    public long getIdtipo(){
-        return idtipo;
+    public long getIdtipologia(){
+
+        return idtipologia;
     }
 
-    public String getUserevento() {
-        return userevento;
+    public String getUser() {
+
+        return user;
     }
     public String getNomeevento() {
+
         return nomeevento;
     }
     public String getDescbrv() {
+
         return descbrv;
     }
     public String getDesclong() {
+
         return desclong;
     }
     public String getLuogoevento() {
+
         return luogoevento;
     }
     public String getNomeimmagine() {
+
         return nomeimmagine;
     }
-    public float getPrezz(){
-        return prezz;
+    public float getPrezzo(){
+
+        return prezzo;
     }
 
     public int getBigliettimax(){
+
         return bigliettimax;
     }
     public int getBiglietirimanenti(){
+
         return biglietirimanenti;
     }
 
