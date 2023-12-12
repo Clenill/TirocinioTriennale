@@ -1,8 +1,12 @@
-/*package com.tirociniotriennale.sitoeventi;
+/*
+package com.tirociniotriennale.sitoeventi;
+
 
 import java.util.Arrays;
 import java.util.List;
-
+import com.tirociniotriennale.sitoeventi.model.Evento;
+import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
+import com.tirociniotriennale.sitoeventi.service.EventoService;
 import com.tirociniotriennale.sitoeventi.model.Utente;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DBOperationRunner implements CommandLineRunner {
 
+/*
     @Autowired
     UtenteRepository utenteRepository;
 
@@ -32,6 +37,15 @@ public class DBOperationRunner implements CommandLineRunner {
         ));
 
         System.out.println("------Dati salvati nel DB --------------------");
+*/
 
-    }
-}*/
+//----------------------------------- Testing Evento-------------------------------------------------------------------
+
+
+
+
+
+
+
+
+//}

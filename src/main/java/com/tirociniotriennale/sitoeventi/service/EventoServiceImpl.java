@@ -1,5 +1,6 @@
 package com.tirociniotriennale.sitoeventi.service;
 
+import com.tirociniotriennale.sitoeventi.model.Faq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class EventoServiceImpl implements EventoService{
 
-    private EventoRepository eventoRepository;
+    private final EventoRepository eventoRepository;
 
     @Autowired
     public EventoServiceImpl(EventoRepository eventoRepository){
@@ -28,13 +29,12 @@ public class EventoServiceImpl implements EventoService{
 
     }
 
-    @Override
-    public Optional<Evento> getEventoById(long eventoId){
-    // inizializzata in EventoService.java
-        return  eventoRepository.findById(eventoId);
+    @Override // COntiente l'implementazione di find by id ho  modificato anche application.properties su none al posto di altro
+    public Optional<Evento> findById(int id){// inettato con Override
+        return  eventoRepository.findById(id);
     }
     @Override
-    public Iterable<Evento> getEventiByidtipologia(long idtipologia){
+    public Iterable<Evento> getEventiByidtipologia(int idtipologia){
     // sempre inizializzata in EventoService.java
         return eventoRepository.findAllByIdtipologia(idtipologia);
 

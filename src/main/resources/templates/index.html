@@ -29,15 +29,15 @@
 		Ultimi Eventi
 		<span class="line"></span>
 		</h2>
-		<div class="images-container">
-			<div class="image-card"><img src="images/events/default.jpg" alt=""
-			th:attr="src=@{/images/events/Caparezza.jpg}"></div>
-			<div class="image-card"><img src="images/events/Pirandello.jpg" alt=""></div>
-			<div class="image-card"><img src="images/events/Bruce.jpg" alt=""></div>
-			<div class="image-card"><img src="images/events/Mannarino.jpg" alt=""></div>
-			<div class="image-card"><img src="images/events/Amleto.jpg" alt=""></div>
-		</div>
 
+		<div class="images-container" >
+			<div class="image-card" th:each="eventi, iterStat : ${tutteventi}" th:if="${iterStat.index} < 5" >
+				<a href="evento" th:href="@{'evento/'+${eventi.id}}">
+				<img src="images/events/default.jpg" alt="" th:attr="src=${'images/events/' + eventi.nomeimmagine}">
+				</a>
+				</div>
+
+		</div>
 
 		<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
 		Tutte le Categorie

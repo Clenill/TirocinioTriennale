@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- base -->
+	<meta charset="utf-8">
+	<!-- site metas -->
+	<title>Ticket Love</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="Michele Longo">
+	<!-- stile css -->
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<script src="/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<!-- body -->
+<body class="main-layout">
+<!-- header -->
+
+<div th:insert="~{header :: head}"></div>
+
+
+
+
+
+<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+	Info Evento
+	<span class="line"></span>
+</h2>
+
+
+
+
+<div class="container">
+
+
+
+
+
+	<table class="table table-bordered table-striped">
+
+		<thead>
+		<tr>
+			<th></th>
+			<th>Nome Evento</th>
+			<th>Prezzo Biglietto</th>
+			<th>Biglietti rimanenti</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+
+			<td class="image-card-singolo" ><img src="images/events/default.jpg" alt=""
+										 th:attr="src=${'../images/events/' + eventoselezionato.nomeimmagine}"></td>
+			<td th:text="${eventoselezionato.nomeevento}" />
+			<td th:text="${eventoselezionato.prezzo}" />
+			<td th:text="${eventoselezionato.getBiglietirimanenti()}" />
+		</tr>
+		</tbody>
+
+	</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+</body>
+</html>

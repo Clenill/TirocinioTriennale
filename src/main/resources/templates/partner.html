@@ -18,116 +18,20 @@
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
-	  <header>
-		   <input type ="checkbox" name ="" id ="chk1"> 
-			<div class="logo">
-                <a href="index.html"><img src="images/logo.png" alt="#" /></a>
-            </div>
-				<div class="search-box">
-					<form>
-						<input type ="text" name ="search" id ="srch" placeholder="Cerca Eventi o Artisti...">
-						<button type ="submit"><i class="fa fa-search"></i></button>
-					</form>
-				</div>
-				<ul>
-					<li><a href="#">Eventi</a></li>
-					<li><a href="#">Partner</a></li>
-					<li><a href="#">Faq</a></li>
-					<li><a href="#">Chi Siamo</a></li>
-				</ul>
-				<div class="button-log">
-				<!-- ----------------Form Log in testing Modal------------------------------------------------------------------->
-				 	<!-- Button to open the modal login form -->
-					<button class="btnLI"  onclick="document.getElementById('id01').style.display='block'">Login</button>
 
-					<!-- The Modal -->
-					<div id="id01" class="modal">
-  						<span onclick="document.getElementById('id01').style.display='none'"
-						class="close" title="Close Modal">&times;</span>
+	  <div th:insert="~{header :: head}"></div>
 
-  						<!-- Modal Content -->
-  						<form class="modal-content animate" action="/action_page.php">
-   							<div class="imgcontainer">
-     							<img src="images/img_avatar2.png" alt="Avatar" class="avatar">
-   							</div>
 
-   						 	<div class="container">
-      							<label for="uname"><b>Username</b></label>
-      							<input type="text" placeholder="Enter Username" name="uname" required>
-
-      							<label for="psw"><b>Password</b></label>
-     							 <input type="password" placeholder="Enter Password" name="psw" required>
-
-      							<button class="btnLIf" type="submit">Login</button>
-    						</div>
-
-   						 	<div class="container" style="background-color:#f1f1f1">
-      							<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      							<span class="psw">Forgot <a href="#">password?</a></span>
-    						</div>
-  						</form>
-					</div> 	
-					<!-- Form Log in Fine testing Modal------------------------------------------------------------------------------->
-					<button class="btnSU">Sign up</button>
-				</div>
-				<div class="menu">
-					<label for="chk1">
-						<i class="fa fa-bars"></i>
-					</label>
-				</div>
-	  </header>
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
 		Lista Collaboratori
 		<span class="line"></span>
 		</h2>
+
+
+	  <div th:insert="~{footer :: foot}"></div>
 		
 
 
-		
 
-
-			<footer class="footer">
-				<div class="container">
-					<div class="row">
-						<div class="footer-col">
-							<h4>company</h4>
-							<ul>
-								<li><a href="#">about us</a></li>
-								<li><a href="#">our services</a></li>
-								<li><a href="#">privacy policy</a></li>
-								<li><a href="#">affiliate program</a></li>
-							</ul>
-						</div>
-						<div class="footer-col">
-							<h4>get help</h4>
-							<ul>
-								<li><a href="#">FAQ</a></li>
-								<li><a href="#">shipping</a></li>
-								<li><a href="#">returns</a></li>
-								<li><a href="#">order status</a></li>
-								<li><a href="#">payment options</a></li>
-							</ul>
-						</div>
-						<div class="footer-col">
-							<h4>online shop</h4>
-							<ul>
-								<li><a href="#">watch</a></li>
-								<li><a href="#">bag</a></li>
-								<li><a href="#">shoes</a></li>
-								<li><a href="#">dress</a></li>
-							</ul>
-						</div>
-						<div class="footer-col">
-							<h4>follow us</h4>
-							<div class="social-links">
-								<a href="#"><i class="fab fa-facebook-f"></i></a>
-								<a href="#"><i class="fab fa-twitter"></i></a>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-								<a href="#"><i class="fab fa-flickr"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-		   </footer>
 	</body>
 </html>

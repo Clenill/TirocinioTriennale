@@ -9,10 +9,10 @@ public class Evento {
     @Id
     @Column(name= "idevento")//si
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name ="idtipologia")//si
-    private long idtipologia;
+    private int idtipologia;
 
     @Column(name="user")//si
     private String user;
@@ -47,7 +47,7 @@ public class Evento {
     }
 
     // Costruttore con dati
-    public Evento(long id, long idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
+    public Evento(int id, int idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
        String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine ){
 
         this.id = id;
@@ -64,53 +64,107 @@ public class Evento {
         //-------------------------------Manca la data-----------------------------------------------------------
     }
 
-    public long getId() {
+    public int getId() {
 
         return id;
     }
 
-    public long getIdtipologia(){
+    public void setId(int id){
+
+        this.id = id;
+    }
+
+    public int getIdtipologia(){
 
         return idtipologia;
+    }
+
+    public void setIdtipologia(int idtipologia){
+
+        this.idtipologia = idtipologia;
     }
 
     public String getUser() {
 
         return user;
     }
+
+    public void setUser(String user){
+
+        this.user = user;
+    }
     public String getNomeevento() {
 
         return nomeevento;
+    }
+
+    public void setNomeevento(String nomeevento){
+
+        this.nomeevento = nomeevento;
     }
     public String getDescbrv() {
 
         return descbrv;
     }
+
+    public void setDescbrv(String descbrv){
+
+        this.descbrv = descbrv;
+    }
     public String getDesclong() {
 
         return desclong;
+    }
+
+    public void setDesclong(String desclong){
+
+        this.desclong = desclong;
     }
     public String getLuogoevento() {
 
         return luogoevento;
     }
+
+    public void setLuogoevento(String luogoevento){
+
+        this.luogoevento = luogoevento;
+    }
     public String getNomeimmagine() {
 
         return nomeimmagine;
+    }
+
+    public void setNomeimmagine(String nomeimmagine){
+
+        this.nomeimmagine = nomeimmagine;
     }
     public float getPrezzo(){
 
         return prezzo;
     }
 
+    public void setPrezzo(float prezzo){
+
+        this.prezzo = prezzo;
+    }
+
     public int getBigliettimax(){
 
         return bigliettimax;
+    }
+
+    public void setBigliettimax(int bigliettimax){
+
+        this.bigliettimax = bigliettimax;
     }
     public int getBiglietirimanenti(){
 
         return biglietirimanenti;
     }
 
+    public void setBiglietirimanenti(int biglietirimanenti){
+
+        this.biglietirimanenti = biglietirimanenti;
+    }
 
 }

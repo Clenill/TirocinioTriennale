@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <!-- base -->
+      <meta charset="utf-8">
+	   <!-- site metas -->
+      <title>Ticket Love</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="Michele Longo">
+	  <!-- stile css -->
+      <link rel="stylesheet" href="css/style.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+
+
+	  </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- header -->
+
+
+	  <div th:insert="~{header :: head}"></div>
+
+
+
+	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+		Aggiungi Evento
+		<span class="line"></span>
+	  </h2>
+	  <div class="container">
+
+
+
+
+
+
+			<form action="#" th:object="${eventissimo}" th:action="@{/salvaEvento}" method="post">
+				<p>Nome Evento:</p>
+		    <input type="text" name="nomeevento" value="" id="nomeevento" placeholder="Nome dell'evento"
+		               required="required" autofocus="autofocus" th:value="*{nomeevento}"/>
+				<p>Associazione che pubblica l'evento:</p>
+			<input type="text" name="user" value="" id="user" placeholder="Utente che pubblica cli"
+		               required="required" autofocus="autofocus" th:value="*{user}"/>
+				<p>Tipologia Evento:</p>
+			<input type="number" name="idtipologia" value="" id="idtipologia" placeholder="Numero di tipo 1"
+		               required="required" autofocus="autofocus" th:value="*{idtipologia}"/>
+				<p>Biglietti Disponibili per l'evento:</p>
+			<input type="number" name="bigliettimax" value="" id="bigliettimax" placeholder="150"
+		               required="required" autofocus="autofocus" th:value="*{bigliettimax}"/>
+
+			<button type="submit" name="addRow" >Aggiungi Evento</button>
+		  </form>
+
+	  </div>
+
+	  <script
+			  src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+	  <script>
+		  /*<![CDATA[*/
+		  window.jQuery
+		  || document
+				  .write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')
+		  /*]]>*/
+	  </script>
+
+
+	  <div th:insert="~{footer :: foot}"></div>
+
+
+	</body>
+</html>

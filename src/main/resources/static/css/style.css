@@ -209,6 +209,26 @@ body{
 .image-card:hover ~ .image-card{
     transform: translateX(60px);
 }
+/*--------------------------------------Evento Singolo----------------------------------*/
+.image-card-singolo{
+    width: 550px;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: -6px 6px 20px #00000070;
+    transition: .3s linear;
+}
+
+.image-card-singolo img{
+    width: 100%;
+    height: 100%;
+}
+
+.image-card-singolo:not(:first-child){
+    margin-left: -50px;
+}
 /* ------------------------------------ Social Media -------------------------------*/
 .container{
 	max-width: 1170px;
@@ -224,6 +244,7 @@ ul{
 .footer{
 	background-color: #24262b;
     padding: 70px 0;
+    margin-top: 50px;
 }
 .footer-col{
    width: 25%;
@@ -402,4 +423,64 @@ img.avatar {
     opacity: .1;
     margin-left: 15px;
     margin-right: 100px;
+}
+/*---------------------------------------faq-------------------------------------------*/
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.faq{
+
+    margin-left: 15%;
+    max-width: 60%;
+
+}
+.panel {
+
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+.tuttcategfaq{
+    margin-bottom: 50px;
+    display: flex;
+    align-items: baseline;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+.pfooter{
+    margin-bottom: 8px;
+    margin-top: 10px;
 }
