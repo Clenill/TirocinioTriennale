@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 //Implementa le operazioni CRUD base, le restanti operazioni vengono gestiti nel service
 public interface EventoRepository extends JpaRepository<Evento, Integer> {
-    Iterable<Evento> findAllByUser(String user);
-    Iterable<Evento> findAllByIdtipologia(int idtipologia);
+    Iterable<Evento> findAllByUser(String user);// da mettere in service
+    Iterable<Evento> findAllByIdtipologia(int idtipologia);//  da mettere in service
 
 
 }

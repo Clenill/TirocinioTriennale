@@ -9,7 +9,7 @@ public interface FaqService {
 
     Faq createFaq(Faq faq);
 
-    Optional<Faq> getFaqById(Long id);
+    Optional<Faq> findById(int id);
 
     Iterable<Faq> getFaqs();
 

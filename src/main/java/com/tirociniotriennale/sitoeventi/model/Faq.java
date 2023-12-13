@@ -10,7 +10,7 @@ public class Faq {
     @Id
     @Column(name= "idfaq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name= "domanda")
     private String domanda;
@@ -22,7 +22,7 @@ public class Faq {
 
     }
 
-    public Faq(String domanda, String risposta, Long id){
+    public Faq(String domanda, String risposta, int id){
         this.id = id;
         this.domanda = domanda;
         this.risposta = risposta;
@@ -49,7 +49,7 @@ public class Faq {
         return this.id;
     }
 
-    public void setId(Long id){
+    public void setId(int id){
         this.id = id;
     }
 

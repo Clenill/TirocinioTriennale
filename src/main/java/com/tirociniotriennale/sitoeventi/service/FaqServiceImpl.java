@@ -28,7 +28,8 @@ public class FaqServiceImpl implements FaqService{
     }
 
     @Override
-    public Optional<Faq> getFaqById(Long id){
+    public Optional<Faq> findById(int id){
+
         return faqRepository.findById(id);
     }
 
