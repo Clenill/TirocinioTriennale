@@ -69,6 +69,15 @@ public class HomeController {
         }
     }
 
+    // metodo per salvare un evento
+    @RequestMapping(value = "/salvaevento", method=RequestMethod.POST)
+    public String salvaEvento(@ModelAttribute Evento evento){
+
+        System.out.println("INIZIO METODO SALVAEVENTO");
+        eventorepository.save(evento);
+        return "index";
+    }
+
     @GetMapping({"/faq"})
     public ModelAndView getAllFaq() {
         ModelAndView gaf = new ModelAndView("faq");
@@ -76,13 +85,6 @@ public class HomeController {
         return gaf;
     }
 
-
-    // metodo per salvare un evento
-    @PostMapping({"/salvaevento"})
-    public String salvaEvento(@ModelAttribute Evento evento){
-        eventorepository.save(evento);
-        return "index";
-    }
 
     @RequestMapping(value = "/eventi")
     public String eventi(){

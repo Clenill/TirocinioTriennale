@@ -2,12 +2,16 @@ package com.tirociniotriennale.sitoeventi.model;
 
 
 import jakarta.persistence.*;
-
+// Le annotazioni servono per associale la tabella e le colonne del db all'oggetto.
+// si usano al posto del descrittore in xml, obv veloci e pratiche.
+// Per interrogare il database si utilizza JDBC e bisogna dirgli che driver usare (mariaDB) e indirizzo.
+// Le operazioni CRUD vengono effettuate da Evento Repository che estende JpaRepository o CrudRepository.
+// Hibernate automatizza le operazioni CRUD.
 @Entity
 @Table(name= "evento")
 public class Evento {
     @Id
-    @Column(name= "idevento")//si
+    @Column(name= "idevento")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

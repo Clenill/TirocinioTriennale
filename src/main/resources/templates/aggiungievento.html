@@ -38,19 +38,39 @@
 
 
 
-			<form action="#" th:object="${eventissimo}" th:action="@{/salvaEvento}" method="post">
+			<form action="#" th:object="${eventissimo}" th:action="@{/salvaevento}" method="post">
 				<p>Nome Evento:</p>
 		    <input type="text" name="nomeevento" value="" id="nomeevento" placeholder="Nome dell'evento"
 		               required="required" autofocus="autofocus" th:value="*{nomeevento}"/>
+
 				<p>Associazione che pubblica l'evento:</p>
 			<input type="text" name="user" value="" id="user" placeholder="Utente che pubblica cli"
 		               required="required" autofocus="autofocus" th:value="*{user}"/>
-				<p>Tipologia Evento:</p>
-			<input type="number" name="idtipologia" value="" id="idtipologia" placeholder="Numero di tipo 1"
+
+				<p>Descrizione breve dell'evento:</p>
+			<input type="text" name="descbrv" value="" id="descbrv" placeholder="Concerto in do minore..."
+					   required="required" autofocus="autofocus" th:value="*{descbrv}"/>
+
+				<p>Descrizione accurata dell'evento:</p>
+			<input type="text" name="desclong" value="" id="desclong" placeholder="Concerto in do minore..."
+					   required="required" autofocus="autofocus" th:value="*{desclong}"/>
+
+				<p>Luogo evento:</p>
+			<input type="text" name="luogoevento" value="" id="luogoevento" placeholder="Concerto in do minore..."
+					   required="required" autofocus="autofocus" th:value="*{luogoevento}"/>
+
+				<p>Id tipologia evento:</p>
+			<input type="number" name="idtipologia" value="" id="idtipologia" placeholder="1"
 		               required="required" autofocus="autofocus" th:value="*{idtipologia}"/>
+
+				<p>Prezzo unitario biglietto:</p>
+				<input type="number" name="prezzo" value="" id="prezzo" placeholder="per ora interi tipo: 17"
+					   required="required" autofocus="autofocus" th:value="*{prezzo}"/>
+
 				<p>Biglietti Disponibili per l'evento:</p>
 			<input type="number" name="bigliettimax" value="" id="bigliettimax" placeholder="150"
 		               required="required" autofocus="autofocus" th:value="*{bigliettimax}"/>
+
 
 			<button type="submit" name="addRow" >Aggiungi Evento</button>
 		  </form>

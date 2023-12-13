@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class EventoServiceImpl implements EventoService{
-
+    //@Autowired
     private final EventoRepository eventoRepository;
 
     @Autowired
