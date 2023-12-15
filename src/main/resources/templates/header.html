@@ -4,13 +4,14 @@
 
 <body>
 
-<div th:fragment="head">
+<div th:fragment="headerpublic">
 
 
     <header>
         <input type ="checkbox" name ="" id ="chk1">
         <div class="logo">
-            <a href="index"><img src="images/logo.png" alt="#" /></a>
+            <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt="#" />
+            </a>
         </div>
         <div class="search-box">
             <form>
@@ -20,11 +21,11 @@
         </div>
         <ul>
             <li th:switch="'${user.role}'">
-                <a th:case="'admin'" href="eventi">Eventi</a>
-                <a th:case="*" href="eventi">Eventi t</a>
+                <a th:case="'admin'" th:href="@{/eventi}">Eventi</a>
+                <a th:case="*" th:href="@{/eventi}">Eventi t</a>
             </li>
-            <li><a href="addevento">aggiungi Evento</a></li>
-            <li><a href="faq">Faq</a></li>
+            <li><a th:href="@{/addevento}">Aggiungi Evento</a></li>
+            <li><a th:href="@{/faq}">Faq</a></li>
             <li><a href="#">Chi Siamo</a></li>
         </ul>
         <div class="button-log">
@@ -38,7 +39,7 @@
                 <!-- Modal Content -->
                 <form class="modal-content animate" action="/action_page.php">
                     <div class="imgcontainer">
-                        <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
+                        <img th:src="@{/images/img_avatar2.png}" alt="Avatar" class="avatar">
                     </div>
 
                     <div class="container">

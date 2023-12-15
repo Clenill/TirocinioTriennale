@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="Michele Longo">
 	<!-- stile css -->
-	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -19,7 +19,7 @@
 <body class="main-layout">
 <!-- header -->
 
-<div th:insert="~{header :: head}"></div>
+<div th:insert="~{header :: headerpublic}"></div>
 
 
 
@@ -33,35 +33,49 @@
 
 
 
-<div class="container">
+<div class="container-evento">
 
+	<table class="table-evento">
 
-
-
-
-	<table class="table table-bordered table-striped">
-
-		<thead>
 		<tr>
-			<th></th>
-			<th>Nome Evento</th>
-			<th>Prezzo Biglietto</th>
-			<th>Biglietti rimanenti</th>
+			<td class="image-card-singolo" >
+				<img src="images/events/default.jpg" alt=""
+				th:attr="src=@{'/images/events/' + ${eventoselezionato.nomeimmagine}}"></td>
+			<td class = "testo-evento">
+				<table>
+					<tr >
+						<td th:text="'Evento:                ' + ${eventoselezionato.nomeevento}" />
+					</tr>
+					<tr>
+						<td th:text="'Luogo:                 ' + ${eventoselezionato.luogoevento}" />
+					</tr>
+					<tr>
+						<td th:text="'Prezzo unitario:       ' + ${eventoselezionato.prezzo}" />
+					</tr>
+					<tr>
+						<td th:text="'Biglietti Disponibili: ' + ${eventoselezionato.getBiglietirimanenti()}" />
+					</tr>
+					<tr>
+						<td class="acquista-btn">
+							<button class="btn-acquista">Acquista</button>
+						</td>
+					</tr>
+				</table>
+			</td>
 		</tr>
-		</thead>
-		<tbody>
 		<tr>
-
-			<td class="image-card-singolo" ><img src="images/events/default.jpg" alt=""
-										 th:attr="src=${'../images/events/' + eventoselezionato.nomeimmagine}"></td>
-			<td th:text="${eventoselezionato.nomeevento}" />
-			<td th:text="${eventoselezionato.prezzo}" />
-			<td th:text="${eventoselezionato.getBiglietirimanenti()}" />
+			<td colspan="2" th:text="${eventoselezionato.descbrv}" >Descrizione dell'evento:</td>
 		</tr>
-		</tbody>
+		<tr>
+			<td colspan="2" th:text="${eventoselezionato.desclong}" >Descrizione dettagliata:</td>
+		</tr>
+
 
 	</table>
+
+
 </div>
+
 
 
 

@@ -19,7 +19,7 @@
    <body class="main-layout">
       <!-- header -->
 
-	  <div th:insert="~{header :: head}"></div>
+	  <div th:insert="~{header :: headerpublic}"></div>
 
 
 
@@ -30,16 +30,18 @@
 		<span class="line"></span>
 		</h2>
 
-		<div class="images-container" >
-			<div class="image-card" th:each="eventi, iterStat : ${tutteventi}" th:if="${iterStat.index} < 5" >
-				<a href="evento" th:href="@{'evento/'+${eventi.id}}">
-				<img src="images/events/default.jpg" alt="" th:attr="src=${'images/events/' + eventi.nomeimmagine}">
-				</a>
-				</div>
 
-		</div>
 
-		<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+	  <div class="images-container">
+		  <div class="image-card" th:each="eventi, iterStat : ${tutteventi}" th:if="${iterStat.index} < 5">
+			  <a th:href="@{'evento/'+${eventi.id}}">
+				  <img src="images/events/default.jpg" alt="" th:attr="src=${'images/events/' + eventi.nomeimmagine}">
+			  </a>
+		  </div>
+	  </div>
+
+
+	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
 		Tutte le Categorie
 		<span class="line"></span>
 		</h2>

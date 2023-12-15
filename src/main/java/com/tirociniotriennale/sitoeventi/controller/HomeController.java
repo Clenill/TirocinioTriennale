@@ -17,7 +17,7 @@ import java.util.Optional;
 /*---------------------------------spring.jpa.hibernate.ddl-auto=auto-------------------------------------*/
 @Controller
 // Introducendo un @RequestMapping("/ticketlove") si crea un percorso path a cascata con le richieste
-// di questo HomeController qundi si avrà ticketlove/index? credo.
+// di questo HomeController qundi si avrà ticketlove/index?, da testare.
 // @RequestMapping("/ticketlove") ma non c'è differenza
 public class HomeController {
     // AGGIUNTO PER PROVARE-------------------

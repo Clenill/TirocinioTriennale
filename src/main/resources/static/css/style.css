@@ -115,7 +115,10 @@ header .menu{
 .button-log{
     outline: none;
     border: none;
-    position: right;
+    /* Usa justify-content per spostare gli elementi verso destra */
+    justify-content: flex-end;
+    /* Aggiungi un margine a sinistra per allineare gli elementi alla destra */
+    margin-left: auto;
     display: flex;
     margin-right: 5px;
 }
@@ -211,7 +214,7 @@ body{
 }
 /*--------------------------------------Evento Singolo----------------------------------*/
 .image-card-singolo{
-    width: 550px;
+    width: 40%;
     height: 600px;
     overflow: hidden;
     position: relative;
@@ -219,6 +222,7 @@ body{
     border-radius: 6px;
     box-shadow: -6px 6px 20px #00000070;
     transition: .3s linear;
+    margin-left: 5%;
 }
 
 .image-card-singolo img{
@@ -228,6 +232,53 @@ body{
 
 .image-card-singolo:not(:first-child){
     margin-left: -50px;
+}
+.table-evento{
+    width: 60%;
+    margin: 0 auto;
+}
+.testo-evento{
+    width: 50%;
+    padding-left:50px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column; /* Visualizza i dati dell'evento in una colonna */
+    align-items: flex-start; /* Allinea il testo a sinistra */
+    margin-top: 20px;
+}
+.testo-evento table {
+    width: 100%;
+}
+.testo-evento table tr td{
+
+    margin-bottom: 10px; /* Aggiunto margine inferiore tra le righe della tabella */
+    font-size: 16px;
+    font-weight: bold;
+}
+.table-evento tr td[colspan="2"] {
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 20px; /* Aggiungi spazio sopra la descrizione dettagliata */
+}
+.acquista-btn {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.btn-acquista {
+    margin-top: 15px;
+    background-color: #1da1f2; /* Colore di sfondo verde, puoi cambiarlo a tuo piacimento */
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Aggiungi una transizione per un effetto più fluido */
+}
+
+.btn-acquista:hover {
+    background-color: #0d87c4; /* Cambia il colore al passaggio del mouse */
 }
 /* ------------------------------------ Social Media -------------------------------*/
 .container{
@@ -483,4 +534,10 @@ img.avatar {
 .pfooter{
     margin-bottom: 8px;
     margin-top: 10px;
+}
+.container-evento{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
