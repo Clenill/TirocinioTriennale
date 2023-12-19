@@ -5,7 +5,6 @@ import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
 import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
-import com.tirociniotriennale.sitoeventi.service.EventoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,12 +32,6 @@ public class HomeController {
     public HomeController(EventoService eventoService){// aggiunto costruttore
         this.eventoService = eventoService;
     }
-    @RequestMapping(value = "/index")
-    public String index(){
-
-    return "index";
-
-    }
 
     @GetMapping({"/", "/index"})
     public  ModelAndView getAllEventPerData(){ // al momento è una semplice getAll
@@ -47,12 +40,14 @@ public class HomeController {
         return gau;
     }
 
+
     @GetMapping({"/eventi"})
     public ModelAndView getAllEventi() {
         ModelAndView mav = new ModelAndView("eventi");
         mav.addObject("tuttiglieventi", eventorepository.findAll());
         return mav;
     }
+
 // aggiungere un evento
 
     @GetMapping({"/addevento"}) //Cattura l'url può venire anche da un bottone! con th:href=@{/addevento}
@@ -86,20 +81,6 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = "/eventi")
-    public String eventi(){
-
-        return "eventi";
-
-    }
-
-    @RequestMapping(value = "/addevento")
-    public String addevento(){
-
-        return "aggiungievento";
-
-    }
-
 
     @RequestMapping(value = "/partner")
     public String listapartner(){
@@ -108,12 +89,6 @@ public class HomeController {
 
     }
 
-    @RequestMapping(value = "/faq")
-    public String faq(){
-
-        return "faq";
-
-    }
 
 
     @RequestMapping({"/evento/{id}"}) // @RequestMapping?
@@ -128,8 +103,6 @@ public class HomeController {
             return null;
         }
     }
-
-
 
 
 

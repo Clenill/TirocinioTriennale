@@ -31,19 +31,8 @@ public class EventoServiceImpl implements EventoService{
 
     @Override // COntiente l'implementazione di find by id ho  modificato anche application.properties su none al posto di altro
     public Optional<Evento> findById(int id){// inettato con Override
+
         return  eventoRepository.findById(id);
-    }
-    @Override
-    public Iterable<Evento> getEventiByidtipologia(int idtipologia){
-    // sempre inizializzata in EventoService.java
-        return eventoRepository.findAllByIdtipologia(idtipologia);
-
-    }
-    @Override
-    public Iterable<Evento> getEventiByuser(String user){
-    // inizializzata in EventoService.java
-        return eventoRepository.findAllByUser(user);
-
     }
 
     @Override

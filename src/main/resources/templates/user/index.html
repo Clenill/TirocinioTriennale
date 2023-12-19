@@ -9,7 +9,7 @@
       <meta name="description" content="">
       <meta name="author" content="Michele Longo">
 	  <!-- stile css -->
-	   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -19,7 +19,9 @@
    <body class="main-layout">
       <!-- header -->
 
-	  <div th:insert="~{header :: headerpublic}"></div>
+	  <div th:insert="~{user/header :: headeruser}"></div>
+
+
 
 
 
@@ -33,10 +35,10 @@
 
 
 	  <div class="images-container">
-		  <div class="image-card" th:each="eventi, iterStat : ${tutteventi}" th:if="${iterStat.index} < 5">
-			  <a th:href="@{'evento/'+${eventi.id}}">
-				  <img src="images/events/default.jpg" alt="" th:attr="src=${'images/events/' + eventi.nomeimmagine}">
-			  </a>
+		  <div class="image-card" th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 5">
+			  <a th:href="@{'/user/evento/'+${events.id}}">
+				  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
+			  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
 		  </div>
 	  </div>
 

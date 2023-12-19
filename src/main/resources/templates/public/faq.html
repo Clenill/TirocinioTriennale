@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- base -->
+      <meta charset="utf-8">
+	   <!-- site metas -->
+      <title>Ticket Love</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="Michele Longo">
+	  <!-- stile css -->
+	   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	   
+	  </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- header -->
+
+	  <div th:insert="~{public/header :: headerpub}"></div>
+
+
+	  <h2 class="tuttcategfaq" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+		Domande e Risposte Frequenti
+		<span class="line"></span>
+		</h2>
+
+
+	  <div class="faq" th:each="faqs: ${tuttelefaq}">
+	  <button class="accordion" th:text="${faqs.domanda}" >Nessuna Domanda</button>
+	  <div class="panel">
+		  <p class="pfooter" th:text="${faqs.risposta}">Nessuna Risposta</p>
+	  </div>
+	  </div>
+
+	  <script>
+		  var acc = document.getElementsByClassName("accordion");
+		  var i;
+
+		  for (i = 0; i < acc.length; i++) {
+			  acc[i].addEventListener("click", function() {
+				  this.classList.toggle("active");
+				  var panel = this.nextElementSibling;
+				  if (panel.style.maxHeight) {
+					  panel.style.maxHeight = null;
+				  } else {
+					  panel.style.maxHeight = panel.scrollHeight + "px";
+				  }
+			  });
+		  }
+	  </script>
+
+
+	  <div th:insert="~{footer :: foot}"></div>
+	</body>
+</html>

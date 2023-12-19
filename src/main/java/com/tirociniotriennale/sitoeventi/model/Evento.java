@@ -15,7 +15,7 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name ="idtipologia")//si
+    @Column(name = "idtipologia")
     private int idtipologia;
 
     @Column(name="user")//si
@@ -51,7 +51,7 @@ public class Evento {
     }
 
     // Costruttore con dati
-    public Evento(int id, int idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
+    public Evento(int id,int idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
        String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine ){
 
         this.id = id;
@@ -79,15 +79,12 @@ public class Evento {
     }
 
     public int getIdtipologia(){
-
         return idtipologia;
     }
 
     public void setIdtipologia(int idtipologia){
-
         this.idtipologia = idtipologia;
     }
-
     public String getUser() {
 
         return user;
