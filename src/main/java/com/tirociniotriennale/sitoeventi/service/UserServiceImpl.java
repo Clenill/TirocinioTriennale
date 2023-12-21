@@ -3,7 +3,6 @@ package com.tirociniotriennale.sitoeventi.service;
 
 import com.tirociniotriennale.sitoeventi.model.Utente;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
-import com.tirociniotriennale.sitoeventi.security.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

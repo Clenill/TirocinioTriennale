@@ -21,8 +21,37 @@
 
 <div th:insert="~{header :: headerpublic}"></div>
 
+<div th:if="${param.error}">
+  Invalid username and password.</div>
+<div th:if="${param.logout}">
+  You have been logged out.</div>
 
 
+<form  action="#"   method="post" th:action="@{/login}" >
+  <div class="imgcontainer">
+    <img th:src="@{/images/img_avatar2.png}" alt="Avatar" class="avatar">
+  </div>
+
+
+
+  <div class="container">
+    <label for="username"><b>Username</b></label>
+    <div>
+      <input type="text" id= "username" name="username" placeholder="Username"
+             required="" autofocus="" />
+    </div>
+
+
+    <label for="password"><b>Password</b></label>
+    <div>
+      <input type="password" id="password" name="password" placeholder="Password"
+             required="" autofocus="" />
+    </div>
+    <!-- <input type="submit" value="Log in" /> -->
+
+    <button class="btnLIf" type="submit">Login</button>
+  </div>
+</form>
 
 
 

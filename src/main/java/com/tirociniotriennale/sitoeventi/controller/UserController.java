@@ -31,7 +31,7 @@ public class UserController {
         this.eventoService = eventoService;
     }
 
-    @RequestMapping(value = "/user/index", method= RequestMethod.GET)
+    @GetMapping({"/user", "/user/index", "/user/"})
     public ModelAndView getEventiUser(){
         ModelAndView gae = new ModelAndView("user/index");
         gae.addObject("tuttieventi", eventoRepository.findAll());

@@ -1,4 +1,4 @@
-package com.tirociniotriennale.sitoeventi.security;
+/*package com.tirociniotriennale.sitoeventi.security;
 
 import com.tirociniotriennale.sitoeventi.model.Utente;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,3 +59,4 @@ public class MyUserPrincipal implements UserDetails {
     }
 
 }
+*/

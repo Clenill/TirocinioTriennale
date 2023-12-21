@@ -25,19 +25,41 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
 
     @Autowired
     private UserDetailsService userDetailsService;
-
+/*
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated() //.anyRequest().authenticated()
                 ).formLogin(formLogin -> formLogin
-                      /*  .loginPage("/login")*/
+                        .loginPage("/login")
                         .permitAll());
 
         return http.build();
     }
+*/
 
+    //Metodo preso e da adattare
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/public").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/index").permitAll()
+                        .requestMatchers("/eventi").permitAll()
+                        .requestMatchers("/faq").permitAll()
+                        .requestMatchers("/evento").permitAll()
+                        .requestMatchers("/evento/**").permitAll()
+                        .requestMatchers("/partner").permitAll()
+                        .requestMatchers("/user").hasRole("USER")
+                        .requestMatchers("/user/**").hasRole("USER")
+                        ).formLogin(formLogin -> formLogin
+                        .loginPage("/login").permitAll());
+
+
+        return http.build();
+
+    }
 
 
     /*

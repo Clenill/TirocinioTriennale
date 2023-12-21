@@ -21,7 +21,7 @@
         </div>
         <ul>
             <li th:switch="'${user.role}'">
-                <a th:case="'ROLE_ADMIN'" th:href="@{/eventi}">Admin eventi</a>
+                <a th:case="'admin'" th:href="@{/eventi}">Admin eventi</a>
                 <a th:case="*" th:href="@{/eventi}">Eventi</a>
             </li>
             <li><a th:href="@{/addevento}">Aggiungi Evento</a></li>

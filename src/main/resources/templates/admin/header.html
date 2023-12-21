@@ -3,13 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div th:fragment="headeruser">
+<div th:fragment="headeradmin">
 
 
     <header>
         <input type ="checkbox" name ="" id ="chk1">
         <div class="logo">
-            <a th:href="@{/user/index}"><img th:src="@{/images/logo.png}" alt="#" />
+            <a th:href="@{/admin/index}"><img th:src="@{/images/logo.png}" alt="#" />
             </a>
         </div>
         <div class="search-box">
@@ -20,18 +20,17 @@
         </div>
         <ul>
             <li >
-                <a th:href="@{/user/eventi}">Eventi User</a>
+                <a th:href="@{/admin/eventi}">Vedi Eventi </a>
             </li>
-            <li><a th:href="@{/index}">Torna Home Vecchia</a></li>
-            <li><a th:href="@{/user/faq}">Faq</a></li>
-            <li><a th:href="@{/user/partner}">Partner</a></li>
+            <li><a th:href="@{/admin/addevento}">Aggiungi Evento</a></li>
+            <li><a th:href="@{/public/index}">Modalità Public</a></li>
+            <li><a th:href="@{/admin/faq}">Vedi Modifica Faq</a></li>
+            <li><a th:href="@{/admin/partner}">Vedi Modifica Partner</a></li>
         </ul>
         <div class="button-log">
 
-            <!-- ----------------Form Log in testing Modal------------------------------------------------------------------->
-            <!-- Button to open the modal login form -->
-            <button class="btnLI"  >Login</button>
 
+            <button class="btnLI"  >Login</button>
 
             <button class="btnSU">Sign up</button>
         </div>

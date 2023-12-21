@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- base -->
+	<meta charset="utf-8">
+	<!-- site metas -->
+	<title>Ticket Love</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="Michele Longo">
+	<!-- stile css -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<script src="/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<!-- body -->
+<body class="main-layout">
+<!-- header -->
+
+<div th:insert="~{admin/header :: headeradmin}"></div>
+
+
+
+
+
+<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+	Info Evento
+	<span class="line"></span>
+</h2>
+
+
+
+
+<div class="container-evento">
+
+	<table class="table-evento">
+
+		<tr>
+			<td class="image-card-singolo" >
+				<img src="/images/events/default.jpg" alt=""
+				th:attr="src=@{'/images/events/' + ${eventoselezionato.nomeimmagine}}"></td>
+			<td class = "testo-evento">
+				<table>
+					<tr >
+						<td th:text="'Evento:                ' + ${eventoselezionato.nomeevento}" />
+					</tr>
+					<tr>
+						<td th:text="'Luogo:                 ' + ${eventoselezionato.luogoevento}" />
+					</tr>
+					<tr>
+						<td th:text="'Prezzo unitario:       ' + ${eventoselezionato.prezzo}" />
+					</tr>
+					<tr>
+						<td th:text="'Biglietti Disponibili: ' + ${eventoselezionato.getBiglietirimanenti()}" />
+					</tr>
+					<tr>
+						<td class="acquista-btn">
+							<button class="btn-acquista">Acquista</button>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" th:text="${eventoselezionato.descbrv}" >Descrizione dell'evento:</td>
+		</tr>
+		<tr>
+			<td colspan="2" th:text="${eventoselezionato.desclong}" >Descrizione dettagliata:</td>
+		</tr>
+
+
+	</table>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+</body>
+</html>

@@ -30,7 +30,7 @@ public class PublicController {
         this.eventoServ = eventoServ;
     }
 
-    @RequestMapping(value = "/public/index", method=RequestMethod.GET)
+    @GetMapping({"/public", "/public/index", "/public/"})
     public  ModelAndView getAllEventPublic(){
         ModelAndView gae = new ModelAndView("public/index");
         gae.addObject("tuttieventi", eventoRepo.findAll());
