@@ -29,8 +29,9 @@ public class MockUserDatailsService implements UserDetailsService {
             public Collection<? extends GrantedAuthority> getAuthorities() {
                 List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));//Spring richiede che il ruolo
-                // deve essere preceduto da ROLE_
+                // deve essere preceduto da ROLE_ . Sarà vero?
                 return authorities;
+
             }
 
             @Override

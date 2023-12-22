@@ -100,7 +100,7 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/webjars/**", "/images/**", "/css/**", "/static/**");
+        return (web) -> web.ignoring().requestMatchers( "/images/**", "/css/**", "/static/**");
     }
 
 
