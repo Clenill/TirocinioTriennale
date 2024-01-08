@@ -32,12 +32,15 @@
 		<span class="line"></span>
 		</h2>
 
+	  <div th:if="${messaggio}">
+		  <p th:text="${messaggio}" style="color: green;"></p>
+	  </div>
 
 
 	  <div class="images-container">
 		  <div class="image-card" th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 5">
 			  <a th:href="@{'/public/evento/'+${events.id}}">
-				  <img src="images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
+				  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
 			  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
 		  </div>
 	  </div>

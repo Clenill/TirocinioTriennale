@@ -9,17 +9,20 @@
       <meta name="description" content="">
       <meta name="author" content="Michele Longo">
 	  <!-- stile css -->
-	   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 	   <script src="/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
+	   <script src="https://kit.fontawesome.com/15fa55a250.js" crossorigin="anonymous"></script>
 	  </head>
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
 
-	  <div th:insert="~{header :: headerpublic}"></div>
+	  <div th:insert="~{org/header :: headerorg}"></div>
+
+
 
 
 
@@ -30,13 +33,16 @@
 		<span class="line"></span>
 		</h2>
 
+	  <div th:if="${messaggio}">
+		  <p th:text="${messaggio}" style="color: green;"></p>
+	  </div>
 
 
 	  <div class="images-container">
-		  <div class="image-card" th:each="eventi, iterStat : ${tutteventi}" th:if="${iterStat.index} < 5">
-			  <a th:href="@{'evento/'+${eventi.id}}">
-				  <img src="/images/events/default.jpg" alt="" th:attr="src=${'images/events/' + eventi.nomeimmagine}">
-			  </a>
+		  <div class="image-card" th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 5">
+			  <a th:href="@{'/public/evento/'+${events.id}}">
+				  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
+			  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
 		  </div>
 	  </div>
 
@@ -51,5 +57,7 @@
 
 	  <div th:insert="~{footer :: foot}"></div>
 
+	  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	</body>
 </html>

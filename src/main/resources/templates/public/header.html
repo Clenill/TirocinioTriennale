@@ -20,57 +20,27 @@
         </div>
         <ul>
             <li >
-                <a th:href="@{/public/eventi}"> </a>
+                <a th:href="@{/public/eventi}">Eventi Public </a>
             </li>
             <li><a th:href="@{/index}">Torna Home Vecchia</a></li>
             <li><a th:href="@{/public/faq}">Faq</a></li>
-            <li><a th:href="@{/public/partner}">Partner</a></li>
+            <li><a th:href="@{/admin/index}">Vista Admin</a></li>
         </ul>
         <div class="button-log">
 
             <!-- ----------------Form Log in testing Modal------------------------------------------------------------------->
             <!-- Button to open the modal login form -->
-            <button class="btnLI"  onclick="document.getElementById('id01').style.display='block'">Login</button>
-            <div id="id01" class="modal">
-  						<span onclick="document.getElementById('id01').style.display='none'"
-                              class="close" title="Close Modal">&times;</span>
+            <button class="btnLI"  >Login</button>
 
-                <!-- Modal Content -->
-                <form class="modal-content animate" action="#" >
-                    <div class="imgcontainer">
-                        <img th:src="@{/images/img_avatar2.png}" alt="Avatar" class="avatar">
-                    </div>
-
-                    <div th:if="${param.error}">
-                        Invalid username and password.</div>
-                    <div th:if="${param.logout}">
-                        You have been logged out.</div>
-
-                    <div class="container">
-                        <label for="usrname"><b>Username</b></label>
-                        <div>
-                            <input type="text" name="username" placeholder="Username"/>
-                        </div>
-
-
-                        <label for="passw"><b>Password</b></label>
-                        <div>
-                            <input type="password" name="password" placeholder="Password"/>
-                        </div>
-                        <!-- <input type="submit" value="Log in" /> -->
-
-                        <button class="btnLIf" type="submit">Login</button>
-                    </div>
-                </form>
-            </div>
 
 
             <!-- The Modal -->
 
 
+            <a th:href="@{/public/registrati}">
+                <button class="btnSU"  >Sign up</button>
+            </a>
 
-            <!-- Form Log in Fine testing Modal------------------------------------------------------------------------------->
-            <button class="btnSU">Sign up</button>
         </div>
         <div class="menu">
             <label for="chk1">

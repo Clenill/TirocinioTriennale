@@ -9,7 +9,7 @@
       <meta name="description" content="">
       <meta name="author" content="Michele Longo">
 	  <!-- stile css -->
-	   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -22,49 +22,48 @@
    <body class="main-layout">
       <!-- header -->
 
+
 	  <div th:insert="~{public/header :: headerpub}"></div>
 
 
 
-
-
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Elenco degli eventi disponibili
+		Form Registrazione
 		<span class="line"></span>
 	  </h2>
 	  <div class="container">
 
-		  <h3>Info sugli eventi</h3>
+		  <div th:if="${messaggio}">
+			  <p th:text="${messaggio}" style="color: green;"></p>
+		  </div>
 
-		  <hr/>
 
-		  <table class="table table-bordered table-striped">
 
-			  <thead>
-			  <tr>
-				  <th></th>
-				  <th>Nome Evento</th>
 
-				  <th>Biglietti rimanenti</th>
-			  </tr>
-			  </thead>
-			  <tbody>
-			  <tr th:each="eventi: ${tuttiglieventi}">
+			<form action="#" th:object="${nuovoutente}" th:action="@{/salvautente}" method="post">
+				<p>Setta Username:</p>
+		    <input type="text" name="user" value="" id="user" placeholder="Inserisci username"
+		               required="required" autofocus="autofocus" th:value="*{user}"/>
 
-				  <td class="image-card" >
-					  <a th:href="@{'/public/evento/'+${eventi.id}}">
-					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
-				  	  </a>
-				  </td>
-				  <td th:text="${eventi.nomeevento}" />
+				<p>Setta Password:</p>
+			<input type="text" name="password" value="" id="password" placeholder="Inserisci password"
+		               required="required" autofocus="autofocus" th:value="*{password}"/>
+			
+			<button type="submit" name="addRow" >Registrati</button>
+		  </form>
 
-				  <td th:text="${eventi.getBiglietirimanenti()}" />
-			  </tr>
-			  </tbody>
-
-		  </table>
 	  </div>
 
+	  <script
+			  src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+	  <script>
+		  /*<![CDATA[*/
+		  window.jQuery
+		  || document
+				  .write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')
+		  /*]]>*/
+	  </script>
 
 
 	  <div th:insert="~{footer :: foot}"></div>

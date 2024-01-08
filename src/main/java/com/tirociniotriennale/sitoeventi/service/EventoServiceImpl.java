@@ -1,10 +1,9 @@
 package com.tirociniotriennale.sitoeventi.service;
 
-import com.tirociniotriennale.sitoeventi.model.Faq;
+import com.tirociniotriennale.sitoeventi.model.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tirociniotriennale.sitoeventi.model.Evento;
 import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
 
 import java.util.Optional;
@@ -41,8 +40,6 @@ public class EventoServiceImpl implements EventoService{
         return eventoRepository.findAll();
 
     }
-
-
 
 
 }

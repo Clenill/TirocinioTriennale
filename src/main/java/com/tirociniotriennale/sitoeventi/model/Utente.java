@@ -1,136 +1,105 @@
 package com.tirociniotriennale.sitoeventi.model;
 
+import java.util.Set;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.persistence.CascadeType;
 
 @Entity
 @Table(name = "utente")
 public class Utente {
-    @Id
-    @Column(name = "user")// USER -----------------------------------------------------------
-    private String user;
-
-    @Column(name = "nome")
-    private String nome;
-
-    @Column(name = "cognome")
-    private String cognome;
-
-    @Column(name= "nomeorg")
+    
+	@Id
+	@Column(name = "user", length = 25)
+	private String user;//username
+	
+	@Column(name = "password", length = 20, nullable= false)
+	@NotBlank
+	@Size(min=3, max = 20)
+	private String password;//password
+	
+	@Column(name = "enabled", nullable= false)
+	private boolean enabled;
+	
+	@Column(name= "nomeorg", length = 25)
     private String nomeorg;
-
-    @Column(name = "descrizione")
-    private String descrizione;
-
-    @Column(name = "mail")
+	
+	@Column(name = "mail")
     private String mail;
-
-    @Column(name = "password")// PASSWORD----------------------------------------------------
-    private String password;
-
-    @Column(name = "indirizzo")
-    private String indirizzo;
-
-    @Column(name = "logo")
-    private String logo;
-
-    @Column(name = "missione")
-    private String missione;
-
-    @Column(name = "ruolo") // RUOLO --------------------------------------------------------
-    private String ruolo;
-
-    // Costruttori!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public Utente(){
-
-    }
-
-    public Utente(String user, String nome, String cognome, String nomeorg, String descrizione, String mail,
-                  String password, String indirizzo, String logo, String missione, String ruolo){
-        this.user = user;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.nomeorg = nomeorg;
-        this.descrizione = descrizione;
-        this.mail = mail;
-        this.password = password;
-        this.indirizzo = indirizzo;
-        this.logo = logo;
-        this.missione = missione;
-        this.ruolo = ruolo;
-
-    }
-
-    // Getter e Setter Fatti //
-
-    public String getUser(){// 111111111111111111111111111111111
-        return user;
-    }
-
-    public void setUser(String user){
-        this.user = user;
-    }
-
-    public String getNome(){// 2222222222222222222222222222222222222
-        return nome;
-    }
-
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-
-    public String getCognome(){ // 3333333333333333333333333333333333
-        return cognome;
-    }
-
-    public void setCognome(String cognome){
-        this.cognome = cognome;
-    }
-
-    public String getNomeorg(){return nomeorg;}
-
-    public void setNomeorg(String nomeorg){this.nomeorg = nomeorg;}
-
-    public String getDescrizione(){return descrizione;}
-
-    public void setDescrizione(String descrizione){this.descrizione = descrizione;}
-
-    public String getMail(){return mail;}
+	
+	public Utente() {}
+	
+	public Utente(String user, String password, boolean enabled, String nomeorg, String mail) {
+		this.user=user;
+		this.password=password;
+		this.enabled=enabled;
+		this.nomeorg=nomeorg;
+		this.mail=mail;
+	}
+	
+	//Getter e Setter
+	
+	public String getUser() {
+		return user;
+	}
+	
+	public void setUser(String user) {
+		this.user=user;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password=password;
+	}
+	
+	public boolean getEnabled() {
+		return enabled;
+	}
+	
+	public String getMail(){return mail;}
 
     public void setMail(String mail){this.mail = mail;}
+	
+	public void setEnebled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	public String getNomeorg(){return nomeorg;}
 
-    public String getPassword(){ // 55555555555555555555555555555555555555
-        return password;
+    public void setNomeorg(String nomeorg){this.nomeorg = nomeorg;}
+	
+	@OneToMany(mappedBy = "utente", 
+    		fetch = FetchType.EAGER)
+    private Set<Ordine> ordini;
+    public Set<Ordine> getOrdini(){
+    	return ordini;
     }
-
-    public void setPassword(String password){
-        this.password = password;
+    
+    @OneToOne(mappedBy = "utenteAut", cascade = CascadeType.ALL)
+    private Autorizzazioni autorizzazioni;
+	
+    public Autorizzazioni getAutorizzazioni() {
+    	return autorizzazioni;
     }
-
-    public String getIndirizzo(){ // 444444444444444444444444444444444
-        return indirizzo;
+    
+    @OneToMany(mappedBy = "utenteevento",
+    		fetch = FetchType.EAGER)
+    private Set<Evento> eventi;
+    public Set<Evento> getEventi(){
+    	return eventi;
     }
-
-    public void setIndirizzo(String indirizzo){
-        this.indirizzo = indirizzo;
-    }
-
-    public String getLogo(){return logo;}
-
-    public void setLogo(String logo){this.logo = logo;}
-
-    public String getMissione(){return missione;}
-
-    public void setMissione(String missione){this.missione = missione;}
-
-
-    public String getRuolo(){ // 66666666666666666666666666666666666666666666
-        return ruolo;
-    }
-
-    public void setRuolo(String ruolo){
-        this.ruolo = ruolo;
-    }
-
-
+    
 }
+	

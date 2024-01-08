@@ -17,7 +17,9 @@
 
 
 
-	  </head>
+
+
+   </head>
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
@@ -32,6 +34,15 @@
 		Elenco degli eventi disponibili
 		<span class="line"></span>
 	  </h2>
+
+	  <div th:if="${messaggio}">
+		  <p th:text="${messaggio}" style="color: green; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+	  </div>
+	  <div th:if="${messaggiored}">
+		  <p th:text="${messaggiored}" style="color: darkred; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+	  </div>
+
+
 	  <div class="container">
 
 		  <h3>Info sugli eventi</h3>
@@ -44,18 +55,55 @@
 			  <tr>
 				  <th></th>
 				  <th>Nome Evento</th>
-				  <th>Id tipologia</th>
 				  <th>Biglietti rimanenti</th>
+				  <th>Azioni</th>
 			  </tr>
 			  </thead>
 			  <tbody>
 			  <tr th:each="eventi: ${tuttiglieventi}">
 
-				  <td class="image-card" ><img src="/images/events/default.jpg" alt=""
-					th:attr="src=${'/images/events/' + eventi.nomeimmagine}"></td>
+				  <td class="image-card" >
+					  <a th:href="@{'/admin/evento/'+${eventi.id}}">
+					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
+				  	  </a>
+				  </td>
 				  <td th:text="${eventi.nomeevento}" />
-				  <td th:text="${eventi.idtipologia}" />
+
 				  <td th:text="${eventi.getBiglietirimanenti()}" />
+				  <td>
+
+				  <button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#confermaModal' + ${eventi.id}">
+					  Cancella
+				  </button>
+				  <!-- Finestra modale di conferma cancellazione -->
+				  <div class="modal fade" th:id="'confermaModal' + ${eventi.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+						  <div class="modal-content">
+							  <div class="modal-header">
+								  <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione</h5>
+								  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									  <span aria-hidden="true">&times;</span>
+								  </button>
+							  </div>
+							  <div class="modal-body">
+								  <p>Sei sicuro di voler cancellare l'evento: <strong th:text="${eventi.nomeevento}" /> ?</p>
+							  </div>
+							  <div class="modal-footer" >
+								  <!-- Pulsante di conferma all'interno della finestra modale -->
+								  <form th:action="@{/admin/cancellaevento}" method="post">
+									  <input type="hidden" name="eventId" th:value="${eventi.id}" />
+									  <button type="submit" class="btn btn-danger btn-block">Conferma</button>
+									  <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Annulla</button>
+								  </form>
+
+
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+				  </td>
+
+
 			  </tr>
 			  </tbody>
 
@@ -66,6 +114,7 @@
 
 	  <div th:insert="~{footer :: foot}"></div>
 
-
+	  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	</body>
 </html>

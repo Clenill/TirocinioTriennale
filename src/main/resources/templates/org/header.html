@@ -3,13 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div th:fragment="headeradmin">
+<div th:fragment="headerorg">
 
 
     <header>
         <input type ="checkbox" name ="" id ="chk1">
         <div class="logo">
-            <a th:href="@{/admin/index}"><img th:src="@{/images/logo.png}" alt="#" />
+            <a th:href="@{/org/index}"><img th:src="@{/images/logo.png}" alt="#" />
             </a>
         </div>
         <div class="search-box">
@@ -20,20 +20,19 @@
         </div>
         <ul>
             <li >
-                <a th:href="@{/admin/eventi}">Vedi/Cancella Eventi </a>
+                <a th:href="@{/public/eventi}">Eventi pub</a>
             </li>
-            <li><a th:href="@{/admin/registrautente}">Aggiungi Utente</a></li>
-            <li><a th:href="@{/public/index}">Modalità Public</a></li>
-            <li><a th:href="@{/admin/faq}">Vedi/Modifica Faq</a></li>
-            <li><a th:href="@{/admin/gestisciutenti}">Gestisci Utenti</a></li>
+            <li><a th:href="@{/public/index}">Vista Utente</a></li>
+            <li><a th:href="@{/org/faq}">Faq</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Strumenti</a>
+                <div class="dropdown-content">
+                    <a href="#">Aggiungi evento</a>
+                    <a href="#">Modifica evento</a>
+                    <a href="#">Log out</a>
+                </div>
+            </li>
         </ul>
-        <div class="button-log">
-
-
-            <button class="btnLI"  >Login</button>
-
-            <button class="btnSU">Sign up</button>
-        </div>
         <div class="menu">
             <label for="chk1">
                 <i class="fa fa-bars"></i>
@@ -46,6 +45,7 @@
 
 
 </div>
+
 
 </body>
 

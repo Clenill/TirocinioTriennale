@@ -1,11 +1,15 @@
 package com.tirociniotriennale.sitoeventi.repository;
 
-import com.tirociniotriennale.sitoeventi.model.Utente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.tirociniotriennale.sitoeventi.model.Utente;
+import com.tirociniotriennale.sitoeventi.model.Evento;
+
+import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface UtenteRepository extends JpaRepository<Utente, String> {
-    Utente findByUser(String user);
+    Optional<Utente> findByUser(String user);
 
 }

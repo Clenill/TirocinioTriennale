@@ -1,6 +1,4 @@
 package com.tirociniotriennale.sitoeventi.service;
-
-
 import com.tirociniotriennale.sitoeventi.model.Faq;
 
 import java.util.Optional;

@@ -1,3 +1,4 @@
+/*
 package com.tirociniotriennale.sitoeventi.security;
 
 
@@ -25,6 +26,8 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
 
     @Autowired
     private UserDetailsService userDetailsService;
+    */
+
 /*
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,6 +43,7 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
 */
 
     //Metodo preso e da adattare
+    /* QUESTO
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/public").permitAll()
@@ -60,7 +64,7 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
         return http.build();
 
     }
-
+*/
 
     /*
         @Bean
@@ -98,19 +102,19 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
             return http.build();
         }
     */
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers( "/images/**", "/css/**", "/static/**");
-    }
+ //   @Bean QUESTO
+   // public WebSecurityCustomizer webSecurityCustomizer() {
+   //     return (web) -> web.ignoring().requestMatchers( "/images/**", "/css/**", "/static/**");
+    //}
 
-
+/*
     protected void configure (AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);//l'utente che fa login usa questo service
         //implementatao in service
     }
 
+*/
 
 
 
-
-}
+//}

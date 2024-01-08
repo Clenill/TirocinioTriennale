@@ -1,8 +1,8 @@
 package com.tirociniotriennale.sitoeventi.service;
 
-import java.util.Optional;
-
 import com.tirociniotriennale.sitoeventi.model.Evento;
+
+import java.util.Optional;
 
 // -------------------------------------------------------Interfaccia del service------------------------------
 
@@ -15,10 +15,5 @@ public interface EventoService {
 
     Iterable<Evento> getEventi();
 
-    // void updateEvento (Long eventoId, Evento event);
-
-    // void deleteEventoById(Long eventoId);
-
-    // void deleteEvento();
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
    <head>
       <!-- base -->
       <meta charset="utf-8">
@@ -13,24 +13,61 @@
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	   
+
+
+
+
 	  </head>
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
 
-	  <div th:insert="~{admin/header :: headeradmin}"></div>
+	  <div th:insert="~{org/header :: headerorg}"></div>
+
+
+
 
 
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Lista Collaboratori
+		Elenco degli eventi disponibili
 		<span class="line"></span>
-		</h2>
+	  </h2>
+	  <div class="container">
+
+		  <h3>Info sugli eventi</h3>
+
+		  <hr/>
+
+		  <table class="table table-bordered table-striped">
+
+			  <thead>
+			  <tr>
+				  <th></th>
+				  <th>Nome Evento</th>
+
+				  <th>Biglietti rimanenti</th>
+			  </tr>
+			  </thead>
+			  <tbody>
+			  <tr th:each="eventi: ${tuttiglieventi}">
+
+				  <td class="image-card" >
+					  <a th:href="@{'/public/evento/'+${eventi.id}}">
+					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
+				  	  </a>
+				  </td>
+				  <td th:text="${eventi.nomeevento}" />
+
+				  <td th:text="${eventi.getBiglietirimanenti()}" />
+			  </tr>
+			  </tbody>
+
+		  </table>
+	  </div>
+
 
 
 	  <div th:insert="~{footer :: foot}"></div>
-		
-
 
 
 	</body>

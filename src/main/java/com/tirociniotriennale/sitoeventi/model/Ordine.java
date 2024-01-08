@@ -5,47 +5,69 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ordine")
 public class Ordine {
-    @Id
-    @Column(name = "idordine")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@Id
+	@Column(name = "idordine")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idordine;
+	
+	@Column(name = "biglietti", nullable = false)
+	private int biglietti;
+	
+	public Ordine() {
+	}
+	
+	public Ordine(int idordine, int biglietti) {
+		this.idordine = idordine;
+		this.biglietti = biglietti;
+	}
+	
+	//Getters e Setters
+	
+	public int getIdordine() {
 
-    @Column(name = "idevento")
-    private int ideventoordine;
-
-    @Column(name = "user")
-    private String userordine;
-
-    @Column(name = "biglietti")
-    private int biglietti;
-
-    @Column(name = "pagamento")
-    private String pagamento;
-
-    public Ordine(){}
-
-    public Ordine(int idordine, int ideventoordine, String userordine, int biglietti, String pagamento){
-        this.idordine = idordine;
-        this.ideventoordine = ideventoordine;
-        this.userordine = userordine;
-        this.biglietti = biglietti;
-        this.pagamento = pagamento;
+        return idordine;
     }
 
-    public int getIdordine(){return idordine;}
-    public void setIdordine(int idordine){this.idordine = idordine;}
+    public void setIdordine(int idordine){
 
-    public int getIdeventoordine(){return ideventoordine;}
-    public void setIdeventoordine(int ideventoordine){this.ideventoordine = ideventoordine;}
+        this.idordine = idordine;
+    }
+    
+    public int getBiglietti() {
+    	return biglietti;
+    }
+    public void setBiglietti(int biglietti) {
+    	this.biglietti = biglietti;
+    }
+    
+    
+    @ManyToOne()//Molti ordini possono riferirsi allo stesso idevento
+    @JoinColumn(name="idevento")
+    private Evento ordineevento;
+    
+    public Evento getEvento() {
+    	return ordineevento;
+    }
+    
+    public void setEvento(Evento ordineevento) {
+    	this.ordineevento = ordineevento;
+    }
+    
+    @ManyToOne()//Molti ordini possono riferirsi allo stesso utente
+    @JoinColumn(name="user")
+    private Utente utente;
+    
+    public Utente getUtente() {
+    	return utente;
+    }
+    
+    public void setUtente(Utente utente) {
+    	this.utente = utente;
+    }
+    
+    
 
-    public String getUserordine(){return userordine;}
-    public void setUserordine(String userordine){this.userordine = userordine;}
-
-    public int getBiglietti(){return biglietti;}
-    public void setBiglietti(int biglietti){this.biglietti = biglietti;}
-
-    public String getPagamento(){return pagamento;}
-
-    public void setPagamento(String pagamento){this.pagamento = pagamento;}
-
+    
+    
 }

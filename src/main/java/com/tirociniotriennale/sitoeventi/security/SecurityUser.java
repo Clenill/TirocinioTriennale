@@ -1,10 +1,10 @@
+/*
 package com.tirociniotriennale.sitoeventi.security;
 
-import com.tirociniotriennale.sitoeventi.model.Utente;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import com.tirociniotriennale.sitoeventi.model.Utente;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -28,6 +28,7 @@ public class SecurityUser implements UserDetails {
     }
 
     //Il metodo getRuolo() restituisce il ruolo, è una stringa e non può essere null;
+
     public String getRole(){
         if (utente.getRuolo() == null){
             return "none";//Da configurazione è impossibile che sia null, ma non si sa mai.
@@ -35,9 +36,11 @@ public class SecurityUser implements UserDetails {
 
         return utente.getRuolo();
     }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.<GrantedAuthority>singletonList(new SimpleGrantedAuthority(getRole()));
+        return Collections.<GrantedAuthority>singletonList(new SimpleGrantedAuthority());
     }
 
     @Override
@@ -65,3 +68,4 @@ public class SecurityUser implements UserDetails {
     }
 
 }
+*/

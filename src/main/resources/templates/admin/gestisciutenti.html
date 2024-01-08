@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- base -->
+  <meta charset="utf-8">
+  <!-- site metas -->
+  <title>Ticket Love</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="Michele Longo">
+  <!-- stile css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+
+
+</head>
+<!-- body -->
+<body class="main-layout">
+<!-- header -->
+
+
+<div th:insert="~{admin/header :: headeradmin}"></div>
+
+
+
+<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+  Gestione Utenti:
+  <span class="line"></span>
+</h2>
+
+<div th:if="${messaggio}">
+  <p th:text="${messaggio}" style="color: green; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+</div>
+<div th:if="${messaggiored}">
+  <p th:text="${messaggiored}" style="color: darkred; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+</div>
+
+<div class="container">
+
+
+
+  <table class="tabella-utenti">
+
+    <thead>
+    <tr>
+      <th>Nome Utente</th>
+      <th>Ruolo</th>
+      <th>Abilitato</th>
+      <th class="azioni-buttons">Azioni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="utente: ${tuttiutenti}">
+
+      <td class="colonneutente" th:text="${utente.user}"/>
+
+      <td class="colonneutente" th:text="${utente.getAutorizzazioni().ruolo}" />
+      <td class="colonneutente" th:text="${utente.getEnabled()}"/>
+      <td class="azioni-buttons">
+
+        <form th:action="@{/admin/modificautente}" method="get">
+          <input type="hidden" name="user" th:value="${utente.user}" />
+          <div class="pulsanti-container">
+            <button type="submit" class="modifica">Modifica</button>
+            <button type="button" class="cancella" data-toggle="modal" th:data-target="'#confermaModal' + ${utente.user}">
+              Cancella
+            </button>
+
+          </div>
+
+        </form>
+
+
+        <!-- Finestra modale di conferma cancellazione -->
+        <div class="modal fade" th:id="'confermaModal' + ${utente.user}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Sei sicuro di voler cancellare l'utente: <strong th:text="${utente.user}" /> ?</p>
+              </div>
+              <div class="modal-footer" >
+                <!-- Pulsante di conferma all'interno della finestra modale -->
+                <form th:action="@{/admin/cancellauser}" method="post">
+                  <input type="hidden" name="username" th:value="${utente.user}" />
+                  <button type="submit" class="btn btn-danger btn-block">Conferma</button>
+                  <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Annulla</button>
+                </form>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

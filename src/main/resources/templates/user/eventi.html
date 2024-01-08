@@ -43,17 +43,20 @@
 			  <tr>
 				  <th></th>
 				  <th>Nome Evento</th>
-				  <th>Id tipologia</th>
+
 				  <th>Biglietti rimanenti</th>
 			  </tr>
 			  </thead>
 			  <tbody>
 			  <tr th:each="eventi: ${tuttiglieventi}">
 
-				  <td class="image-card" ><img src="/images/events/default.jpg" alt=""
-					th:attr="src=${'/images/events/' + eventi.nomeimmagine}"></td>
+				  <td class="image-card" >
+					  <a th:href="@{'/user/evento/'+${eventi.id}}">
+					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
+					  </a>
+				  </td>
 				  <td th:text="${eventi.nomeevento}" />
-				  <td th:text="${eventi.idtipologia}" />
+
 				  <td th:text="${eventi.getBiglietirimanenti()}" />
 			  </tr>
 			  </tbody>

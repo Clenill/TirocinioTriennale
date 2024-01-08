@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- base -->
+  <meta charset="utf-8">
+  <!-- site metas -->
+  <title>Ticket Love</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="Michele Longo">
+  <!-- stile css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+
+
+</head>
+<!-- body -->
+<body class="main-layout">
+<!-- header -->
+
+
+<div th:insert="~{admin/header :: headeradmin}"></div>
+
+
+
+<h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
+  Form Registrazione
+  <span class="line"></span>
+</h2>
+<div class="container">
+
+  <div th:if="${messaggio}">
+    <p th:text="${messaggio}" style="color: green;"></p>
+  </div>
+
+
+
+
+  <form action="#"  th:action="@{/admin/registrautente}" method="post">
+    <div th:object="${nuovouser}">
+      <p>Setta Username:</p>
+      <input type="text" name="user" value="" id="user" placeholder="Inserisci username"
+             required="required" autofocus="autofocus" th:value="*{user}"/>
+
+      <p>Setta Password:</p>
+      <input type="text" name="password" value="" id="password" placeholder="Inserisci password"
+             required="required" autofocus="autofocus" th:value="*{password}"/>
+
+    </div>
+
+    <div th:object="${autoutente}">
+      <p>Setta Autorizzazione:</p>
+      <select th:field="*{ruolo}">
+        <option value="user">Utente</option>
+        <option value="org">Organizzazine</option>
+      </select>
+    </div>
+    <button type="submit" name="addRow" >Registrata Utente</button>
+    <button type="reset">Resetta Campi</button>
+  </form>
+
+</div>
+
+<script
+        src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+<script>
+  /*<![CDATA[*/
+  window.jQuery
+  || document
+          .write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')
+  /*]]>*/
+</script>
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+
+</body>
+</html>

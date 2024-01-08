@@ -1,57 +1,64 @@
 package com.tirociniotriennale.sitoeventi.model;
 
-
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name= "faq")
+@Table(name = "faq")
 public class Faq {
-    @Id
-    @Column(name= "idfaq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	
+	@Id
+	@Column(name = "idfaq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idfaq;
+	
+	@Column(name = "domanda", nullable = false, length = 200)
+	@NotBlank
+	private String domanda;
+	
+	@Column(name = "risposta", nullable = false, length = 1000)
+	@NotBlank
+	private String risposta;
+	
+	public Faq() {
+		
+	}
+	
+	public Faq(int idfaq, String domanda, String risposta) {
+		this.idfaq = idfaq;
+		this.domanda = domanda;
+		this.risposta = risposta;
+	}
+	
+	//Getter e Setter
+	
+	public int getIdfaq() {
 
-    @Column(name= "domanda")
-    private String domanda;
-
-    @Column(name = "risposta")
-    private String risposta;
-
-    public Faq(){
-
+        return idfaq;
     }
 
-    public Faq(String domanda, String risposta, int id){
-        this.id = id;
+    public void setId(int idfaq){
+
+        this.idfaq = idfaq;
+    }
+    public String getDomanda() {
+
+        return domanda;
+    }
+
+    public void setDomanda(String domanda){
+
         this.domanda = domanda;
+    }
+    public String getRisposta() {
+
+        return risposta;
+    }
+
+    public void setRisposta(String risposta){
+
         this.risposta = risposta;
     }
-
-
-    public String getDomanda(){
-        return this.domanda;
-    }
-
-    public void setDomanda(String dom){
-        this.domanda = dom;
-    }
-
-    public String getRisposta(){
-        return this.risposta;
-    }
-
-    public void setRisposta(String ris){
-        this.risposta = ris;
-    }
-
-    public long getId(){
-        return this.id;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
-
 
 }

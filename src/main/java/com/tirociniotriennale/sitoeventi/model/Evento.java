@@ -1,12 +1,27 @@
 package com.tirociniotriennale.sitoeventi.model;
 
 
-import jakarta.persistence.*;
-// Le annotazioni servono per associale la tabella e le colonne del db all'oggetto.
-// si usano al posto del descrittore in xml, obv veloci e pratiche.
-// Per interrogare il database si utilizza JDBC e bisogna dirgli che driver usare (mariaDB) e indirizzo.
-// Le operazioni CRUD vengono effettuate da Evento Repository che estende JpaRepository o CrudRepository.
-// Hibernate automatizza le operazioni CRUD.
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Set;
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 @Entity
 @Table(name= "evento")
 public class Evento {
@@ -15,35 +30,37 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "idtipologia")
-    private int idtipologia;
-
-    @Column(name="user")//si
-    private String user;
-
-    @Column(name="nome")//si
+    @Column(name = "nome", length = 50, nullable = false)
+    @NotNull
     private String nomeevento;
 
-    @Column(name="descbreve")//si
-    private String descbrv;
-
+    @Column(name = "prezzo", nullable = false)
+    @NotNull @DecimalMin(value = "0.50")
+    private BigDecimal prezzo;
+    
     @Column(name = "descestesa")//si
     private String desclong;
-
-    @Column(name = "prezzo")
-    private float prezzo;
-
-    @Column(name = "luogo")
-    private String luogoevento;
-
-    @Column(name = "bigliettimax")
+    
+    @Column(name="descbreve")//si
+    private String descbrv;
+    
+    @Column(name = "bigliettimax", nullable = false)
+    @NotNull @Min(2)
     private int bigliettimax;
-
+    
     @Column(name = "bigliettirim")
     private int biglietirimanenti;
-
+    
+    @Column(name = "luogo")
+    private String luogoevento;
+    
     @Column(name = "image")
     private String nomeimmagine;
+    
+    @Column(name = "datajpa")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate localDate;
+
 
     //--------------------------------------- Manca la data------------------------------------------------------
     public Evento() { //Costruttore vuoto
@@ -51,22 +68,21 @@ public class Evento {
     }
 
     // Costruttore con dati
-    public Evento(int id,int idtipologia, String user, String nomeevento, String descbrv, String desclong, float prezzo,
-       String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine ){
+    public Evento(int id,int idtipologia, String user, String nomeevento, String descbrv, String desclong, BigDecimal prezzo,
+    	       String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine, LocalDate localDate ){
 
-        this.id = id;
-        this.idtipologia = idtipologia;
-        this.user = user;
-        this.nomeevento = nomeevento;
-        this.descbrv = descbrv;
-        this.desclong = desclong;
-        this.prezzo = prezzo;
-        this.luogoevento = luogoevento;
-        this.bigliettimax = bigliettimax;
-        this.biglietirimanenti = biglietirimanenti;
-        this.nomeimmagine = nomeimmagine;
-        //-------------------------------Manca la data-----------------------------------------------------------
-    }
+    	        this.id = id;
+    	        this.nomeevento = nomeevento;
+    	        this.descbrv = descbrv;
+    	        this.desclong = desclong;
+    	        this.prezzo = prezzo;
+    	        this.luogoevento = luogoevento;
+    	        this.bigliettimax = bigliettimax;
+    	        this.biglietirimanenti = biglietirimanenti;
+    	        this.nomeimmagine = nomeimmagine;
+    	        this.localDate = localDate;
+    	        //-------------------------------Manca la data-----------------------------------------------------------
+    	    }
 
     public int getId() {
 
@@ -78,22 +94,6 @@ public class Evento {
         this.id = id;
     }
 
-    public int getIdtipologia(){
-        return idtipologia;
-    }
-
-    public void setIdtipologia(int idtipologia){
-        this.idtipologia = idtipologia;
-    }
-    public String getUser() {
-
-        return user;
-    }
-
-    public void setUser(String user){
-
-        this.user = user;
-    }
     public String getNomeevento() {
 
         return nomeevento;
@@ -139,12 +139,12 @@ public class Evento {
 
         this.nomeimmagine = nomeimmagine;
     }
-    public float getPrezzo(){
+    public BigDecimal getPrezzo(){
 
         return prezzo;
     }
 
-    public void setPrezzo(float prezzo){
+    public void setPrezzo(BigDecimal prezzo){
 
         this.prezzo = prezzo;
     }
@@ -166,6 +166,44 @@ public class Evento {
     public void setBiglietirimanenti(int biglietirimanenti){
 
         this.biglietirimanenti = biglietirimanenti;
+    }
+    public LocalDate getLocalDate() {
+    	return localDate;
+    }
+    
+    public void setLocalDate(LocalDate localDate) {
+    	this.localDate = localDate;
+    }
+
+    @ManyToOne()
+    @JoinColumn(name="idtipologia")
+    private Tipologia tipologia;
+    
+    public Tipologia getTipologia() {
+    	return tipologia;
+    }
+    
+    public void setTipologia(Tipologia tipologia) {
+    	this.tipologia = tipologia;
+    }
+    
+    @OneToMany(mappedBy = "ordineevento", 
+    		fetch = FetchType.EAGER)// ad un evento ci sono associati più ordini
+    private Set<Ordine> ordini;
+    public Set<Ordine> getOrdini(){
+    	return ordini;
+    }
+    
+    @ManyToOne()
+    @JoinColumn(name = "user")
+    private Utente utenteevento;
+    
+    public Utente getUtente() {
+    	return utenteevento;
+    }
+    
+    public void setUtente(Utente utenteevento) {
+    	this.utenteevento = utenteevento;
     }
 
 }

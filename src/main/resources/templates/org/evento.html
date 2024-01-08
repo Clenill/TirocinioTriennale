@@ -19,7 +19,7 @@
 <body class="main-layout">
 <!-- header -->
 
-<div th:insert="~{user/header :: headeruser}"></div>
+<div th:insert="~{org/header :: headerorg}"></div>
 
 
 
@@ -39,7 +39,7 @@
 
 		<tr>
 			<td class="image-card-singolo" >
-				<img src="/images/events/default.jpg" alt=""
+				<img src="images/events/default.jpg" alt=""
 				th:attr="src=@{'/images/events/' + ${eventoselezionato.nomeimmagine}}"></td>
 			<td class = "testo-evento">
 				<table>

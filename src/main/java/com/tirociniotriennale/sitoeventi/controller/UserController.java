@@ -1,18 +1,16 @@
 package com.tirociniotriennale.sitoeventi.controller;
 
-import com.tirociniotriennale.sitoeventi.model.Evento;
 import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
 import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import com.tirociniotriennale.sitoeventi.model.*;
 
 import java.util.Optional;
 

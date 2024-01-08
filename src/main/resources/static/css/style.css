@@ -541,3 +541,233 @@ img.avatar {
     align-items: center;
     min-height: 100vh;
 }
+.testoerrore{
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/* Stile generale del bottone */
+.btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+    border: 2px solid #d9534f; /* Aumentato lo spessore del bordo */
+    padding: 8px 16px; /* Aumentato il padding */
+}
+
+/* Quando il mouse è sopra il bottone */
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: #c9302c;
+    border: 1px solid #c9302c;
+    color: #fff;
+    cursor: pointer;
+}
+.modal-footer .btn {
+    width: 150px; /* Imposta la larghezza desiderata */
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+/* Stile per il bottone di conferma nella finestra modale */
+.modal-footer .btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+    border: 2px solid #d9534f; /* Aumentato lo spessore del bordo */
+    padding: 8px 16px; /* Aumentato il padding */
+    margin-left: 135px;
+}
+
+/* Quando il mouse è sopra il bottone di conferma nella finestra modale */
+.modal-footer .btn-danger:hover,
+.modal-footer .btn-danger:focus {
+    background-color: #c9302c;
+    border: 2px solid #c9302c;
+    color: #fff;
+}
+/* CSS per il bottone Annulla */
+.btn-secondary {
+    background-color: #7dc92c; /* Colore di sfondo del bottone */
+    color: #ffffff; /* Colore del testo del bottone */
+    border: 1px solid #8ac92c; /* Bordo del bottone */
+}
+
+/* Quando il cursore è sopra il bottone Annulla */
+.btn-secondary:hover {
+    background-color: #00a603;
+    border: 1px solid #039d06;
+    color: #ffffff;
+}
+.modal-dialog {
+    max-width: 600px; /* Imposta la larghezza massima desiderata */
+    width: 80%; /* Puoi anche utilizzare percentuali per una larghezza proporzionale */
+    margin: 10% auto; /* Centra la finestra modale verticalmente e orizzontalmente */
+}
+
+/* Imposta la larghezza del contenuto della finestra modale se necessario */
+.modal-content {
+    width: 100%;
+    overflow-y: auto;
+}
+.modal-title {
+    font-size: 24px; /* Imposta la dimensione del carattere */
+    color: #333; /* Imposta il colore del testo */
+    font-weight: bold; /* Imposta lo spessore del testo a grassetto, se lo desideri */
+    text-align: center; /* Allinea il testo al centro */
+    margin-bottom: 20px; /* Aggiungi uno spazio in basso al titolo */
+}
+.modal-body {
+    margin: 5px;
+    text-align: center;
+}
+/* Stile per la tabella */
+.tabella-utenti {
+    width: auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 20px; /* Aggiunto margine superiore */
+}
+
+/* Stile per le colonne della tabella */
+.tabella-utenti th, .tabella-utenti td {
+    width: 100px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Stile per le colonne specifiche degli utenti */
+.colonneutente {
+    height: 40px;
+}
+.azioni-buttons{
+    width: 250px !important;
+}
+/* Stile per i pulsanti nella colonna "Azioni" */
+.azioni-buttons button.modifica {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: orangered;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+.azioni-buttons button.modifica:hover {
+    background-color: darkorange; /* Colore più scuro al passaggio del mouse */
+}
+.azioni-buttons button.cancella {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: darkred;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+.azioni-buttons button.cancella:hover{
+    background-color: #480000;
+}
+.utente-scelto {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+.pulsanti-container {
+    display: flex;
+    gap: 10px; /* Puoi regolare la distanza tra i bottoni */
+}
+.bottone-submit {
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    padding: 10px 20px; /* Spaziatura interna */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Bordo arrotondato */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Stile per il bottone "Torna indietro" */
+.bottone-indietro {
+    background-color: #28a745; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    padding: 10px 20px; /* Spaziatura interna */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Bordo arrotondato */
+    cursor: pointer;
+    text-decoration: none; /* Rimuove il sottolineato del testo */
+    font-size: 16px;
+}
+
+/* Cambia lo stile quando il mouse passa sopra il bottone */
+.bottone-indietro:hover {
+    background-color: #218838; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+/* Stile del menu a tendina */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    background-color: #0d87c4;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: white;
+    color: #0d87c4;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* Stile per la freccetta giù */
+.dropbtn::after {
+    content: '\25BC'; /* Codice Unicode per una freccetta verso sinistra */
+    font-size: 14px; /* Dimensione della freccetta */
+    margin-left: 5px; /* Margine a sinistra per separare dalla voce del menu */
+    transition: transform 0.1s; /* Aggiungi una transizione di 0.3 secondi alla trasformazione */
+}
+
+/* Modifica il colore della freccetta quando ci passi sopra */
+.dropdown:hover > .dropbtn::after {
+    color: black;
+
+}
+.dropdown:hover > .dropbtn::after,
+.dropdown-content:hover + .dropbtn::after {
+    transform: translateY(3px) rotate(180deg); /* Sposta la freccetta verso il basso e ruota di 180 gradi */
+}
+.dropdown:hover .dropbtn {
+    color: black;
+}
+
+/* Assicurati che la freccetta venga visualizzata correttamente */
+

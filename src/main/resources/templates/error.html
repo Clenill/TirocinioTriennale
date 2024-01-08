@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<!-- base -->
 	<meta charset="utf-8">
@@ -27,6 +27,11 @@
 Qualcosa è andato storto -_-
 
 </h2>
+
+<div class="testoerrore" th:if="${validationErrors}">
+	<p   th:text="${validationErrors}" style="color: darkred;"></p>
+</div>
+
 
 <div class="imgcontainer">
 	<img th:src="@{/images/errore.png}" alt="Avatar" class="avatar">

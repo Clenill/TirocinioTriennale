@@ -1,4 +1,4 @@
-package com.tirociniotriennale.sitoeventi.service;
+/*package com.tirociniotriennale.sitoeventi.service;
 
 import com.tirociniotriennale.sitoeventi.model.Utente;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,11 +16,23 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class MockUserDatailsService implements UserDetailsService {
+public class MockUserDatailsService extends JdbcUserDetailsManager {
 
-    @Autowired
-    private UtenteRepository utenteRepository;
+    private final List<UserDetails> utenti;
 
+    public MockUserDatailsService(List<UserDetails> utenti) {
+        this.utenti = utenti;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return utenti.stream()
+                .filter(u -> u.getUsername().equals(username))
+                .findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+*/
+/*
     @Override
     public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
         return new UserDetails(){ //implementazione dei metodi
@@ -67,5 +80,8 @@ public class MockUserDatailsService implements UserDetailsService {
         };
     }//prende lo username, restituisce un interfaccia UserDetails
 
+*/
 
-}
+
+
+//}
