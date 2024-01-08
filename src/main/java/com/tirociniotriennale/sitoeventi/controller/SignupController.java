@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 public class SignupController {
@@ -28,12 +31,22 @@ public class SignupController {
         return nur;
     }
 
-    @RequestMapping(value = "/salvautente", method= RequestMethod.POST)
-    public ModelAndView salvaUtente(@ModelAttribute Utente utente, Model model) {
+    @RequestMapping(value = "/public/salvautente", method= RequestMethod.POST)
+    public ModelAndView salvaUtente(@ModelAttribute Utente utente, Model model, RedirectAttributes redirectAttributes) {
         utente.setEnebled(true);
         Autorizzazioni autor = new Autorizzazioni();
         autor.setRuolo("user");
         autor.setUtenteAut(utente);
+        Optional<Utente> cercaSeEsisteUser = utenteRepository.findById(utente.getUser());
+        if (cercaSeEsisteUser.isPresent()){
+            ModelAndView nur = new ModelAndView("redirect:/public/registrati");
+            utente.setUser(null);
+            redirectAttributes.addFlashAttribute("messaggiored","Nome utente già esistente," +
+                    "impossibile completare l'operazione");
+            return nur;
+
+        }
+
 
         utenteRepository.save(utente);
         autorizzazioniRepository.save(autor);

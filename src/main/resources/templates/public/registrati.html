@@ -36,11 +36,14 @@
 		  <div th:if="${messaggio}">
 			  <p th:text="${messaggio}" style="color: green;"></p>
 		  </div>
+		  <div th:if="${messaggiored}">
+			  <p th:text="${messaggiored}" style="color: darkred; font-size: 14px;"></p>
+		  </div>
 
 
 
 
-			<form action="#" th:object="${nuovoutente}" th:action="@{/salvautente}" method="post">
+			<form action="#" th:object="${nuovoutente}" th:action="@{/public/salvautente}" method="post">
 				<p>Setta Username:</p>
 		    <input type="text" name="user" value="" id="user" placeholder="Inserisci username"
 		               required="required" autofocus="autofocus" th:value="*{user}"/>

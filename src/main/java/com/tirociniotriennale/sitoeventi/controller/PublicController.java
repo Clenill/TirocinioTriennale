@@ -32,7 +32,7 @@ public class PublicController {
     @GetMapping({"/public", "/public/index", "/public/"})
     public  ModelAndView getAllEventPublic(Model model){
         ModelAndView gae = new ModelAndView("public/index");
-        model.addAttribute("messaggio", "prova");
+        model.addAttribute("messaggio", "");
         gae.addObject("tuttieventi", eventoRepo.findAll());
         return gae;
     }
@@ -43,6 +43,7 @@ public class PublicController {
         mava.addObject("tuttiglieventi", eventoRepo.findAll());
         return mava;
     }
+
 
     @RequestMapping({"/public/evento/{id}"}) // @RequestMapping?
     public ModelAndView getEventoByIdPublic(@PathVariable int id) {
@@ -56,6 +57,18 @@ public class PublicController {
             return null;
         }
     }
+
+
+    //Implementazione tasto cerca
+    @GetMapping({"/public/cerca"})
+    public ModelAndView cercaEventi(@RequestParam("search")String search, Model model) {
+        ModelAndView mava = new ModelAndView("public/cerca");
+        mava.addObject("eventicercati", eventoRepo.findAll());
+        model.addAttribute("messaggio","prova model");
+        return mava;
+    }
+
+
 
     @GetMapping({"/public/faq"})
     public ModelAndView getAllFaqPublic() {
