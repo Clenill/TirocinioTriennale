@@ -74,6 +74,12 @@
 			  <input type="text" name="nomeimmagine" value="" id="nomeimmagine" placeholder="Caparezza.jpg"
 					 required="required" autofocus="autofocus" th:value="*{nomeimmagine}"/>
 
+			  <p>Data evento:</p>
+			  <input type="date" name="localDate" value="" id="localDate" placeholder="yyyy-mm-dd"
+					 required="required" autofocus="autofocus" th:value="*{localDate}"/>
+			  <span th:if="${#fields.hasErrors('localDate')}" th:errors="*{localDate}" style="color: darkred;">Formattazione richiesta in yyyy--mm-dd</span>
+
+
 			  <p>Prezzo biglietto:</p>
 			  <input type="number" name="prezzo" id="prezzo" placeholder="Inserisci un prezzo tra 2 e 250"
 					 required="required" step="any"  th:field="*{prezzo}"/>
