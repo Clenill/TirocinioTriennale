@@ -129,7 +129,6 @@ header .menu{
     border-radius: 2rem;
     cursor: pointer;
     color: black;
-    background-color: hsl(252, 75%, 50%);
     transition: all 300ms ease;
 
 

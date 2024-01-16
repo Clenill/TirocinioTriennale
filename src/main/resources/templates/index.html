@@ -21,7 +21,13 @@
 
 	  <div th:insert="~{header :: headerpublic}"></div>
 
-
+	  <div th:if="${nomeutente}">
+		  <span style="color: #007bff; size:21px; margin-top: 8px;"> Nume utente e autorizzazione: </span>
+		  <p th:text="${nomeutente}" style="color: cadetblue; size: 18px; margin-top: 5px; margin-left: 15px; margin-bottom: 10px;"></p>
+	  </div>
+	  <div th:if="${autorita}">
+		  <p th:text="${autorita}" style="color: #24262b; size: 18px; margin-left: 15px; margin-bottom: 10px;"></p>
+	  </div>
 
 
 

@@ -4,6 +4,10 @@ import com.tirociniotriennale.sitoeventi.repository.*;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.tirociniotriennale.sitoeventi.model.*;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 /*---------------------------------spring.jpa.hibernate.ddl-auto=auto-------------------------------------*/
 @Controller
@@ -35,7 +41,22 @@ public class HomeController {
     }
 
     @GetMapping({"/", "/index"})
-    public  ModelAndView getAllEventPerData(){ // al momento è una semplice getAll
+    public  ModelAndView getAllEventPerData(Model model){ // al momento è una semplice getAll
+
+        //Verifica dettagli utente se loggato,
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //Verifico che l'utente è autenticato
+        if (authentication.isAuthenticated()){
+            Object principal = authentication.getPrincipal();
+            // casting del principal se è un'istanza di UserDetails
+            if(principal instanceof UserDetails){
+                UserDetails userDetails = (UserDetails) principal;
+                String username = userDetails.getUsername();
+                model.addAttribute("nomeutente", username);
+                model.addAttribute("autorita", userDetails.getAuthorities());
+            }
+        }
+
         ModelAndView gau = new ModelAndView("index");
         gau.addObject("tutteventi", eventorepository.findAll());
         return gau;
