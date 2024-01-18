@@ -22,23 +22,17 @@
 <div th:insert="~{header :: headerpublic}"></div>
 
 <div class="container">
-  <div th:if="${param.error}">
-    Invalid username and password.</div>
   <div th:if="${param.logout}">
     You have been logged out.
   </div>
 
-  <form name="f" th:action="@{/login}" method="post">
+  <form name="logoutform" th:action="@{/logout}" method="post">
     <fieldset>
-      <legend>Please Login</legend>
+      <legend>Sicuro di Proseguire e fare Log out?</legend>
 
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Username"/>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Password"/>
-      <div class="form-actions">
-        <button type="submit" class="pulsanteformok" >Log in</button>
-      </div>
+
+        <button type="submit" class="pulsanteformok" >Log out</button>
+
     </fieldset>
   </form>
 

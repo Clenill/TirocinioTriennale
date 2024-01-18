@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -84,7 +85,9 @@ private DataSource dataSource;
                 .requestMatchers("/eventi").permitAll()
                 .requestMatchers("/faq").permitAll()
                 .requestMatchers("/error").permitAll()
+                .requestMatchers("403").permitAll()
                 .requestMatchers("/evento").permitAll()
+                .requestMatchers("/logout").permitAll()
                 .requestMatchers("/evento/**").permitAll()
                 .requestMatchers("/partner").permitAll()
                 .requestMatchers("/org").hasAuthority("org")
@@ -94,9 +97,17 @@ private DataSource dataSource;
                 .requestMatchers("/user").hasAuthority("user")
                 .requestMatchers("/user/**").hasAuthority("user")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                ).formLogin(Customizer.withDefaults());
+                ).formLogin(form -> form
+                .loginPage("/login").permitAll().successHandler(myAuthenticationSuccessHandler())).logout((logout)-> logout.logoutUrl("/logout")
+                .logoutSuccessUrl("/public/index"))
+                .csrf(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
     //Metodo preso e da adattare

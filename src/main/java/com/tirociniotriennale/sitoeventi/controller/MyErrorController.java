@@ -13,4 +13,9 @@ public class MyErrorController implements ErrorController{
         model.addAttribute("validationErrors", "");
         return "error";
     }
+
+    @RequestMapping("/403")
+    public String accessDenied() {
+        return "403";
+    }
 }

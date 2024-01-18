@@ -5,12 +5,17 @@ import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.tirociniotriennale.sitoeventi.model.*;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Controller
@@ -29,8 +34,27 @@ public class PublicController {
         this.eventoServ = eventoServ;
     }
 
-    @GetMapping({"/public", "/public/index", "/public/"})
+    @GetMapping({"/public", "/public/index", "/public/", "/", "/index"})
     public  ModelAndView getAllEventPublic(Model model){
+        //Verifica dettagli utente se loggato,
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //Verifico che l'utente è autenticato
+        if (authentication.isAuthenticated()){
+            Object principal = authentication.getPrincipal();
+            // casting del principal se è un'istanza di UserDetails
+            if(principal instanceof UserDetails){
+                UserDetails userDetails = (UserDetails) principal;
+                String username = userDetails.getUsername();
+                Collection<? extends GrantedAuthority> collectionautorita = userDetails.getAuthorities();
+
+                String primaAut = collectionautorita.iterator().next().getAuthority();
+                model.addAttribute("autorita", primaAut);
+
+                model.addAttribute("nomeutente", username);
+
+            }
+        }
+
         ModelAndView gae = new ModelAndView("public/index");
         model.addAttribute("messaggio", "");
         gae.addObject("tuttieventi", eventoRepo.findAll());

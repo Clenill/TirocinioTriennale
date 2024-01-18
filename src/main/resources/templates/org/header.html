@@ -20,16 +20,16 @@
         </div>
         <ul>
             <li >
-                <a th:href="@{/public/eventi}">Eventi pub</a>
+                <a th:href="@{/public/index}">Eventi</a>
             </li>
-            <li><a th:href="@{/public/index}">Vista Utente</a></li>
             <li><a th:href="@{/org/faq}">Faq</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">Strumenti</a>
                 <div class="dropdown-content">
-                    <a href="#">Aggiungi evento</a>
-                    <a href="#">Modifica evento</a>
-                    <a href="#">Log out</a>
+                    <a th:href="@{/org/addevento}">Aggiungi evento</a>
+                    <a th:href="@{/org/eventi}">Gestione evento</a>
+                    <a th:href="@{/logout}">Log out</a>
+
                 </div>
             </li>
         </ul>

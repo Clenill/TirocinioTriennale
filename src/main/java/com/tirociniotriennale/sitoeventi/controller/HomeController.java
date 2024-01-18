@@ -39,7 +39,7 @@ public class HomeController {
     public HomeController(EventoService eventoService){// aggiunto costruttore
         this.eventoService = eventoService;
     }
-
+/*
     @GetMapping({"/", "/index"})
     public  ModelAndView getAllEventPerData(Model model){ // al momento è una semplice getAll
 
@@ -61,7 +61,7 @@ public class HomeController {
         gau.addObject("tutteventi", eventorepository.findAll());
         return gau;
     }
-
+*/
 
     @GetMapping({"/eventi"})
     public ModelAndView getAllEventi() {
@@ -71,7 +71,7 @@ public class HomeController {
     }
 
 // aggiungere un evento
-
+/*
     @GetMapping({"/addevento"}) //Cattura l'url può venire anche da un bottone! con th:href=@{/addevento}
     // al suo interno tipo <a th:href.. class=..></a> io l'ho fatto con link per ora
     public ModelAndView aggiungiEvento(Model model){//Aggiunto Model
@@ -123,6 +123,8 @@ public class HomeController {
         return nev;
         //return "aggiungievento";
     }
+    */
+
 
     @GetMapping({"/faq"})
     public ModelAndView getAllFaq() {
@@ -153,11 +155,6 @@ public class HomeController {
             System.out.println(e.getMessage());
             return null;
         }
-    }
-
-    @RequestMapping("/403")
-    public String accessDenied() {
-        return "403";
     }
 
 

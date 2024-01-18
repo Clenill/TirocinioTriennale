@@ -177,11 +177,34 @@ body{
     margin-top: 50px;
     margin-bottom: 25px;
 	display: flex;
-	/*margin-left: auto;
-	margin-right: auto;
-	width: 50%;*/
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap; /* Per far andare a capo gli elementi */
+}
+/* Stile per ogni colonna dell'immagine */
+.image-column {
+    width: 280px;
+    height: 300px;
+    margin: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: -6px 6px 20px #00000070;
+    transition: .3s linear;
+}
+
+.image-column img {
+    width: 100%;
+    height: 100%;
+}
+
+.image-column span {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 .image-card{
@@ -466,6 +489,12 @@ img.avatar {
     margin-top: 15px;
     margin-left: 25px;
 }
+.rigaorg{
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-size: 1rem;
+    margin-left: 30px;
+}
 .line{
     flex: 1 1 auto;
     height: 1ex;
@@ -474,6 +503,10 @@ img.avatar {
     margin-left: 15px;
     margin-right: 100px;
 }
+.spanprimariga {
+    margin-right: 10px;
+}
+
 /*---------------------------------------faq-------------------------------------------*/
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
@@ -768,5 +801,51 @@ img.avatar {
     color: black;
 }
 
-/* Assicurati che la freccetta venga visualizzata correttamente */
+/* Form log in */
+form[name="f"] {
+    max-width: 400px;
+    margin: 0 auto;
+    border: none;
+}
+legend {
+    margin-bottom: 10px; /* Aggiungi un margine inferiore al campo legend */
+}
 
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+form[name="f"] fieldset {
+    border: none; /* Rimuovi il bordo del fieldset */
+}
+form[name="logoutform"] {
+    max-width: 400px;
+    margin: 0 auto;
+    border: none;
+}
+form[name="logoutform"] fieldset {
+    border: none; /* Rimuovi il bordo del fieldset */
+}
+
+.pulsanteformok{
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #4CAF50; /* verde */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+.pulsanteformok:hover{
+    background-color: #45a049; /* verde scuro al passaggio del mouse */
+}

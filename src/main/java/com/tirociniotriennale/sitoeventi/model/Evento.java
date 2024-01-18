@@ -63,12 +63,11 @@ public class Evento {
 
 
     //--------------------------------------- Manca la data------------------------------------------------------
-    public Evento() { //Costruttore vuoto
-        //-------------------------------------Da rivedere se vuoto----------------------------------------------
+    public Evento() {
     }
 
     // Costruttore con dati
-    public Evento(int id,int idtipologia, String user, String nomeevento, String descbrv, String desclong, BigDecimal prezzo,
+    public Evento(int id, String user, String nomeevento, String descbrv, String desclong, BigDecimal prezzo,
     	       String luogoevento, int bigliettimax, int biglietirimanenti, String nomeimmagine, LocalDate localDate ){
 
     	        this.id = id;
