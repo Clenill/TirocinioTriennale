@@ -38,18 +38,7 @@
 		<p class="rigaorg">Attraverso l'header è possibile visualizzare la lista pubblica degli eventi.</p>
 		<p class="rigaorg">La sezione faq è dedicata a rispondere alle domande poste più di frequente</p>
 		<p class="rigaorg">Se invece si ha bisogno di aggiungere eventi o gestire i propri eventi si può accedere alla sezione strumenti</p>
-	  <div class="images-container">
-		  <div th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 10">
-			  <!-- Aggiunge un nuovo blocco di riga ogni 3 elementi -->
 
-			  <div class="image-card">
-			  		<a th:href="@{'/public/evento/'+${events.id}}">
-				 		 <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
-			  		</a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
-			  </div>
-
-		  </div>
-	  </div>
 
 
 

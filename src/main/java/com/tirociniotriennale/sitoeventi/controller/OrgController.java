@@ -33,7 +33,7 @@ public class OrgController {
     @GetMapping({"/org/index", "/org", "/org/" })
     public ModelAndView getOrgIndex(@RequestParam(name = "continue", required = false) String continueParam, Model model){
         //Ottengo l'oggetto Authentication corrente
-        boolean presente = false;
+
         ModelAndView goi = new ModelAndView("org/index");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //Verifico che l'utente è autenticato

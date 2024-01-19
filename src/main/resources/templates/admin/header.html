@@ -19,19 +19,18 @@
             </form>
         </div>
         <ul>
-            <li >
-                <a th:href="@{/admin/eventi}">Vedi/Cancella Eventi </a>
-            </li>
-            <li><a th:href="@{/admin/registrautente}">Aggiungi Utente</a></li>
             <li><a th:href="@{/public/index}">Modalità Public</a></li>
-            <li><a th:href="@{/admin/faq}">Vedi/Modifica Faq</a></li>
-            <li><a th:href="@{/admin/gestisciutenti}">Gestisci Utenti</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Strumenti</a>
+                <div class="dropdown-content">
+                    <a th:href="@{/admin/registrautente}">Aggiungi Utenti</a>
+                    <a th:href="@{/admin/gestisciutenti}">Gestione Utenti</a>
+                    <a th:href="@{/admin/eventi}">Gestione Eventi</a>
+                    <a th:href="@{/admin/faq}">Gestione Faq</a>
+                    <a th:href="@{/logout}">Log out</a>
+                </div>
+            </li>
         </ul>
-        <div class="button-log">
-            <a th:href="@{/logout}">
-                <button class="btnLI"  >logout</button>
-            </a>
-        </div>
         <div class="menu">
             <label for="chk1">
                 <i class="fa fa-bars"></i>

@@ -10,6 +10,9 @@ import com.tirociniotriennale.sitoeventi.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +22,10 @@ import com.tirociniotriennale.sitoeventi.model.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Controller
@@ -43,9 +49,20 @@ public class AdminController {
     }
 
     @GetMapping({"/admin", "/admin/index", "/admin/"})
-    public ModelAndView getEventiAdmin(){
+    public ModelAndView getEventiAdmin(Model model){
         ModelAndView gaea = new ModelAndView("admin/index");
-        gaea.addObject("tuttieventi", eventoReposi.findAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //Verifico che l'utente è autenticato
+        if (authentication.isAuthenticated()){
+            Object principal = authentication.getPrincipal();
+            // casting del principal se è un'istanza di UserDetails
+            if(principal instanceof UserDetails){
+                UserDetails userDetails = (UserDetails) principal;
+                String username = userDetails.getUsername();
+                model.addAttribute("nomeutente", username);
+            }
+        }
+
         return gaea;
     }
 
@@ -53,7 +70,12 @@ public class AdminController {
     @GetMapping("/admin/gestisciutenti")
     public ModelAndView gestisciUtentiAdmin(RedirectAttributes redirectAttributes){
         ModelAndView nur = new ModelAndView("admin/gestisciutenti");
-        nur.addObject("tuttiutenti", utenteReposi.findAll());
+        Iterable<Utente> tuttiUtenti = utenteReposi.findAll();
+        //filtro gli utenti eliminando l'admin
+        Iterable<Utente> utentifiltrati = StreamSupport.stream(tuttiUtenti.spliterator(), false)
+                        .filter(utente -> !"admin".equals(utente.getUser()))
+                        .collect(Collectors.toList());
+        nur.addObject("tuttiutenti", utentifiltrati);
         redirectAttributes.addFlashAttribute("messaggio", "");
         redirectAttributes.addFlashAttribute("messaggiored", "");
         return nur;

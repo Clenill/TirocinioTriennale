@@ -28,25 +28,18 @@
 
 
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Ultimi Eventi
-		<span class="line"></span>
-		</h2>
+		  <span class="spanprimariga">Amministratore loggato: </span> <span th:text="' '+${nomeutente}"></span>
+		  <span class="line"></span>
+	  </h2>
+	  <h3 class="tuttcateg">Informazioni amministratore:</h3>
+	  <p class="rigaorg">Attraverso l'header è possibile visualizzare la lista pubblica degli eventi.</p>
+	  <p class="rigaorg">Con gli strumenti amministratore è possibile visualizzare gli eventi, faq e utenti registrati.</p>
+	  <p class="rigaorg">E' possibile modificare i dati degli utenti e registrarne di nuovi con ruoli organizzazione e user.</p>
+	  <p class="rigaorg">Vi è la possibilità di aggiungere, modificare o cancellare le faq.</p>
+	  <p class="rigaorg">E' possibile cancellare utenti registrati, anche organizzazioni ma solo se non hanno eventi in corso.</p>
+	  <p class="rigaorg">Inoltre è possibile visionare l'elenco degli eventi e cancellare singoli eventi.</p>
 
 
-
-	  <div class="images-container">
-		  <div class="image-card" th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 5">
-			  <a th:href="@{'/admin/evento/'+${events.id}}">
-				  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
-			  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
-		  </div>
-	  </div>
-
-
-	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Tutte le Categorie
-		<span class="line"></span>
-		</h2>
 
 
 
