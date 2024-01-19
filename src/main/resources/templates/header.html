@@ -10,36 +10,50 @@
     <header>
         <input type ="checkbox" name ="" id ="chk1">
         <div class="logo">
-            <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt="#" />
-            </a>
+            <div th:switch="${autorita}">
+                <div th:case="'admin'">
+                    <a th:href="@{/admin/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="'org'">
+                    <a th:href="@{/org/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="'user'">
+                    <a th:href="@{/user/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="*">
+                    <a th:href="@{/public/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="search-box">
-            <form>
-                <input type ="text" name ="search" id ="srch" placeholder="Cerca Eventi o Artisti...">
-                <button type ="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
+
         <ul>
-            <li th:switch="'${user.role}'">
-                <a th:case="'admin'" th:href="@{/eventi}">admin role</a>
-                <a th:case="*" th:href="@{/org/index}">Index org</a>
+            <li>
+                <div th:switch="${autorita}">
+                    <div th:case="'admin'">
+                        <a th:href="@{/admin/index}">Home Admin</a>
+                    </div>
+                    <div th:case="'org'">
+                        <a th:href="@{/org/index}">Home Org</a>
+                    </div>
+                    <div th:case="'user'">
+                        <a th:href="@{/user/index}">Home</a>
+                    </div>
+
+                    <div th:case="*">
+                        <a th:href="@{/public/index}">Home</a>
+                    </div>
+                </div>
             </li>
-            <li><a href="#">Aggiungi Evento</a></li>
-            <li><a th:href="@{/public/index}">Index Public</a></li>
-            <li><a th:href="@{/faq}">Faq</a></li>
-            <li><a href="#">Chi Siamo</a></li>
         </ul>
         <div class="button-log">
 
-            <!-- ----------------Form Log in testing Modal------------------------------------------------------------------->
-            <!-- Button to open the modal login form -->
             <a th:href="@{/logout}">
-
-
             <button class="btnLI" >Log out</button>
             </a>
-            <!-- Form Log in Fine testing Modal------------------------------------------------------------------------------->
-            <button class="btnSU">Sign up</button>
         </div>
         <div class="menu">
             <label for="chk1">
