@@ -9,8 +9,24 @@
     <header>
         <input type ="checkbox" name ="" id ="chk1">
         <div class="logo">
-            <a th:href="@{/public/index}"><img th:src="@{/images/logo.png}" alt="#" />
-            </a>
+            <div th:switch="${autorita}">
+                <div th:case="'admin'">
+                    <a th:href="@{/admin/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="'org'">
+                    <a th:href="@{/org/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="'user'">
+                    <a th:href="@{/user/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+                <div th:case="*">
+                    <a th:href="@{/public/index}"><img th:src="@{/images/logo.png}" alt="#" />
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="search-box">
             <form th:action="@{/public/cerca}" method="get">
@@ -23,21 +39,48 @@
                 <a th:href="@{/public/eventi}">Eventi</a>
             </li>
             <li><a th:href="@{/public/faq}">Faq</a></li>
-            <li><a th:href="@{/admin/index}">Vista Admin</a></li>
+            <li>
+                <div th:switch="${autorita}">
+                    <div th:case="'admin'">
+                        <a th:href="@{/admin/index}">Home Admin</a>
+                    </div>
+                    <div th:case="'org'">
+                        <a th:href="@{/org/index}">Home Org</a>
+                    </div>
+                    <div th:case="'user'">
+                        <a th:href="@{/user/index}">Home</a>
+                    </div>
+
+                    <div th:case="*">
+                        <a th:href="@{/public/index}">Home</a>
+                    </div>
+                </div>
+            </li>
         </ul>
+
+
         <div th:switch="${autorita}">
+
             <div th:case="'admin'">
-                admin
+                <ul>
+                    <li>
+                        <a th:href="@{/logout}">Log out</a>
+                    </li>
+                </ul>
+
             </div>
+
             <div th:case="'org'">
-                <li class="dropdown">
+                <ul class="dropdown">
+                    <li>
                     <a href="#" class="dropbtn">Strumenti</a>
                     <div class="dropdown-content">
                         <a href="#">Aggiungi evento</a>
                         <a href="#">Modifica evento</a>
                         <a th:href="@{/logout}">Log out</a>
                     </div>
-                </li>
+                    </li>
+                </ul>
             </div>
 
             <div th:case="'user'">
@@ -60,8 +103,6 @@
                         <button class="btnSU"  >Sign up</button>
                     </a>
                 </div>
-
-
             </div>
         </div>
 
