@@ -24,7 +24,7 @@ public class SignupController {
     private AutorizzazioniRepository autorizzazioniRepository;
 
     @GetMapping("/public/registrati")
-    public ModelAndView registraUtente() {
+    public ModelAndView registraUtente(Model model) {
         ModelAndView nur = new ModelAndView("public/registrati");
         Utente nuovoUtente = new Utente();
         nur.addObject("nuovoutente", nuovoUtente);
@@ -53,7 +53,7 @@ public class SignupController {
         ModelAndView nur = new ModelAndView("redirect:/public/registrati");
         Utente nuovoUtente = new Utente();
         nur.addObject("nuovoutente", nuovoUtente);
-        model.addAttribute("messaggio", "Utente Salvato!");
+        redirectAttributes.addFlashAttribute("messaggio", "Utente Salvato!");
         return nur;
     }
 

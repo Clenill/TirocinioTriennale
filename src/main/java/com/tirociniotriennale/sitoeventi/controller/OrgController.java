@@ -1,7 +1,9 @@
 package com.tirociniotriennale.sitoeventi.controller;
 
+import com.tirociniotriennale.sitoeventi.service.EventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Optional;
 
 @Controller
@@ -29,6 +32,8 @@ public class OrgController {
     UtenteRepository utenteRepository;
     @Autowired
     TipologiaRepository tipologiaRepository;
+    @Autowired
+    EventoService eventoServ;
 
     @GetMapping({"/org/index", "/org", "/org/" })
     public ModelAndView getOrgIndex(@RequestParam(name = "continue", required = false) String continueParam, Model model){
@@ -86,6 +91,35 @@ public class OrgController {
         return eop;
     }
 
+    @RequestMapping({"/org/evento/{id}"}) // @RequestMapping?
+    public ModelAndView getEventoByIdPublic(@PathVariable int id, Model model) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            //Verifico che l'utente è autenticato
+            if (authentication.isAuthenticated()){
+                Object principal = authentication.getPrincipal();
+                // casting del principal se è un'istanza di UserDetails
+                if(principal instanceof UserDetails){
+                    UserDetails userDetails = (UserDetails) principal;
+                    String username = userDetails.getUsername();
+                    Collection<? extends GrantedAuthority> collectionautorita = userDetails.getAuthorities();
+
+                    String primaAut = collectionautorita.iterator().next().getAuthority();
+                    model.addAttribute("autorita", primaAut);
+
+                    model.addAttribute("nomeutente", username);
+
+                }
+            }
+            ModelAndView gei = new ModelAndView("org/evento");
+            Optional<Evento> optionalEvento = eventoServ.findById(id);
+            optionalEvento.ifPresent(evento -> gei.addObject("eventoselezionato", evento));
+            return gei;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
     @GetMapping({"/org/faq"})
     public ModelAndView getAllFaqAdmi() {
@@ -123,6 +157,7 @@ public class OrgController {
 
             ModelAndView nan = new ModelAndView("org/aggiungievento");
             Iterable<Tipologia> tipoT = tipologiaRepository.findAll();
+            eventissimo.setLocalDate(null);
             nan.addObject("eventissimo", eventissimo);
             nan.addObject("tipologie", tipoT);
             return nan;
@@ -173,15 +208,19 @@ public class OrgController {
     }
 
     @GetMapping({"/org/modificaevento"})
-    public ModelAndView modificaEvento(@RequestParam(name = "id") int id, RedirectAttributes redirectAttributes){
+    public ModelAndView modificaEvento(@RequestParam(name = "id") int id, RedirectAttributes redirectAttributes,
+        Model model){
         Evento eventodaModificare = new Evento();
         Optional<Evento> eventoOptional = eventoRepository.findById(id);
         if(eventoOptional.isPresent()){
             eventodaModificare = eventoOptional.get();
         }
+        String dataevento = eventodaModificare.getLocalDate().toString();
+
+
         ModelAndView mee = new ModelAndView("org/modificaevento");
         Iterable<Tipologia> tipologie = tipologiaRepository.findAll();
-
+        model.addAttribute("dataevento", dataevento);
         mee.addObject("eventoscelto", eventodaModificare);
         mee.addObject("tipologie", tipologie);
         redirectAttributes.addFlashAttribute("messaggio", "");
@@ -191,32 +230,45 @@ public class OrgController {
     @PostMapping("/org/salvaeventomodificato")
         public String salvaEventoModificato(@Valid @ModelAttribute("eventoscelto") Evento eventomodificato, BindingResult bindingResult,
         RedirectAttributes redirectAttributes){
+        //recurero l'utente loggato
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            // casting del principal se è un'istanza di UserDetails
+            if (principal instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) principal;
+                String username = userDetails.getUsername();
+                Optional<Utente> utenteLoggato = utenteRepository.findByUser(username);//inserisco il nome dell'utente loggato
+                eventomodificato.setUtente(utenteLoggato.get());
+            }
+        }
+        //prendo idtipologia per assegnazione Tipologia
+        int tipoid = eventomodificato.getTipologia().getIdtipologia();
 
-
+        //recupero l'evento non ancora modificato per avere biglietti massimi e rimanenti prima della modificia
        Optional<Evento> eventoOptional = eventoRepository.findById(eventomodificato.getId());
-       Evento eventoOriginale = eventoOptional.get();
-       int scartobigliettievento = eventoOriginale.getBigliettimax()-eventoOriginale.getBiglietirimanenti();
-        if (eventomodificato.getBigliettimax() > scartobigliettievento) {
+       // vado a creare la variabile bigliettiassegnati perché i nuovi biglietti max non possono essere inferiori ai biglietti già assegnati
+       int bigliettiassegnati = eventoOptional.get().getBigliettimax() - eventoOptional.get().getBiglietirimanenti();
+        if (eventomodificato.getBigliettimax() < bigliettiassegnati) {
             bindingResult.rejectValue("bigliettimax", "biglietti.invalidi", "I biglietti massimi non possono essere meno dei biglietti già venduti");
         }
-        int bigliettiDaAssegnareRimanenti = eventomodificato.getBigliettimax()- scartobigliettievento;
+
 
 
         if(bindingResult.hasErrors()){
             return "redirect:/org/modificaevento";
         }
 
-        eventoOriginale.setBiglietirimanenti(bigliettiDaAssegnareRimanenti);
-        eventoOriginale.setBigliettimax(eventomodificato.getBigliettimax());
-        eventoOriginale.setDescbrv(eventomodificato.getDescbrv());
-        eventoOriginale.setDesclong(eventomodificato.getDesclong());
-        eventoOriginale.setPrezzo(eventomodificato.getPrezzo());
-        eventoOriginale.setNomeevento(eventomodificato.getNomeevento());
-        eventoOriginale.setNomeimmagine(eventomodificato.getNomeimmagine());
+        int nuovobigliettirim = eventomodificato.getBigliettimax() - bigliettiassegnati;
+        eventomodificato.setBiglietirimanenti(nuovobigliettirim);
+        eventomodificato.setOrdini(eventoOptional.get().getOrdini());
+        //assegno tipologia scelta
+        tipologiaRepository.findById(tipoid).ifPresent( tiposelezionao ->
+                eventomodificato.setTipologia(tiposelezionao));
 
-        eventoRepository.save(eventoOriginale);
-        redirectAttributes.addFlashAttribute("messaggio", "Evento Modificato con Successo!");
-        return "redirect:/org/modificaevento";
+        eventoRepository.save(eventomodificato);
+        redirectAttributes.addFlashAttribute("messaggiosucc", "Evento Modificato con Successo!");
+        return "redirect:/org/eventi";
 
     }
 }

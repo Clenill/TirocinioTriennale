@@ -15,7 +15,35 @@
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 
+<style>
+	.center-text {
+		text-align: center;
+	}
 
+	/* Spaziatura tra le celle */
+	.table td {
+		padding: 30px; /* Puoi regolare la spaziatura a tuo piacimento */
+		border: none;
+	}
+	.image-card{
+		width: 280px;
+		height: 300px;
+		margin: 0; /* Rimuove i margini */
+		padding: 0; /* Rimuove il padding */
+		border: none; /* Rimuove eventuali bordi */
+		outline: none; /* Rimuove l'outline */
+	}
+	.image-card img {
+		width: 280px;
+		height: 300px;
+		max-width: 100%;
+		display: block;
+		margin: 0; /* Rimuove i margini */
+		padding: 0; /* Rimuove il padding */
+		border: none; /* Rimuove eventuali bordi */
+		outline: none; /* Rimuove l'outline */
+	}
+</style>
 
 	  </head>
    <!-- body -->
@@ -43,7 +71,7 @@
 		  </div>
 
 		  <div th:if="${messaggiosucc}">
-			  <p th:text="${messaggiosucc}" style="color: green; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+			  <p th:text="${messaggiosucc}" style="color: green; font-size: 20px; margin-top: 30px; margin-bottom: 20px; font-weight: bold;"></p>
 		  </div>
 		  <div th:if="${messaggiored}">
 			  <p th:text="${messaggiored}" style="color: darkred; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
@@ -55,8 +83,10 @@
 			  <tr>
 				  <th></th>
 				  <th>Nome Evento</th>
+				  <th>Prezzo Unitario</th>
 				  <th>Biglietti Massimi</th>
 				  <th>Biglietti rimanenti</th>
+				  <th>Tipologia</th>
 				  <th class="azioni-buttons">Azioni</th>
 			  </tr>
 			  </thead>
@@ -64,13 +94,15 @@
 			  <tr th:each="eventi: ${tuttieventi}">
 
 				  <td class="image-card" >
-
-					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
-
+					  <a th:href="@{'/org/evento/'+${eventi.id}}">
+						  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
+					  </a>
 				  </td>
 				  <td th:text="${eventi.nomeevento}"></td>
+				  <td th:text="${eventi.prezzo}"></td>
 				  <td th:text="${eventi.getBigliettimax()}"></td>
 				  <td th:text="${eventi.getBiglietirimanenti()}"></td>
+				  <td th:text="${eventi.getTipologia().tipologia}"></td>
 				  <td class="azioni-buttons">
 					  <form th:action="@{/org/modificaevento}" method="get">
 						  <input type="hidden" name="id" th:value="${eventi.id}" />

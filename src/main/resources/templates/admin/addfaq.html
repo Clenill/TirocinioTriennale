@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <!-- base -->
     <meta charset="utf-8">
@@ -14,17 +14,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
+
     <style>
         form {
             margin-left: 15%;
             margin-right: 15%;
         }
+        #domanda {
+            margin-top: 5px;
+            width: 80%;
+            height: 2em;
+            resize: vertical; /* Consente solo il ridimensionamento verticale */
+        }
+
+        #risposta {
+            margin-top: 5px;
+            width: 80%;
+            height: 15em; /* Imposta l'altezza su 10 righe */
+            resize: vertical; /* Consente solo il ridimensionamento verticale */
+            margin-bottom: 20px;
+        }
         p {
             margin-top: 15px; /* Aggiungi un margine sopra al paragrafo */
         }
     </style>
-
-
 
 </head>
 <!-- body -->
@@ -37,36 +50,31 @@
 
 
 <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-    Modifica Utente:
+    Modifica Faq:
     <span class="line"></span>
 </h2>
 
 <div th:if="${messaggio}">
     <p th:text="${messaggio}" style="color: green; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
 </div>
-<div th:if="${messaggiored}">
-    <p th:text="${messaggiored}" style="color: darkred; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
-</div>
-<div class ="utente-scelto" th:object="${utentedamod}">
-    L'utente scelto è <span th:text="*{user}"></span>
-</div>
 
-<form action="#" th:object="${utentedamod}" th:action="@{/admin/salvautentemodificato}" method="post">
-    <input type="hidden" id="user" name="user" th:value="*{user}" />
+<form action="#" th:object="${nuovafaq}" th:action="@{/admin/salvaaddfaq}" method="post">
 
-    <p>Setta Password:</p>
-    <input type="text" name="password" value="" id="password" placeholder="Inserisci password"
-           required="required" autofocus="autofocus" th:value="*{password}"/>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: darkred;">Minimo 3 caratteri, massimo 20</span>
 
-    <p>Setta Email:</p>
-    <input type="text" name="mail" value="" id="mail" placeholder="Inserisci e-mail"
-           required="required" autofocus="autofocus" th:value="*{mail}"/>
-    <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color: darkred;">La mail deve esser formattata bene</span>
+
+    <p>Setta Domanda:</p>
+    <textarea type="text" name="domanda" value="" id="domanda" placeholder="aggiungi domanda"
+              required="required" autofocus="autofocus" th:value="*{domanda}"></textarea>
+    <span th:if="${#fields.hasErrors('domanda')}" th:errors="*{domanda}" style="color: darkred;">Minimo 3 caratteri, massimo 20</span>
+
+    <p>Setta Risposta:</p>
+    <textarea type="text" name="risposta" value="" id="risposta" placeholder="aggiungi risposta"
+           required="required" autofocus="autofocus" th:value="*{risposta}"></textarea>
+    <span th:if="${#fields.hasErrors('risposta')}" th:errors="*{risposta}" style="color: darkred;">La mail deve esser formattata bene</span>
 
     <div class="pulsanti-container">
-        <button type="submit" class="bottone-submit" name="addRow">Modifica</button>
-        <a th:href="@{/admin/gestisciutenti}" class="bottone-indietro">Torna indietro</a>
+        <button type="submit" class="pulsanteformok" name="addRow">Salva</button>
+        <a th:href="@{/admin/faq}" class="bottoneform-indietro">Torna indietro</a>
     </div>
 
 

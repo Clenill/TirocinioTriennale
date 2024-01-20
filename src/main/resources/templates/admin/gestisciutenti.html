@@ -15,7 +15,34 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 
+  <style>
+    /* Aggiungi questa regola per centrare i pulsanti nella modal */
+    .custom-modal-footer {
+      justify-content: center;
+    }
+    .custom-modal-footer .btn {
+      width: 150px; /* Imposta la larghezza desiderata */
+      height: 40px;
+      margin-top: 15px;
+      margin-bottom: 10px;
 
+    }
+    /* Stile per il bottone di conferma nella finestra modale */
+    .custom-modal-footer .btn-danger {
+      background-color: #d9534f;
+      color: #fff;
+      border: 2px solid #d9534f; /* Aumentato lo spessore del bordo */
+      padding: 8px 16px; /* Aumentato il padding */
+    }
+
+    /* Quando il mouse è sopra il bottone di conferma nella finestra modale */
+    .custom-modal-footer .btn-danger:hover,
+    .custom-modal-footer .btn-danger:focus {
+      background-color: #c9302c;
+      border: 2px solid #c9302c;
+      color: #fff;
+    }
+  </style>
 
 </head>
 <!-- body -->
@@ -88,7 +115,7 @@
               <div class="modal-body">
                 <p>Sei sicuro di voler cancellare l'utente: <strong th:text="${utente.user}" /> ?</p>
               </div>
-              <div class="modal-footer" >
+              <div class="custom-modal-footer" >
                 <!-- Pulsante di conferma all'interno della finestra modale -->
                 <form th:action="@{/admin/cancellauser}" method="post">
                   <input type="hidden" name="username" th:value="${utente.user}" />

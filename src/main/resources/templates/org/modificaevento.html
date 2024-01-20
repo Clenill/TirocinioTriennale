@@ -14,7 +14,24 @@
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
+	   <style>
+		   #desclong {
+			   margin-top: 5px;
+			   width: 80%;
+			   height: 15em; /* Imposta l'altezza su 10 righe */
+			   resize: vertical; /* Consente solo il ridimensionamento verticale */
+		   }
+		   p{
+			   margin-top: 10px;
+		   }
+		   .bottoniform{
+			   margin-top: 20px;
+		   }
+		   select{
+			   margin-top: 30px;
+		   }
 
+	   </style>
 
 
 	  </head>
@@ -28,7 +45,7 @@
 
 
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Aggiungi Evento
+		Modifica Evento
 		<span class="line"></span>
 	  </h2>
 	  <div class="container">
@@ -50,47 +67,54 @@
 				  		  th:selected="${tipo.idtipologia eq eventoscelto.tipologia.idtipologia}"></option>
 			  </select>
 
+			  <input type="hidden" name="id" id="id" th:value="${eventoscelto.getId()}">
 
+			  <input type="hidden" name="biglietirimanenti" id="biglietirimanenti" th:value="${eventoscelto.getBiglietirimanenti()}">
 
 
 			  <p>Nome Evento:</p>
-			  <input type="text" name="nomeevento" value="" id="nomeevento" placeholder="Nome dell'evento"
+			  <input type="text" name="nomeevento" value="" id="nomeevento"
 					 required="required" autofocus="autofocus" th:value="*{nomeevento}"/>
 			  <span th:if="${#fields.hasErrors('nomeevento')}" th:errors="*{nomeevento}" style="color: darkred;">Non può essere Nullo</span>
 
 			  <p>Descrizione breve dell'evento:</p>
-			  <input type="text" name="descbrv" value="" id="descbrv" placeholder="Concerto in do minore..."
+			  <input type="text" name="descbrv" value="" id="descbrv"
 					 required="required" autofocus="autofocus" th:value="*{descbrv}"/>
 
 
 			  <p>Descrizione accurata dell'evento:</p>
-			  <input type="text" name="desclong" value="" id="desclong" placeholder="Concerto in do minore..."
-					 required="required" autofocus="autofocus" th:value="*{desclong}"/>
+			  <textarea type="text" name="desclong" value="" id="desclong"
+						required="required"  th:field="*{desclong}"></textarea>
 
 			  <p>Luogo evento:</p>
-			  <input type="text" name="luogoevento" value="" id="luogoevento" placeholder="Concerto in do minore..."
+			  <input type="text" name="luogoevento" value="" id="luogoevento"
 					 required="required" autofocus="autofocus" th:value="*{luogoevento}"/>
 
 			  <p>Nome immagine:</p>
-			  <input type="text" name="nomeimmagine" value="" id="nomeimmagine" placeholder="Caparezza.jpg"
+			  <input type="text" name="nomeimmagine" value="" id="nomeimmagine"
 					 required="required" autofocus="autofocus" th:value="*{nomeimmagine}"/>
 
+			  <p>Data evento:</p>
+			  <input type="date" name="localDate" id="localDate" th:value="${dataevento}" required="required";/>
+
 			  <p>Prezzo biglietto:</p>
-			  <input type="number" name="prezzo" id="prezzo" placeholder="Inserisci un prezzo tra 2 e 250"
+			  <input type="number" name="prezzo" id="prezzo"
 					 required="required" step="any"  th:field="*{prezzo}"/>
 			  <span th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}" style="color: darkred;">Prezzo minimo 0.5</span>
 
 			  <p>Biglietti Disponibili per l'evento:</p>
-			  <input type="number" name="bigliettimax" value="" id="bigliettimax" placeholder="150"
+			  <input type="number" name="bigliettimax" value="" id="bigliettimax"
 					 required="required" autofocus="autofocus" th:value="*{bigliettimax}"/>
 			  <span th:if="${#fields.hasErrors('bigliettimax')}" th:errors="*{bigliettimax}" style="color: darkred;">Inserire numero valido maggiore di 2</span>
 
 
+			  <div class="bottoniform">
+				  <button type="submit" name="addRow" class="bottone-submit">Aggiungi Evento</button>
 
+				  <a th:href="@{/org/eventi}" class="bottone-indietro">Indietro</a>
 
+			  </div>
 
-			  <button type="submit" name="addRow" >Aggiungi Evento</button>
-			  <button type="reset" >Resetta</button>
 		  </form>
 
 

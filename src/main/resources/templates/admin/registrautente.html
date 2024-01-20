@@ -13,7 +13,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
+  select {
+    margin-bottom: 15px;
+  }
 
+</style>
 
 
 
@@ -28,7 +33,7 @@
 
 
 <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-  Form Registrazione
+  Form Registrazione Nuovo Utente
   <span class="line"></span>
 </h2>
 <div class="container">
@@ -36,7 +41,9 @@
   <div th:if="${messaggio}">
     <p th:text="${messaggio}" style="color: green;"></p>
   </div>
-
+  <div th:if="${messaggiored}">
+    <p th:text="${messaggiored}" style="color: darkred; font-size: 20px; margin-top: 30px; margin-bottom: 20px;"></p>
+  </div>
 
 
 
@@ -59,8 +66,8 @@
         <option value="org">Organizzazine</option>
       </select>
     </div>
-    <button type="submit" name="addRow" >Registrata Utente</button>
-    <button type="reset">Resetta Campi</button>
+    <button type="submit" class="bottone-submit" >Registrata Utente</button>
+    <button type="reset" class="bottoneform-indietro">Resetta Campi</button>
   </form>
 
 </div>

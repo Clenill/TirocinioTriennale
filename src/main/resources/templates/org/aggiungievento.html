@@ -14,7 +14,21 @@
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
+	  <style>
+		  #desclong {
+			  margin-top: 5px;
+			  width: 80%;
+			  height: 15em; /* Imposta l'altezza su 10 righe */
+			  resize: vertical; /* Consente solo il ridimensionamento verticale */
+		  }
+		  p{
+			  margin-top: 10px;
+		  }
+		  .bottoniform{
+			  margin-top: 20px;
+		  }
 
+	  </style>
 
 
 	  </head>
@@ -63,11 +77,11 @@
 
 
 			  <p>Descrizione accurata dell'evento:</p>
-			  <input type="text" name="desclong" value="" id="desclong" placeholder="Concerto in do minore..."
-					 required="required" autofocus="autofocus" th:value="*{desclong}"/>
+			  <textarea type="text" name="desclong" value="" id="desclong" placeholder="Concerto in do minore..."
+						required="required" autofocus="autofocus" th:value="*{desclong}"></textarea>
 
 			  <p>Luogo evento:</p>
-			  <input type="text" name="luogoevento" value="" id="luogoevento" placeholder="Concerto in do minore..."
+			  <input type="text" name="luogoevento" value="" id="luogoevento" placeholder="Milano"
 					 required="required" autofocus="autofocus" th:value="*{luogoevento}"/>
 
 			  <p>Nome immagine:</p>
@@ -81,7 +95,7 @@
 
 
 			  <p>Prezzo biglietto:</p>
-			  <input type="number" name="prezzo" id="prezzo" placeholder="Inserisci un prezzo tra 2 e 250"
+			  <input type="number" name="prezzo" id="prezzo" placeholder="80.50"
 					 required="required" step="any"  th:field="*{prezzo}"/>
 			  <span th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}" style="color: darkred;">Prezzo minimo 0.5</span>
 
@@ -92,10 +106,14 @@
 
 
 
+			<div class="bottoniform">
+				<button type="submit" name="addRow" class="bottone-submit">Aggiungi Evento</button>
+				<button type="reset" class="bottone-indietro">Resetta</button>
+				<a th:href="@{/org/index}" class="bottone-indietro">Indietro</a>
+
+			</div>
 
 
-			  <button type="submit" name="addRow" >Aggiungi Evento</button>
-			  <button type="reset" >Resetta</button>
 		  </form>
 
 

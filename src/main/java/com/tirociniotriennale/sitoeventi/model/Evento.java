@@ -192,6 +192,9 @@ public class Evento {
     public Set<Ordine> getOrdini(){
     	return ordini;
     }
+    public void setOrdini(Set<Ordine> ordini){
+        this.ordini = ordini;
+    }
     
     @ManyToOne()
     @JoinColumn(name = "user")

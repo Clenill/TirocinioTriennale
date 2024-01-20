@@ -129,7 +129,7 @@ public class AdminController {
 
 
     @GetMapping({"/admin/faq"})
-    public ModelAndView getAllFaqAdmi() {
+    public ModelAndView getAllFaqAdmi(Model model, RedirectAttributes redirectAttributes) {
         ModelAndView gaffad = new ModelAndView("admin/faq");
         gaffad.addObject("tuttelefaq", faqReposi.findAll());
         return gaffad;
@@ -151,6 +151,16 @@ public class AdminController {
                                          RedirectAttributes redirectAttributes) {
         utente.setEnebled(true);
         autor.setUtenteAut(utente);
+        autor.setUtenteAut(utente);
+        Optional<Utente> cercaSeEsisteUser = utenteReposi.findById(utente.getUser());
+        if (cercaSeEsisteUser.isPresent()){
+            ModelAndView nur = new ModelAndView("redirect:/admin/registrautente");
+            utente.setUser(null);
+            redirectAttributes.addFlashAttribute("messaggiored","Nome già presente," +
+                    "impossibile completare l'operazione");
+            return nur;
+
+        }
 
         utenteReposi.save(utente);
         autorizzazioniRepository.save(autor);
@@ -240,6 +250,73 @@ public class AdminController {
         return "admin/eventi";
     }
 */
+//prendo la faq da modificare
+    @GetMapping("/admin/modificafaq")// se funziona posso provare un post perché più sicuro
+    public ModelAndView paginaModificaFaq(@RequestParam ("id") int id, RedirectAttributes redirectAttributes){
+        Faq faqDaMod = new Faq();
+        Optional<Faq> provaFaq = faqReposi.findById(id);
+        if(provaFaq.isPresent()){
+            faqDaMod = provaFaq.get();
+        }
+        ModelAndView mdu = new ModelAndView("admin/modificafaq");
+        mdu.addObject("faqdamod", faqDaMod);
+        redirectAttributes.addFlashAttribute("messaggio", "");
+        return mdu;
+    }
+//salvo la faq modificata
+    @PostMapping("/admin/salvafaqmodificata")
+    public String modificaFaqModificata(@Valid @ModelAttribute("faqdamod") Faq faqmod, BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()) {//Nel caso di errore faccio un redirect e stampo gli errori
+            return "redirect:/admin/modificafaq";
+        }
+
+        //se non ci sono errori procedo a salvare la faq
+        faqReposi.save(faqmod);
+        redirectAttributes.addFlashAttribute("messaggio", "Faq Modificata con successo!");
+        return "redirect:/admin/faq";
+
+    }
+
+    @PostMapping("/admin/cancellafaq")
+    public String cancellaFaq(@RequestParam("idfaq") int id, RedirectAttributes redirectAttributes){
+        Faq faqDaCancellare = new Faq();
+        Optional<Faq> faqSelezionata = faqReposi.findById(id);
+        if(faqSelezionata.isPresent()){
+            faqDaCancellare=faqSelezionata.get();
+        }
+        else {
+            redirectAttributes.addFlashAttribute("messaggiored","fAQ non trovato!");
+            return "redirect:/admin/faq";
+        }
+
+        //si procede alla cancellazione se esiste l'id (doppio check per scrupolo co isPresent
+        faqReposi.deleteById(id);
+        redirectAttributes.addFlashAttribute("messaggio","Faq Cancellata!");
+        return "redirect:/admin/faq";
+    }
+
+    @GetMapping("/admin/addfaq")
+    public ModelAndView aggiungiFaq(RedirectAttributes redirectAttributes){
+        ModelAndView afq = new ModelAndView("admin/addfaq");
+        Faq nuovafaq = new Faq();
+        afq.addObject("nuovafaq",nuovafaq);
+        redirectAttributes.addFlashAttribute("messaggio");
+        redirectAttributes.addFlashAttribute("messaggiored");
+        return afq;
+    }
+
+    @PostMapping("/admin/salvaaddfaq")
+    public String salvaAddFaq(@Valid @ModelAttribute("addfaq") Faq faq, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()) {//Nel caso di errore faccio un redirect e stampo gli errori
+            return "redirect:/admin/addfaq";
+        }
+        faqReposi.save(faq);
+        redirectAttributes.addFlashAttribute("messaggio", "Faq salvata con successo!");
+        return "redirect:/admin/faq";
+    }
 
 
 }

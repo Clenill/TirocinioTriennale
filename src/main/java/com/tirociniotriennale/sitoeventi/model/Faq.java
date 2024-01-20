@@ -38,7 +38,7 @@ public class Faq {
         return idfaq;
     }
 
-    public void setId(int idfaq){
+    public void setIdfaq(int idfaq){
 
         this.idfaq = idfaq;
     }

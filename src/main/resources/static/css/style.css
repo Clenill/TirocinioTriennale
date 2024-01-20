@@ -672,6 +672,35 @@ img.avatar {
 .colonneutente {
     height: 40px;
 }
+.modificabottone{
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #55c203;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+
+}
+.modificabottone:hover{
+    background-color: darkorange;
+}
+.cancellabottone{
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #a60d0d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+.cancellabottone:hover{
+    background-color: #480000;
+}
 .azioni-buttons{
     width: 250px !important;
 }
@@ -848,4 +877,35 @@ form[name="logoutform"] fieldset {
 }
 .pulsanteformok:hover{
     background-color: #45a049; /* verde scuro al passaggio del mouse */
+}
+.pulsanteaddfaq{
+    margin-top: 20px;
+    margin-left: 15%;
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #4CAF50; /* verde */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+.pulsanteaddfaq{
+    background-color: #45a049; /* verde scuro al passaggio del mouse */
+}
+.bottoneform-indietro {
+    background-color: #5d8500; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    padding: 10px 20px; /* Spaziatura interna */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Bordo arrotondato */
+    cursor: pointer;
+    text-decoration: none; /* Rimuove il sottolineato del testo */
+    font-size: 16px;
+}
+
+/* Cambia lo stile quando il mouse passa sopra il bottone */
+.bottoneform-indietro:hover {
+    background-color: #3b5200; /* Cambia il colore di sfondo al passaggio del mouse */
 }
