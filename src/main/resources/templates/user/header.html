@@ -23,7 +23,6 @@
                 <a th:href="@{/user/eventi}">Eventi</a>
             </li>
             <li><a th:href="@{/user/faq}">Faq</a></li>
-            <li><a th:href="@{/user/partner}">Chi Siamo</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">
                     Profilo <span th:text="${#strings.length(nomeutente) &gt; 5 ? #strings.substring(nomeutente, 0, 5) + '...' : nomeutente}">User</span>

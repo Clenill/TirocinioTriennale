@@ -6,8 +6,9 @@ import com.tirociniotriennale.sitoeventi.repository.OrdineRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import com.tirociniotriennale.sitoeventi.service.UserService;
+import com.tirociniotriennale.sitoeventi.util.HtmlToPdfConverter;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.tirociniotriennale.sitoeventi.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.io.IOException;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,6 +41,7 @@ public class UserController {
     private OrdineRepository ordineRepository;
     @Autowired
     private UserService userService;
+
     //--------------------------------------------
     public UserController(EventoService eventoService){// aggiunto costruttore
         this.eventoService = eventoService;
@@ -76,7 +80,7 @@ public class UserController {
         return mava;
     }
 
-    @RequestMapping({"/user/evento/{id}"}) // @RequestMapping?
+    @RequestMapping({"/user/evento/{id}"}) //
     public ModelAndView getEventoByIdUser(@PathVariable int id, Model model) {
         try {
             ModelAndView geif = new ModelAndView("user/evento");
@@ -257,14 +261,74 @@ public class UserController {
         ordine.setUtente(utenteOrdine);
         ordineRepository.save(ordine);
         redirectAttributes.addFlashAttribute("messaggio", "Ordine effettuato con Successo!");
+        BigDecimal biglietti = new BigDecimal(ordine.getBiglietti());
+        BigDecimal prezzo = ordine.getEvento().getPrezzo();
+        BigDecimal pagamento = biglietti.multiply(prezzo);
+
 
         return "redirect:/user/evento/"+eventId;
     }
 
-    @RequestMapping(value = "/user/partner")
-    public String listapartnerUser(){
+    @RequestMapping(value = "/user/ordini")
+    public ModelAndView listaordini(Model model){
+        ModelAndView lpu = new ModelAndView("user/ordini");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        UserDetails userDetails= (UserDetails) principal;
+        String username = userDetails.getUsername();
+        model.addAttribute("nomeutente", username);
+        Optional<Utente> utente = utenteRepository.findById(username);
+        Iterable<Ordine> ordineUtente = ordineRepository.findByUtente(utente.get());
+        if (!ordineUtente.iterator().hasNext()) {
+            // L'iterable è vuoto, aggiungo un messaggio al model
+            model.addAttribute("messaggio", "Nessun ordine trovato ");
+            return lpu;
+        }
+        lpu.addObject("ordiniutente", ordineUtente);
 
-        return "public/partner";
+        return lpu;
 
     }
+    //dettaglio evento
+    @RequestMapping("/user/dettaglioordine/{id}")
+    public ModelAndView dettaglioEvento(@PathVariable int id, Model model,RedirectAttributes redirectAttributes,
+                                        HttpServletResponse response){
+        ModelAndView dei = new ModelAndView("user/dettaglio");
+        //recupero l'username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        UserDetails userDetails= (UserDetails) principal;
+        String username = userDetails.getUsername();
+        model.addAttribute("nomeutente", username);
+
+        //recupero l'ordine tramite l'id
+        Optional<Ordine> ordineScelto = ordineRepository.findById(id);
+        Ordine ordinescelto = ordineScelto.get();
+        BigDecimal biglietti = new BigDecimal(ordinescelto.getBiglietti());
+        BigDecimal prezzo = ordinescelto.getEvento().getPrezzo();
+        BigDecimal pagamento = biglietti.multiply(prezzo);
+        dei.addObject("pagamento", pagamento);
+        dei.addObject("ordinescelto", ordinescelto);
+
+        // Aggiorna il contenuto HTML con i dettagli dell'ordine
+        String htmlContent = "<html><body>"
+                + "<h2>Dettagli Ordine:</h2>"
+                + "<p>Id Ordine: " + ordinescelto.getIdordine() + "</p>"
+                + "<p>Nome Evento: " + ordinescelto.getEvento().getNomeevento() + "</p>"
+                + "<p>Numero Biglietti: " + ordinescelto.getBiglietti() + "</p>"
+                + "<p>Pagamento: " + pagamento + "</p>"
+                + "</body></html>";
+
+        // Chiamata alla funzione di conversione HTML-to-PDF
+        HtmlToPdfConverter.convertHtmlToPdf(htmlContent, response);
+        try {
+            response.getOutputStream().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       return dei;
+
+    }
+
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- base -->
+    <meta charset="utf-8">
+    <!-- site metas -->
+    <title>Ticket Love</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="Michele Longo">
+    <!-- stile css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <style>
+
+        .utenteselezionato {
+            max-width: 800px;
+            margin: 80px auto 80px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table th, .profile-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .profile-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .profile-table td {
+            text-align: left;
+        }
+
+
+    </style>
+</head>
+<!-- body -->
+<body class="main-layout">
+<!-- header -->
+
+<div th:insert="~{user/header :: headeruser}"></div>
+
+<div th:if="${messaggio}">
+    <p th:text="${messaggio}" style="color: green; font-size: 30px; margin-left: 30px; margin-top: 20px; font-weight: bold;"></p>
+</div>
+
+
+
+
+<div class="utenteselezionato">
+    <div>
+        <h2>Elenco Ordini:</h2>
+        <table class="profile-table">
+            <thead>
+            <tr>
+                <th>Id Ordine</th>
+                <th>Numero Biglietti</th>
+                <th>Nome Evento</th>
+                <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ordine : ${ordiniutente}">
+                <td th:text="${ordine.idordine}"></td>
+                <td th:text="${ordine.biglietti}"></td>
+                <td th:text="${ordine.evento.nomeevento}"></td>
+                <td class="actions">
+                    <a th:href="@{'/user/dettaglioordine/' + ${ordine.idordine}}">Stampa</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+</body>
+</html>
