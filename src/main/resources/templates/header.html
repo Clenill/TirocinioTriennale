@@ -48,12 +48,33 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <div th:switch="${autorita}">
+                    <div th:case="'admin'">
+                        <a th:href="@{/logout}">
+                            <button class="btnLI" >Log out</button>
+                        </a>
+                    </div>
+                    <div th:case="'org'">
+                        <a th:href="@{/logout}">
+                            <button class="btnLI" >Log out</button>
+                        </a>
+                    </div>
+                    <div th:case="'user'">
+                        <a th:href="@{/logout}">
+                            <button class="btnLI" >Log out</button>
+                        </a>
+                    </div>
+
+                    <div th:case="*">
+
+                    </div>
+                </div>
+            </li>
         </ul>
         <div class="button-log">
 
-            <a th:href="@{/logout}">
-            <button class="btnLI" >Log out</button>
-            </a>
+
         </div>
         <div class="menu">
             <label for="chk1">

@@ -23,9 +23,6 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     //Optional<Evento> findFirstByUser(String user);
 
     Iterable<Evento> findByNomeevento(String nomeevento); // Tasto cerca, da modificare e
-    // in modo che anche i risultati che combaciano parzialmente possono essere restituiti
-    // però andrà in service.
-
 
     Optional<Evento> findFirstByUtenteevento(Utente utente);
     Iterable<Evento> findAllByUtenteevento(Utente utente);

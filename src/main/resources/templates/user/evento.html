@@ -29,6 +29,12 @@
 	Info Evento
 	<span class="line"></span>
 </h2>
+<div th:if="${messaggio}">
+	<p th:text="${messaggio}" style="color: green; margin-left: 40px; margin-top: 20px; font-size: 20px; margin-bottom: 20px;"></p>
+</div>
+<div th:if="${messaggiored}">
+	<p th:text="${messaggiored}" style="color: darkred; margin-left: 40px; margin-top: 20px; font-size: 20px; margin-bottom: 20px;"></p>
+</div>
 
 
 
@@ -57,8 +63,54 @@
 					</tr>
 					<tr>
 						<td class="acquista-btn">
-							<button class="btn-acquista">Acquista</button>
+							<button class="btn-acquista" data-toggle="modal" th:data-target="'#confermaModal' + ${eventoselezionato.id}" >Acquista</button>
 						</td>
+						<div class="modal fade" th:id="'confermaModal' + ${eventoselezionato.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel" style="margin-top: 5px;">Conferma acquisto Evento <span th:text="${eventoselezionato.nomeevento}"></span></h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>Biglietti acquistabili: <span th:text="${eventoselezionato.getBiglietirimanenti()}"></span></p>
+									</div>
+									<div class="custom-modal-footer" >
+										<div th:switch="${autorita}">
+											<div th:case="'admin'">
+												<div class="row mx-auto">
+												</div>
+											</div>
+											<div th:case="'org'">
+											</div>
+											<div th:case="'user'">
+
+												<form th:action="@{/user/acquistoevento}" th:object="${ordineevento}" method="post">
+													<input type="number" name="biglietti" th:value="${ordineevento.biglietti}" />
+													<input type="hidden" name="eventId" th:value="${eventoselezionato.id}" />
+													<button type="submit" class="btn btn-danger btn-block">Conferma</button>
+													<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Annulla</button>
+												</form>
+											</div>
+
+											<div th:case="*">
+												<a th:href="@{/login}">
+													<button type="button" class="btn btn-block">Log In</button>
+												</a>
+												<a th:href="@{/public/registrati}">
+													<button type="button" class="btn btn-danger btn-blockdue">Registrati</button>
+												</a>
+											</div>
+										</div>
+
+
+
+									</div>
+								</div>
+							</div>
+						</div>
 					</tr>
 				</table>
 			</td>
@@ -92,6 +144,9 @@
 
 
 <div th:insert="~{footer :: foot}"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

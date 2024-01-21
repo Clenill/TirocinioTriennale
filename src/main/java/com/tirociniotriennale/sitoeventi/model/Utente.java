@@ -20,12 +20,12 @@ public class Utente {
     
 	@Id
 	@Column(name = "user", length = 25)
-	private String user;//username
+	private String user;
 	
 	@Column(name = "password", length = 20, nullable= false)
 	@NotBlank
 	@Size(min=3, max = 20)
-	private String password;//password
+	private String password;
 	
 	@Column(name = "enabled", nullable= false)
 	private boolean enabled;

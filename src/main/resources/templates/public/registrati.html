@@ -51,8 +51,10 @@
 				<p>Setta Password:</p>
 			<input type="text" name="password" value="" id="password" placeholder="Inserisci password"
 		               required="required" autofocus="autofocus" th:value="*{password}"/>
+				<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: darkred;">La password deve avere minimo 3 caratteri</span>
 			
-			<button type="submit" name="addRow" >Registrati</button>
+			<button type="submit" name="addRow" class="bottone-submit" style="margin-top: 15px;">Registrati</button>
+				<a th:href="@{/public/index}" class="bottone-indietro">Indietro</a>
 		  </form>
 
 	  </div>

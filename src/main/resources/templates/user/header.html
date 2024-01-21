@@ -13,27 +13,30 @@
             </a>
         </div>
         <div class="search-box">
-            <form>
-                <input type ="text" name ="search" id ="srch" placeholder="Cerca Eventi o Artisti...">
+            <form th:action="@{/user/cerca}" method="get">
+                <input type ="text" name ="search" id ="search" placeholder="Cerca Eventi..." value="" >
                 <button type ="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
         <ul>
             <li >
-                <a th:href="@{/user/eventi}">Eventi User</a>
+                <a th:href="@{/user/eventi}">Eventi</a>
             </li>
-            <li><a th:href="@{/index}">Torna Home Vecchia</a></li>
             <li><a th:href="@{/user/faq}">Faq</a></li>
-            <li><a th:href="@{/user/partner}">Partner</a></li>
+            <li><a th:href="@{/user/partner}">Chi Siamo</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">
+                    Profilo <span th:text="${#strings.length(nomeutente) &gt; 5 ? #strings.substring(nomeutente, 0, 5) + '...' : nomeutente}">User</span>
+                </a>
+                <div class="dropdown-content">
+                    <a th:href="@{/user/profilo}">Dati Utente</a>
+                    <a th:href="@{/user/ordini}">Ordini</a>
+                    <a th:href="@{/logout}">Log out</a>
+                </div>
+            </li>
         </ul>
-        <div class="button-log">
+        <div>
 
-            <!-- ----------------Form Log in testing Modal------------------------------------------------------------------->
-            <!-- Button to open the modal login form -->
-            <button class="btnLI"  >Login</button>
-
-
-            <button class="btnSU">Sign up</button>
         </div>
         <div class="menu">
             <label for="chk1">
@@ -41,11 +44,6 @@
             </label>
         </div>
     </header>
-
-
-
-
-
 </div>
 
 </body>

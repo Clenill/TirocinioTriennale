@@ -4,9 +4,11 @@ import com.tirociniotriennale.sitoeventi.model.*;
 
 import com.tirociniotriennale.sitoeventi.repository.AutorizzazioniRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,29 +34,30 @@ public class SignupController {
     }
 
     @RequestMapping(value = "/public/salvautente", method= RequestMethod.POST)
-    public ModelAndView salvaUtente(@ModelAttribute Utente utente, Model model, RedirectAttributes redirectAttributes) {
+    public String salvaUtente(@Valid @ModelAttribute Utente utente, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("messaggiored", "La password deve avere almeno 3 caratteri");
+            return "redirect:/public/registrati";
+        }
         utente.setEnebled(true);
         Autorizzazioni autor = new Autorizzazioni();
         autor.setRuolo("user");
         autor.setUtenteAut(utente);
         Optional<Utente> cercaSeEsisteUser = utenteRepository.findById(utente.getUser());
         if (cercaSeEsisteUser.isPresent()){
-            ModelAndView nur = new ModelAndView("redirect:/public/registrati");
             utente.setUser(null);
             redirectAttributes.addFlashAttribute("messaggiored","Nome utente già esistente," +
                     "impossibile completare l'operazione");
-            return nur;
+            return "redirect:/public/registrati";
 
         }
 
 
         utenteRepository.save(utente);
         autorizzazioniRepository.save(autor);
-        ModelAndView nur = new ModelAndView("redirect:/public/registrati");
-        Utente nuovoUtente = new Utente();
-        nur.addObject("nuovoutente", nuovoUtente);
         redirectAttributes.addFlashAttribute("messaggio", "Utente Salvato!");
-        return nur;
+        return "redirect:/public/index";
     }
 
 }

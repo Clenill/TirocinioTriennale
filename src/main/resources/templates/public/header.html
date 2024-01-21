@@ -30,7 +30,7 @@
         </div>
         <div class="search-box">
             <form th:action="@{/public/cerca}" method="get">
-                <input type ="text" name ="search" id ="search" placeholder="Cerca Eventi o Artisti..." value="" >
+                <input type ="text" name ="search" id ="search" placeholder="Cerca Eventi..." value="" >
                 <button type ="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -62,9 +62,12 @@
         <div th:switch="${autorita}">
 
             <div th:case="'admin'">
-                <ul>
+                <ul class="dropdown">
                     <li>
-                        <a th:href="@{/logout}">Log out</a>
+                        <a href="#" class="dropbtn">Strumenti</a>
+                        <div class="dropdown-content">
+                            <a th:href="@{/logout}">Log out</a>
+                        </div>
                     </li>
                 </ul>
 
@@ -75,8 +78,6 @@
                     <li>
                     <a href="#" class="dropbtn">Strumenti</a>
                     <div class="dropdown-content">
-                        <a href="#">Aggiungi evento</a>
-                        <a href="#">Modifica evento</a>
                         <a th:href="@{/logout}">Log out</a>
                     </div>
                     </li>
@@ -85,10 +86,10 @@
 
             <div th:case="'user'">
                 <li class="dropdown">
-                    <a href="#" class="dropbtn">Profilo</a>
+                    <a href="#" class="dropbtn">
+                        Profilo <span th:text="${#strings.length(nomeutente) &gt; 5 ? #strings.substring(nomeutente, 0, 5) + '...' : nomeutente}">User</span>
+                    </a>
                     <div class="dropdown-content">
-                        <a href="#">Modifica dati</a>
-                        <a href="#">Storico acquisti</a>
                         <a th:href="@{/logout}">Log out</a>
                     </div>
                 </li>
@@ -106,7 +107,9 @@
             </div>
         </div>
 
+<div  class="spazio" style="margin-right: 30px">
 
+</div>
 
         <div class="menu">
             <label for="chk1">

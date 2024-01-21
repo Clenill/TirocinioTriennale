@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.tirociniotriennale.sitoeventi.model.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class PublicController {
     }
 
     @GetMapping({"/public", "/public/index", "/public/", "/", "/index"})
-    public  ModelAndView getAllEventPublic(Model model){
+    public  ModelAndView getAllEventPublic(Model model, RedirectAttributes redirectAttributes){
         //Verifica dettagli utente se loggato,
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //Verifico che l'utente è autenticato
@@ -56,7 +57,6 @@ public class PublicController {
         }
 
         ModelAndView gae = new ModelAndView("public/index");
-        model.addAttribute("messaggio", "");
         gae.addObject("tuttieventi", eventoRepo.findAll());
         return gae;
     }
@@ -120,6 +120,7 @@ public class PublicController {
     //Implementazione tasto cerca
     @GetMapping({"/public/cerca"})
     public ModelAndView cercaEventi(@RequestParam("search")String search, Model model) {
+        ModelAndView mava = new ModelAndView("public/cerca");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //Verifico che l'utente è autenticato
         if (authentication.isAuthenticated()){
@@ -137,9 +138,14 @@ public class PublicController {
 
             }
         }
-        ModelAndView mava = new ModelAndView("public/cerca");
-        mava.addObject("eventicercati", eventoRepo.findAll());
-        model.addAttribute("messaggio","test cerca");
+        Iterable<Evento> eventiPerNome = eventoRepo.findByNomeevento(search);
+
+        if (!eventiPerNome.iterator().hasNext()) {
+            // L'iterable è vuoto, aggiungo un messaggio al model
+            model.addAttribute("messaggio", "Nessun evento trovato per la ricerca: " + search);
+        }
+
+        mava.addObject("eventicercati", eventiPerNome);
         return mava;
     }
 
