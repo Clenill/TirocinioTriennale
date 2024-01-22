@@ -1,9 +1,6 @@
 package com.tirociniotriennale.sitoeventi.controller;
 
-import com.tirociniotriennale.sitoeventi.repository.AutorizzazioniRepository;
-import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
-import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
-import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
+import com.tirociniotriennale.sitoeventi.repository.*;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import com.tirociniotriennale.sitoeventi.service.UserService;
 import com.tirociniotriennale.sitoeventi.service.UserServiceImpl;
@@ -24,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -42,6 +40,8 @@ public class AdminController {
     private AutorizzazioniRepository autorizzazioniRepository;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private OrdineRepository ordineRepository;
 
     //--------------------------------------------
     public AdminController(EventoService eventoServi){// aggiunto costruttore
@@ -181,6 +181,11 @@ public class AdminController {
         // ...
        Optional<Evento> eventoSelezionato = eventoReposi.findById(eventId);
         if(eventoSelezionato.isPresent()){
+            Evento evento = eventoSelezionato.get();
+            Set<Ordine> ordini = evento.getOrdini();
+            for (Ordine ordine : ordini) {
+                ordineRepository.delete(ordine);
+            }
             eventoReposi.deleteById(eventId);
         }
         else{
