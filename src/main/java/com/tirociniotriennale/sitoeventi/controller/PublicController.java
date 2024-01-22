@@ -2,6 +2,7 @@ package com.tirociniotriennale.sitoeventi.controller;
 
 import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
 import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
+import com.tirociniotriennale.sitoeventi.repository.TipologiaRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class PublicController {
     private FaqRepository faqRepo;
     @Autowired
     private final EventoService eventoServ;
+    @Autowired
+    private TipologiaRepository tipologiaRepository;
     //--------------------------------------------
     public PublicController(EventoService eventoServ){// aggiunto costruttore
         this.eventoServ = eventoServ;
@@ -57,6 +60,9 @@ public class PublicController {
         }
 
         ModelAndView gae = new ModelAndView("public/index");
+
+        Iterable<Evento> eventiperdata = eventoRepo.findAllByOrderByLocalDateAsc();
+        gae.addObject("eventidata", eventiperdata);
         gae.addObject("tuttieventi", eventoRepo.findAll());
         return gae;
     }
@@ -81,6 +87,7 @@ public class PublicController {
             }
         }
         ModelAndView mava = new ModelAndView("public/eventi");
+        mava.addObject("tipologie", tipologiaRepository.findAll());
         mava.addObject("tuttiglieventi", eventoRepo.findAll());
         return mava;
     }
@@ -173,6 +180,30 @@ public class PublicController {
         ModelAndView gaffa = new ModelAndView("public/faq");
         gaffa.addObject("tuttelefaq", faqRepo.findAll());
         return gaffa;
+    }
+
+    //tasto filtra in eventi
+    @GetMapping("/public/filtra")
+    public ModelAndView filtraPublic(@RequestParam(name = "tipologia", required = false) String tipologia
+           , Model model){
+        int idtipologia = 0;
+
+        if(tipologia != null && !tipologia.isEmpty()){
+            idtipologia = Integer.parseInt(tipologia);
+        }
+
+        ModelAndView fep = new ModelAndView("public/ricerca");
+        if(idtipologia != 0){
+            Iterable<Evento> tipologiaricerca = eventoRepo.findByTipologiaIdtipologia(idtipologia);
+            fep.addObject("tuttiglieventi", tipologiaricerca);
+        }else{
+            Iterable<Evento> tutti = eventoRepo.findAll();
+            fep.addObject("tuttiglieventi", tutti);
+        }
+
+
+        fep.addObject("tipologie", tipologiaRepository.findAll());
+        return fep;
     }
 
 }

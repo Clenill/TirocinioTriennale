@@ -57,8 +57,49 @@
 					</tr>
 					<tr>
 						<td class="acquista-btn">
-							<button class="btn-acquista">Acquista</button>
+							<button class="btn-acquista" data-toggle="modal" th:data-target="'#confermaModal' + ${eventoselezionato.id}" >Acquista</button>
 						</td>
+						<div class="modal fade" th:id="'confermaModal' + ${eventoselezionato.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel" style="margin-top: 5px;">Conferma acquisto Evento <span th:text="${eventoselezionato.nomeevento}"></span></h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>Devi essere loggato come user per completare l'acquisto</p>
+									</div>
+									<div class="modal-footer" >
+										<div th:switch="${autorita}">
+											<div th:case="'admin'">
+												<div class="row mx-auto">
+												</div>
+											</div>
+											<div th:case="'org'">
+											</div>
+											<div th:case="'user'">
+
+
+											</div>
+
+											<div th:case="*">
+												<a th:href="@{/login}">
+													<button type="button" class="btn btn-danger btn-block">Log In</button>
+												</a>
+												<a th:href="@{/public/registrati}">
+													<button type="button" class="btn btn-secondary btn-block">Registrati</button>
+												</a>
+											</div>
+										</div>
+
+
+
+									</div>
+								</div>
+							</div>
+						</div>
 					</tr>
 				</table>
 			</td>

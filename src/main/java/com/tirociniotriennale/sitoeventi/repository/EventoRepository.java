@@ -24,6 +24,9 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     Iterable<Evento> findByNomeevento(String nomeevento); // Tasto cerca, da modificare e
 
+    Iterable<Evento> findAllByOrderByLocalDateAsc();
     Optional<Evento> findFirstByUtenteevento(Utente utente);
     Iterable<Evento> findAllByUtenteevento(Utente utente);
+
+    Iterable<Evento> findByTipologiaIdtipologia(int idtipologia);
 }

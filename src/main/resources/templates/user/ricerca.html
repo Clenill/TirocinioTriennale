@@ -74,7 +74,7 @@
    <body class="main-layout">
       <!-- header -->
 
-	  <div th:insert="~{public/header :: headerpub}"></div>
+	  <div th:insert="~{user/header :: headeruser}"></div>
 
 
 
@@ -90,7 +90,7 @@
 
 		  <hr/>
 		  <div class="row" style="display: flex;">
-				  <form th:action="@{/public/filtra}" method="get" style="display: flex;">
+				  <form th:action="@{/user/filtra}" method="get" style="display: flex;">
 						  <span style="margin-right: 5px;margin-top: 15px;">Tipologie:</span>
 						  <select id="tipologia" name="tipologia" style="height: 40px; margin-top: 10px;">
 							  <option th:selected="${#strings.isEmpty(param.tipologia)}" value="0" th:text="Tutte"></option>
@@ -116,7 +116,7 @@
 			  <tbody>
 			  <tr th:each="eventi: ${tuttiglieventi}">
 				  <td class="image-card" >
-					  <a th:href="@{'/public/evento/'+${eventi.id}}">
+					  <a th:href="@{'/user/evento/'+${eventi.id}}">
 						  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
 					  </a>
 				  </td>
@@ -125,52 +125,10 @@
 				  <td th:text="${eventi.getBiglietirimanenti()}" />
 				  <td th:text="${eventi.getLocalDate()}"></td>
 				  <td class="acquista-btn">
-					  <button class="btn-acquista" data-toggle="modal" th:data-target="'#confermaModal' + ${eventi.id}">Acquista</button>
+					  <a th:href="@{'/user/evento/'+${eventi.id}}">
+					  <button class="btn-acquista" >Acquista</button>
+					  </a>
 				  </td>
-				  <!-- Finestra modale di conferma acquisto -->
-				  <div class="modal fade" th:id="'confermaModal' + ${eventi.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
-						  <div class="modal-content">
-							  <div class="modal-header">
-								  <h5 class="modal-title" id="exampleModalLabel" style="margin-top: 5px;">Conferma acquisto Evento <span th:text="${eventi.nomeevento}"></span></h5>
-								  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									  <span aria-hidden="true">&times;</span>
-								  </button>
-							  </div>
-							  <div class="modal-body">
-								  <p>E' necessario essere loggati come user per effettuare acquisti</p>
-							  </div>
-							  <div class="custom-modal-footer" >
-								  <div th:switch="${autorita}">
-									  <div th:case="'admin'">
-										  <div class="row mx-auto">
-										  </div>
-									  </div>
-									  <div th:case="'org'">
-									  </div>
-									  <div th:case="'user'">
-										  <a th:href="@{'/user/evento/'+${eventi.id}}">
-											  <button type="button" class="btn btn-block">Vai ad evento</button>
-										  </a>
-										  <button type="button" class="btn btn-danger btn-blockdue" data-dismiss="modal">Annulla</button>
-									  </div>
-
-									  <div th:case="*">
-										  <a th:href="@{/login}">
-											  <button type="button" class="btn btn-block">Log In</button>
-										  </a>
-										  <a th:href="@{/public/registrati}">
-											  <button type="button" class="btn btn-danger btn-blockdue">Registrati</button>
-										  </a>
-									  </div>
-								  </div>
-
-
-
-							  </div>
-						  </div>
-					  </div>
-				  </div>
 			  </tr>
 			  </tbody>
 

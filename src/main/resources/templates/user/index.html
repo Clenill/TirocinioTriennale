@@ -14,6 +14,14 @@
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 	   <script src="/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+	   <style>
+		   .centramento{
+			   margin-left: 15%;
+			   margin-right: 15%;
+		   }
+	   </style>
 	  </head>
    <!-- body -->
    <body class="main-layout">
@@ -28,14 +36,14 @@
 
 
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Ultimi Eventi
+		Prossimi Eventi:
 		<span class="line"></span>
 		</h2>
 
 
 
 	  <div class="images-container">
-		  <div class="image-card" th:each="events, iterStat : ${tuttieventi}" th:if="${iterStat.index} < 5">
+		  <div class="image-card" th:each="events, iterStat : ${eventidata}" th:if="${iterStat.index} < 4">
 			  <a th:href="@{'/user/evento/'+${events.id}}">
 				  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
 			  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
@@ -44,9 +52,21 @@
 
 
 	  <h2 class="tuttcateg" data-component="editorialchoice" data-teaser-category="Tutte le categorie" data-teaser-row="3" data-cid="editorialchoice" data-box="" data-predictor-uuid="" data-predictor-url="">
-		Tutte le Categorie
+		Tutti gli Eventi
 		<span class="line"></span>
 		</h2>
+
+	  <div class="centramento">
+
+
+		  <div class="images-container">
+			  <div class="image-card" th:each="events : ${tuttieventi}" style="margin-bottom: 20px;">
+				  <a th:href="@{'/user/evento/'+${events.id}}">
+					  <img src="/images/events/default.jpg" alt="" th:attr="src=@{'/images/events/' + ${events.nomeimmagine}}">
+				  </a><!-- La barra iniziale in src di thymeleaf indica che si parte dalla radice dell'applicazione. -->
+			  </div>
+		  </div>
+	  </div>
 
 
 

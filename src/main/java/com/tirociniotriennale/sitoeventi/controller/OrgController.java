@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class OrgController {
@@ -34,6 +35,8 @@ public class OrgController {
     TipologiaRepository tipologiaRepository;
     @Autowired
     EventoService eventoServ;
+    @Autowired
+    OrdineRepository ordineRepository;
 
     @GetMapping({"/org/index", "/org", "/org/" })
     public ModelAndView getOrgIndex(@RequestParam(name = "continue", required = false) String continueParam, Model model){
@@ -198,6 +201,11 @@ public class OrgController {
     public String cancellaEvento(@RequestParam(name = "id") int id, RedirectAttributes redirectAttributes){
         Optional<Evento> eventoSelezionato = eventoRepository.findById(id);
         if(eventoSelezionato.isPresent()){//controllo che l'evento ci sia effettivamente
+            Evento evento = eventoSelezionato.get();
+            Set<Ordine> ordini = evento.getOrdini();
+            for (Ordine ordine : ordini) {
+                ordineRepository.delete(ordine);
+            }
             eventoRepository.deleteById(id);//cancello l'evento
             redirectAttributes.addFlashAttribute("messaggiosucc","Evento Cancellato!");
         } else {// in caso negativo effettuo un redirect alla pagina org/eventi
@@ -262,6 +270,10 @@ public class OrgController {
         int nuovobigliettirim = eventomodificato.getBigliettimax() - bigliettiassegnati;
         eventomodificato.setBiglietirimanenti(nuovobigliettirim);
         eventomodificato.setOrdini(eventoOptional.get().getOrdini());
+        //iterazione sugli ordini
+        for(Ordine ordine : eventomodificato.getOrdini()){
+            ordine.setEvento(eventomodificato);
+        }
         //assegno tipologia scelta
         tipologiaRepository.findById(tipoid).ifPresent( tiposelezionao ->
                 eventomodificato.setTipologia(tiposelezionao));

@@ -108,7 +108,7 @@
         <tr th:each="eventi: ${eventicercati}">
 
             <td class="image-card" >
-                <a th:href="@{'/public/evento/'+${eventi.id}}">
+                <a th:href="@{'/user/evento/'+${eventi.id}}">
                     <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
                 </a>
             </td>

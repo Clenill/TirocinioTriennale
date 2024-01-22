@@ -75,7 +75,7 @@
 									<div class="modal-body">
 										<p>Biglietti acquistabili: <span th:text="${eventoselezionato.getBiglietirimanenti()}"></span></p>
 									</div>
-									<div class="custom-modal-footer" >
+									<div class="modal-footer" >
 										<div th:switch="${autorita}">
 											<div th:case="'admin'">
 												<div class="row mx-auto">
@@ -86,7 +86,10 @@
 											<div th:case="'user'">
 
 												<form th:action="@{/user/acquistoevento}" th:object="${ordineevento}" method="post">
-													<input type="number" name="biglietti" th:value="${ordineevento.biglietti}" />
+													<div class="bigliettiinserimeto" style="margin-left: 230px; margin-bottom: 20px; margin-top: 20px;">
+														<input type="number" name="biglietti" th:value="${ordineevento.biglietti}" />
+													</div>
+
 													<input type="hidden" name="eventId" th:value="${eventoselezionato.id}" />
 													<button type="submit" class="btn btn-danger btn-block">Conferma</button>
 													<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Annulla</button>

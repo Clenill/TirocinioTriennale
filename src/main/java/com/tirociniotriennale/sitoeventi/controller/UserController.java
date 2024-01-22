@@ -1,9 +1,6 @@
 package com.tirociniotriennale.sitoeventi.controller;
 
-import com.tirociniotriennale.sitoeventi.repository.EventoRepository;
-import com.tirociniotriennale.sitoeventi.repository.FaqRepository;
-import com.tirociniotriennale.sitoeventi.repository.OrdineRepository;
-import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
+import com.tirociniotriennale.sitoeventi.repository.*;
 import com.tirociniotriennale.sitoeventi.service.EventoService;
 import com.tirociniotriennale.sitoeventi.service.UserService;
 import com.tirociniotriennale.sitoeventi.util.HtmlToPdfConverter;
@@ -41,6 +38,8 @@ public class UserController {
     private OrdineRepository ordineRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TipologiaRepository tipologiaRepository;
 
     //--------------------------------------------
     public UserController(EventoService eventoService){// aggiunto costruttore
@@ -59,7 +58,8 @@ public class UserController {
                 model.addAttribute("nomeutente", username);
             }
         }
-
+        Iterable<Evento> eventiperdata = eventoRepository.findAllByOrderByLocalDateAsc();
+        gae.addObject("eventidata", eventiperdata);
         gae.addObject("tuttieventi", eventoRepository.findAll());
         return gae;
     }
@@ -76,6 +76,7 @@ public class UserController {
                 model.addAttribute("nomeutente", username);
             }
         }
+        mava.addObject("tipologie", tipologiaRepository.findAll());
         mava.addObject("tuttiglieventi", eventoRepository.findAll());
         return mava;
     }
@@ -329,6 +330,38 @@ public class UserController {
 
        return dei;
 
+    }
+    @GetMapping("/user/filtra")
+    public ModelAndView filtraUser(@RequestParam(name = "tipologia", required = false) String tipologia
+            , Model model){
+        ModelAndView fep = new ModelAndView("user/ricerca");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        UserDetails userDetails= (UserDetails) principal;
+        String username = userDetails.getUsername();
+        model.addAttribute("nomeutente", username);
+        Collection<? extends GrantedAuthority> collectionautorita = userDetails.getAuthorities();
+        String primaAut = collectionautorita.iterator().next().getAuthority();
+        model.addAttribute("autorita", primaAut);
+
+        int idtipologia = 0;
+
+        if(tipologia != null && !tipologia.isEmpty()){
+            idtipologia = Integer.parseInt(tipologia);
+        }
+
+
+        if(idtipologia != 0 && idtipologia <= 4){
+            Iterable<Evento> tipologiaricerca = eventoRepository.findByTipologiaIdtipologia(idtipologia);
+            fep.addObject("tuttiglieventi", tipologiaricerca);
+        }else{
+            Iterable<Evento> tutti = eventoRepository.findAll();
+            fep.addObject("tuttiglieventi", tutti);
+        }
+
+
+        fep.addObject("tipologie", tipologiaRepository.findAll());
+        return fep;
     }
 
 }

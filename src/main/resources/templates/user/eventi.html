@@ -13,7 +13,59 @@
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	   <style>
+		   /* Spaziatura tra le celle */
+		   .table td {
+			   padding: 30px; /* Puoi regolare la spaziatura a tuo piacimento */
+			   border: none;
+			   text-align: center;
+		   }
 
+		   .custom-modal-footer {
+			   justify-content: center;
+			   margin-top: 30px;
+		   }
+		   .custom-modal-footer .btn {
+			   width: 150px; /* Imposta la larghezza desiderata */
+			   height: 40px;
+			   margin-top: 15px;
+			   margin-bottom: 10px;
+			   margin-right: 10px;
+
+		   }
+		   /* Stile specifico per il pulsante btn-block */
+		   .custom-modal-footer .btn-block {
+			   background-color: #00c9d0;
+			   color: #fff;
+			   border: 2px solid #00c9d0; /* Aumentato lo spessore del bordo */
+			   padding: 8px 16px; /* Aumentato il padding */
+			   margin-left: 140px;
+		   }
+
+		   /* Hover e focus per il pulsante btn-block */
+		   .custom-modal-footer .btn.btn-block:hover,
+		   .custom-modal-footer .btn.btn-block:focus {
+			   background-color: #007c80;
+			   border: 2px solid #007c80;
+			   color: #fff;
+		   }
+		   /* Stile specifico per il pulsante btn-blockdue */
+		   .custom-modal-footer .btn.btn-blockdue {
+			   background-color: #8ac92c;
+			   color: #fff;
+			   border: 2px solid #8ac92c; /* Aumentato lo spessore del bordo */
+			   padding: 8px 16px; /* Aumentato il padding */
+			   margin-left: 0px;
+		   }
+
+		   /* Hover e focus per il pulsante btn-blockdue */
+		   .custom-modal-footer .btn.btn-blockdue:hover,
+		   .custom-modal-footer .btn.btn-blockdue:focus {
+			   background-color: #039d06;
+			   border: 2px solid #039d06;
+			   color: #fff;
+		   }
+	   </style>
 
 
 
@@ -37,14 +89,28 @@
 
 		  <hr/>
 
+		  <div class="row" style="display: flex;">
+			  <form th:action="@{/user/filtra}" method="get" style="display: flex;">
+				  <span style="margin-right: 5px;margin-top: 15px;">Tipologie:</span>
+				  <select id="tipologia" name="tipologia" style="height: 40px; margin-top: 10px;">
+					  <option th:selected="${#strings.isEmpty(param.tipologia)}" value="0" th:text="Tutte"></option>
+					  <option th:each="tipo : ${tipologie}" th:value="${tipo.idtipologia}" th:text="${tipo.tipologia}" th:name="selectedTipologia"></option>
+				  </select>
+
+				  <button type="submit" class="btn btn-primary" style="padding: 6px 12px; margin-left: 10px;width: 80px; height: 40px; margin-top: 10px;">Filtra</button>
+			  </form>
+		  </div>
+
 		  <table class="table table-bordered table-striped">
 
 			  <thead>
 			  <tr>
 				  <th></th>
 				  <th>Nome Evento</th>
-
+				  <th>Luogo Evento</th>
 				  <th>Biglietti rimanenti</th>
+				  <th>Data Evento</th>
+				  <th></th>
 			  </tr>
 			  </thead>
 			  <tbody>
@@ -52,12 +118,19 @@
 
 				  <td class="image-card" >
 					  <a th:href="@{'/user/evento/'+${eventi.id}}">
-					  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
+						  <img src="/images/events/default.jpg" alt="" th:attr="src=${'/images/events/' + eventi.nomeimmagine}">
 					  </a>
 				  </td>
 				  <td th:text="${eventi.nomeevento}" />
-
+				  <td th:text="${eventi.luogoevento}"></td>
 				  <td th:text="${eventi.getBiglietirimanenti()}" />
+				  <td th:text="${eventi.getLocalDate()}"></td>
+				  <td class="acquista-btn">
+					  <a th:href="@{'/user/evento/'+${eventi.id}}">
+						  <button type="button" class="btn-acquista">Acquista</button>
+					  </a>
+
+				  </td>
 			  </tr>
 			  </tbody>
 

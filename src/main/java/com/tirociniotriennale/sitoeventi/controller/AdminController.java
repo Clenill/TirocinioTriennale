@@ -227,29 +227,6 @@ public class AdminController {
 
     }
 
-    /*
-    @GetMapping({"/admin/addevento"}) //Cattura l'url può venire anche da un bottone! con th:href=@{/addevento}
-    // al suo interno tipo <a th:href.. class=..></a> io l'ho fatto con link per ora
-    public ModelAndView aggiungiEventoAdmin(){
-        try {
-            ModelAndView neva = new ModelAndView("admin/aggiungievento");
-            Evento nuovoEvento = new Evento();
-            neva.addObject("eventissimo", nuovoEvento);
-            return neva;
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    @RequestMapping(value = "/admin/salvaevento", method= RequestMethod.POST)
-    public String salvaEventoAdmin(@ModelAttribute Evento evento){
-
-        System.out.println("INIZIO METODO SALVAEVENTO");
-        eventoReposi.save(evento);
-        return "admin/eventi";
-    }
-*/
 //prendo la faq da modificare
     @GetMapping("/admin/modificafaq")// se funziona posso provare un post perché più sicuro
     public ModelAndView paginaModificaFaq(@RequestParam ("id") int id, RedirectAttributes redirectAttributes){
