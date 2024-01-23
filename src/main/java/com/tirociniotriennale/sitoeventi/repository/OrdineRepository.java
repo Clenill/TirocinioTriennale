@@ -9,3 +9,5 @@ import com.tirociniotriennale.sitoeventi.model.Ordine;
 public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
     Iterable<Ordine> findByUtente(Utente utente);
 }
+
+

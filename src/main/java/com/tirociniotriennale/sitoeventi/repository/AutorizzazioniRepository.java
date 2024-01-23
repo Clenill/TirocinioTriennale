@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface AutorizzazioniRepository extends JpaRepository<Autorizzazioni, Integer> {
     Optional<Autorizzazioni> getByRuolo(String ruolo);
+    Optional<Autorizzazioni> findByRuolo(String ruolo);
 
     Iterable<Autorizzazioni> getAllByRuolo(String ruolo);
 

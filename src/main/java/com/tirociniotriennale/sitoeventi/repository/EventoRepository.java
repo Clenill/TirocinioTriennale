@@ -16,13 +16,8 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     // spring tipizza il nome del metodo e fa una ricerca in base al parametro che gli passo! TOP!
 //Derived Query utilizzate da Spring Data JPA
     Optional<Evento> findById(int id);
-    //elenco degli eventi associati all'user
-    //Iterable<Evento> findAllByUser(String user);
-    //Serve solo verificare che ci siano eventi associati all'user
-    //quindi se ne trovo uno va benissimo, qualsiasi sia
-    //Optional<Evento> findFirstByUser(String user);
 
-    Iterable<Evento> findByNomeevento(String nomeevento); // Tasto cerca, da modificare e
+    Iterable<Evento> findByNomeevento(String nomeevento);
 
     Iterable<Evento> findAllByOrderByLocalDateAsc();
     Optional<Evento> findFirstByUtenteevento(Utente utente);

@@ -33,22 +33,6 @@ import static org.springframework.security.config.annotation.web.builders.HttpSe
 @EnableWebSecurity
 public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    //@Autowired
-    //private UserDetailsService userDetailsService;
-
-/*
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login").permitAll()
-                        .anyRequest().authenticated() //.anyRequest().authenticated()
-                ).formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .permitAll());
-
-        return http.build();
-    }
-*/
 @Autowired
 private DataSource dataSource;
 
@@ -111,38 +95,7 @@ private DataSource dataSource;
     }
 
     //Metodo preso e da adattare
-/*
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/public").permitAll()
-                        .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/index").permitAll()
-                        .requestMatchers("/eventi").permitAll()
-                        .requestMatchers("/faq").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers("/403").permitAll()
-                        .requestMatchers("/evento").permitAll()
-                        .requestMatchers("/evento/**").permitAll()
-                        .requestMatchers("/partner").permitAll()
-                        .requestMatchers("/admin").hasRole("admin")
-                        .requestMatchers("/admin/**").hasRole("admin")//un possibile problema è che userDetails da autorizzazione org, e forse la compara con ROLE_org.
-                     //   .requestMatchers("/org").hasRole("org")
-                       // .requestMatchers("/org/**").hasRole("org")
-                        .requestMatchers("/user").hasRole("user")// --------------da USER a user -----------------
-                        .requestMatchers("/user/**").hasRole("user")
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        ).formLogin(Customizer.withDefaults());
 
-
-        .formLogin(formLogin -> formLogin
-                        .loginPage("/login").permitAll());
-
-
-        return http.build();
-
-    }
-*/
 
 
 
