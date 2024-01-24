@@ -39,7 +39,7 @@ public class OrgController {
     OrdineRepository ordineRepository;
 
     @GetMapping({"/org/index", "/org", "/org/" })
-    public ModelAndView getOrgIndex(@RequestParam(name = "continue", required = false) String continueParam, Model model){
+    public ModelAndView getOrgIndex(@RequestParam(name = "continue", required = false) String continueParam, Model model, RedirectAttributes redirectAttributes){
         //Ottengo l'oggetto Authentication corrente
 
         ModelAndView goi = new ModelAndView("org/index");
@@ -148,22 +148,31 @@ public class OrgController {
 
     // metodo per salvare un evento
     @RequestMapping(value = "/org/salvaevento", method= RequestMethod.POST)
-    public ModelAndView salvaEvento(@Valid @ModelAttribute("eventissimo") Evento eventissimo, BindingResult bindingResult,
-                                    Model model){
+    public String salvaEvento(@Valid @ModelAttribute("eventissimo") Evento eventissimo, BindingResult bindingResult,
+                                    Model model, RedirectAttributes redirectAttributes){
+        LocalDate dataodierna = LocalDate.now();
+        Iterable<Tipologia> tipoT = tipologiaRepository.findAll();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-
-
         int idTipo = eventissimo.getTipologia().getIdtipologia();
+
+        if(eventissimo.getLocalDate().isBefore(dataodierna)){
+            redirectAttributes.addFlashAttribute("messaggiodata", "La data deve essere successiva a oggi!");
+            eventissimo.setLocalDate(null);
+            model.addAttribute("eventissimo", eventissimo);
+            model.addAttribute("tipologie", tipoT);
+            return "redirect:/org/addevento";
+        }
+
+
 
         if(bindingResult.hasErrors()) {//Nel caso di errore mi perde le tipologie quindi creo ModelAndView
 
-            ModelAndView nan = new ModelAndView("org/aggiungievento");
-            Iterable<Tipologia> tipoT = tipologiaRepository.findAll();
+
+
             eventissimo.setLocalDate(null);
-            nan.addObject("eventissimo", eventissimo);
-            nan.addObject("tipologie", tipoT);
-            return nan;
+            redirectAttributes.addFlashAttribute("eventissimo", eventissimo);
+            redirectAttributes.addFlashAttribute("tipologie", tipoT);
+            return "redirect:/org/addevento";
 
         }
 
@@ -178,6 +187,9 @@ public class OrgController {
             }
         }
 
+        if(eventissimo.getNomeimmagine() == null || eventissimo.getNomeimmagine().isEmpty()){
+            eventissimo.setNomeimmagine("default.jpg");
+        }
 
         tipologiaRepository.findById(idTipo).ifPresent(tipoSelezionato -> {
             eventissimo.setTipologia(tipoSelezionato);
@@ -186,14 +198,10 @@ public class OrgController {
         });
 
         //Aggiunta di attributo "messaggio" al model
-        model.addAttribute("messaggio", "Evento  salvato con successo!");
+        redirectAttributes.addFlashAttribute("messaggiogreen", "Evento salvato con successo!");
         //In caso di successo faccio una return con evento vuoto!
-        ModelAndView nev = new ModelAndView("org/aggiungievento");
-        Evento nuovoEvento = new Evento();
-        Iterable<Tipologia> tipoT = tipologiaRepository.findAll();
-        nev.addObject("eventissimo", nuovoEvento);
-        nev.addObject("tipologie", tipoT);
-        return nev;
+
+        return "redirect:/org/index";
 
     }
 
@@ -261,10 +269,15 @@ public class OrgController {
             bindingResult.rejectValue("bigliettimax", "biglietti.invalidi", "I biglietti massimi non possono essere meno dei biglietti già venduti");
         }
 
-
+        LocalDate dataodierna = LocalDate.now();
+        if(eventomodificato.getLocalDate().isBefore(dataodierna)){
+            redirectAttributes.addFlashAttribute("messaggiored","La data deve essere successiva a oggi!");
+            return "redirect:/org/modificaevento?id="+eventomodificato.getId();
+        }
 
         if(bindingResult.hasErrors()){
-            return "redirect:/org/modificaevento";
+            redirectAttributes.addFlashAttribute("messaggiored","Modifiche non permesse!");
+            return "redirect:/org/modificaevento?id="+eventomodificato.getId();
         }
 
         int nuovobigliettirim = eventomodificato.getBigliettimax() - bigliettiassegnati;

@@ -51,7 +51,10 @@
 	  <div class="container">
 
 		  <div th:if="${messaggio}">
-		  		<p th:text="${messaggio}" style="color: green;"></p>
+		  		<p th:text="${messaggio}" style="color: green; margin-top: 20px; margin-left: 20px; margin-bottom: 20px; font-size: 20px;"></p>
+		  </div>
+		  <div th:if="${messaggiored}">
+			  <p th:text="${messaggiored}" style="color: darkred; margin-top: 20px; margin-left: 20px; margin-bottom: 20px; font-size: 20px;"></p>
 		  </div>
 
 		  <div th:if="${validationErrors}">

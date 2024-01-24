@@ -48,7 +48,10 @@
 	  <div class="container">
 
 		  <div th:if="${messaggio}">
-		  		<p th:text="${messaggio}" style="color: green;"></p>
+		  		<p th:text="${messaggio}" style="color: green; margin-top: 20px; margin-left: 20px; margin-bottom: 20px; font-size: 20px;"></p>
+		  </div>
+		  <div th:if="${messaggiodata}">
+			  <p th:text="${messaggiodata}" style="color: darkred; margin-top: 20px; margin-left: 20px; margin-bottom: 20px; font-size: 20px;"></p>
 		  </div>
 
 		  <div th:if="${validationErrors}">
@@ -68,25 +71,25 @@
 
 			  <p>Nome Evento:</p>
 			  <input type="text" name="nomeevento" value="" id="nomeevento" placeholder="Nome dell'evento"
-					 required="required" autofocus="autofocus" th:value="*{nomeevento}"/>
+					 required="required" autofocus="autofocus" th:field="*{nomeevento}"/>
 			  <span th:if="${#fields.hasErrors('nomeevento')}" th:errors="*{nomeevento}" style="color: darkred;">Non può essere Nullo</span>
 
 			  <p>Descrizione breve dell'evento:</p>
 			  <input type="text" name="descbrv" value="" id="descbrv" placeholder="Concerto in do minore..."
-					 required="required" autofocus="autofocus" th:value="*{descbrv}"/>
+					 required="required" autofocus="autofocus" th:field="*{descbrv}"/>
 
 
 			  <p>Descrizione accurata dell'evento:</p>
 			  <textarea type="text" name="desclong" value="" id="desclong" placeholder="Concerto in do minore..."
-						required="required" autofocus="autofocus" th:value="*{desclong}"></textarea>
+						required="required" autofocus="autofocus" th:field="*{desclong}"></textarea>
 
 			  <p>Luogo evento:</p>
 			  <input type="text" name="luogoevento" value="" id="luogoevento" placeholder="Milano"
-					 required="required" autofocus="autofocus" th:value="*{luogoevento}"/>
+					 required="required" autofocus="autofocus" th:field="*{luogoevento}"/>
 
 			  <p>Nome immagine:</p>
-			  <input type="text" name="nomeimmagine" value="" id="nomeimmagine" placeholder="Caparezza.jpg"
-					 required="required" autofocus="autofocus" th:value="*{nomeimmagine}"/>
+			  <input type="text" name="nomeimmagine" value="" id="nomeimmagine" placeholder="default.jpg"
+					 th:field="*{nomeimmagine}"/>
 
 			  <p>Data evento:</p>
 			  <input type="date" name="localDate" value="" id="localDate" placeholder="yyyy-mm-dd"
@@ -101,7 +104,7 @@
 
 			  <p>Biglietti Disponibili per l'evento:</p>
 			  <input type="number" name="bigliettimax" value="" id="bigliettimax" placeholder="150"
-					 required="required" autofocus="autofocus" th:value="*{bigliettimax}"/>
+					 required="required" autofocus="autofocus" th:field="*{bigliettimax}"/>
 			  <span th:if="${#fields.hasErrors('bigliettimax')}" th:errors="*{bigliettimax}" style="color: darkred;">Inserire numero valido maggiore di 2</span>
 
 
