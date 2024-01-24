@@ -1,6 +1,9 @@
 package com.tirociniotriennale.sitoeventi.controller;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +18,7 @@ import java.util.Collection;
 public class MyErrorController implements ErrorController{
 
     @RequestMapping("/error")
-    public String gestioneErrori(Model model) {
+    public String gestioneErrori(HttpServletRequest request,Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //Verifico che l'utente è autenticato
         if (authentication.isAuthenticated()){
@@ -34,6 +37,19 @@ public class MyErrorController implements ErrorController{
             }
         }
         model.addAttribute("validationErrors", "");
+
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if(status != null){
+            Integer statusCode = Integer.valueOf(status.toString());
+
+            if(statusCode == HttpStatus.FORBIDDEN.value()){
+                return "403";
+            }
+
+        }
+
+
+
         return "error";
     }
 
