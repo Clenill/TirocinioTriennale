@@ -17,5 +17,7 @@ public interface EventoService {
 
     Iterable<Evento> getEventiPerIdTipologia(int idtipo);
 
+    Iterable<Evento> cercaPerNome(String nome);
+
 
 }

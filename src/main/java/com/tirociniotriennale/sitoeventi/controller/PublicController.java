@@ -19,6 +19,7 @@ import com.tirociniotriennale.sitoeventi.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -146,14 +147,17 @@ public class PublicController {
 
             }
         }
-        Iterable<Evento> eventiPerNome = eventoRepo.findByNomeevento(search);
 
-        if (!eventiPerNome.iterator().hasNext()) {
+
+        Iterable<Evento> ricercaParzialeNome = eventoServ.cercaPerNome(search);
+
+        if (ricercaParzialeNome == null) {
             // L'iterable è vuoto, aggiungo un messaggio al model
             model.addAttribute("messaggio", "Nessun evento trovato per la ricerca: " + search);
+            ricercaParzialeNome = Collections.emptyList();// se la ricerca è null aggiungo una lista vuota
         }
 
-        mava.addObject("eventicercati", eventiPerNome);
+        mava.addObject("eventicercati", ricercaParzialeNome);
         return mava;
     }
 

@@ -48,6 +48,16 @@ public class EventoServiceImpl implements EventoService{
 
     }
 
+    public Iterable<Evento> cercaPerNome(String nome){
+
+        if(nome.length() > 3){
+            return eventoRepository.searchByNomeeento(nome);
+        }
+
+        return null;
+
+    }
+
     @Override // COntiente l'implementazione di find by id ho  modificato anche application.properties su none al posto di altro
     public Optional<Evento> findById(int id){// inettato con Override
 
