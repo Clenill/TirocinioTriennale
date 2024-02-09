@@ -7,4 +7,6 @@ public interface UserService {
 
    public Boolean salvaModificheUtente(Utente utente);
 
+   public Boolean salvaNuovoUtene(Utente utente);
+
 }

@@ -1,7 +1,9 @@
 package com.tirociniotriennale.sitoeventi.service;
 
 
+import com.tirociniotriennale.sitoeventi.model.Autorizzazioni;
 import com.tirociniotriennale.sitoeventi.model.Utente;
+import com.tirociniotriennale.sitoeventi.repository.AutorizzazioniRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService{
 
+    @Autowired
+    private AutorizzazioniRepository autorizzazioniRepository;
     private final UtenteRepository utenteRepository;
 
     @Autowired
@@ -36,6 +40,26 @@ public class UserServiceImpl implements UserService{
 
         return false;
 
+    }
+
+    public Boolean salvaNuovoUtene(Utente utente){
+
+        utente.setEnebled(true);
+        Autorizzazioni autor = new Autorizzazioni();
+        autor.setRuolo("user");
+        autor.setUtenteAut(utente);
+        Optional<Utente> cercaSeEsisteUser = utenteRepository.findById(utente.getUser());
+        if (cercaSeEsisteUser.isPresent()){
+
+            utente.setUser(null);
+            return false;
+        }
+
+
+        utenteRepository.save(utente);
+        autorizzazioniRepository.save(autor);
+
+        return true;
     }
 
 }

@@ -187,7 +187,7 @@ public class Evento {
     }
     
     @OneToMany(mappedBy = "ordineevento", 
-    		fetch = FetchType.EAGER)// ad un evento ci sono associati più ordini
+    		fetch = FetchType.EAGER)// ad un evento ci sono associati più ordini doverbbe essere lazy per evitare recuperi quando non necessario
     private Set<Ordine> ordini;
     public Set<Ordine> getOrdini(){
     	return ordini;

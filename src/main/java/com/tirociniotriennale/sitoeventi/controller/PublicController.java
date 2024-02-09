@@ -8,6 +8,7 @@ import com.tirociniotriennale.sitoeventi.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,12 +41,12 @@ public class PublicController {
 
     @GetMapping({"/public", "/public/index", "/public/", "/", "/index"})
     public  ModelAndView getAllEventPublic(Model model, RedirectAttributes redirectAttributes){
-        //Verifica dettagli utente se loggato,
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //Verifico che l'utente è autenticato
+
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+
         if (authentication.isAuthenticated()){
             Object principal = authentication.getPrincipal();
-            // casting del principal se è un'istanza di UserDetails
             if(principal instanceof UserDetails){
                 UserDetails userDetails = (UserDetails) principal;
                 String username = userDetails.getUsername();

@@ -4,6 +4,7 @@ import com.tirociniotriennale.sitoeventi.model.*;
 
 import com.tirociniotriennale.sitoeventi.repository.AutorizzazioniRepository;
 import com.tirociniotriennale.sitoeventi.repository.UtenteRepository;
+import com.tirociniotriennale.sitoeventi.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class SignupController {
     private UtenteRepository utenteRepository;
     @Autowired
     private AutorizzazioniRepository autorizzazioniRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/public/registrati")
     public ModelAndView registraUtente(Model model) {
@@ -35,27 +38,21 @@ public class SignupController {
 
     @RequestMapping(value = "/public/salvautente", method= RequestMethod.POST)
     public String salvaUtente(@Valid @ModelAttribute Utente utente, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        Boolean registrato = false;
 
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("messaggiored", "La password deve avere almeno 3 caratteri");
             return "redirect:/public/registrati";
         }
-        utente.setEnebled(true);
-        Autorizzazioni autor = new Autorizzazioni();
-        autor.setRuolo("user");
-        autor.setUtenteAut(utente);
-        Optional<Utente> cercaSeEsisteUser = utenteRepository.findById(utente.getUser());
-        if (cercaSeEsisteUser.isPresent()){
-            utente.setUser(null);
+
+        registrato = userService.salvaNuovoUtene(utente);
+
+        if(!registrato){
             redirectAttributes.addFlashAttribute("messaggiored","Nome utente già esistente," +
                     "impossibile completare l'operazione");
             return "redirect:/public/registrati";
-
         }
 
-
-        utenteRepository.save(utente);
-        autorizzazioniRepository.save(autor);
         redirectAttributes.addFlashAttribute("messaggio", "Utente Salvato!");
         return "redirect:/public/index";
     }
