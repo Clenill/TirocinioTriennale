@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    public Boolean salvaNuovoUtene(Utente utente){
+    public Boolean salvaNuovoUtente(Utente utente){
 
         utente.setEnebled(true);
         Autorizzazioni autor = new Autorizzazioni();

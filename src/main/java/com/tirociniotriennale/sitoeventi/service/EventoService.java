@@ -15,5 +15,7 @@ public interface EventoService {
 
     Iterable<Evento> getEventi();
 
+    Iterable<Evento> getEventiPerIdTipologia(int idtipo);
+
 
 }

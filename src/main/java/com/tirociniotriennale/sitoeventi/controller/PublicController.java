@@ -187,16 +187,20 @@ public class PublicController {
     @GetMapping("/public/filtra")
     public ModelAndView filtraPublic(@RequestParam(name = "tipologia", required = false) String tipologia
            , Model model){
+
+        ModelAndView fep = new ModelAndView("public/ricerca");
         int idtipologia = 0;
 
         if(tipologia != null && !tipologia.isEmpty()){
             idtipologia = Integer.parseInt(tipologia);
         }
 
-        ModelAndView fep = new ModelAndView("public/ricerca");
+        //se tipologia = 0 allora non si applica nessun filtro e voglio tutti gli eventi
+
         if(idtipologia != 0){
-            Iterable<Evento> tipologiaricerca = eventoRepo.findByTipologiaIdtipologia(idtipologia);
-            fep.addObject("tuttiglieventi", tipologiaricerca);
+            Iterable<Evento> eventipertipologiaricerca = eventoServ.getEventiPerIdTipologia(idtipologia);
+            fep.addObject("tuttiglieventi", eventipertipologiaricerca);
+
         }else{
             Iterable<Evento> tutti = eventoRepo.findAll();
             fep.addObject("tuttiglieventi", tutti);

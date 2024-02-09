@@ -1,6 +1,8 @@
 package com.tirociniotriennale.sitoeventi.service;
 
 import com.tirociniotriennale.sitoeventi.model.Evento;
+import com.tirociniotriennale.sitoeventi.model.Tipologia;
+import com.tirociniotriennale.sitoeventi.repository.TipologiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class EventoServiceImpl implements EventoService{
     private final EventoRepository eventoRepository;
 
     @Autowired
+    private TipologiaRepository tipologiaRepository;
+
+    @Autowired
     public EventoServiceImpl(EventoRepository eventoRepository){
 
         this.eventoRepository = eventoRepository;
@@ -25,6 +30,21 @@ public class EventoServiceImpl implements EventoService{
     public Evento createEvento(Evento event){
 
         return eventoRepository.save(event);
+
+    }
+
+    public Iterable<Evento> getEventiPerIdTipologia(int idtipo){
+
+        //cerco l'ultimo numero di idtipologia
+        long numtutteletipologie = tipologiaRepository.count();
+        Iterable<Evento> tipologiaricerca = null;
+
+        //prelevo i tipi di eventi in base alla tipologia scelta
+        if(idtipo > 0 && idtipo <= numtutteletipologie){
+            tipologiaricerca = eventoRepository.findByTipologiaIdtipologia(idtipo);
+        }
+
+        return tipologiaricerca;
 
     }
 
@@ -40,6 +60,7 @@ public class EventoServiceImpl implements EventoService{
         return eventoRepository.findAll();
 
     }
+
 
 
 }

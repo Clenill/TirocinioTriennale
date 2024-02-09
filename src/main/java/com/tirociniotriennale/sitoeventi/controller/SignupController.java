@@ -45,7 +45,7 @@ public class SignupController {
             return "redirect:/public/registrati";
         }
 
-        registrato = userService.salvaNuovoUtene(utente);
+        registrato = userService.salvaNuovoUtente(utente);
 
         if(!registrato){
             redirectAttributes.addFlashAttribute("messaggiored","Nome utente già esistente," +
