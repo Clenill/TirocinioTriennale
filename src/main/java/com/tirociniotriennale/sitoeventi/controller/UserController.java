@@ -32,16 +32,17 @@ public class UserController {
     private UtenteRepository utenteRepository;
     @Autowired
     private FaqRepository faqRepository;
-    @Autowired
+
     private final EventoService eventoService;
     @Autowired
     private OrdineRepository ordineRepository;
-    @Autowired
+
     private final UserService userService;
     @Autowired
     private TipologiaRepository tipologiaRepository;
 
     //--------------------------------------------
+    @Autowired
     public UserController(EventoService eventoService, UserService userService){// aggiunto costruttore
 
         this.userService = userService;
