@@ -37,13 +37,16 @@ public class UserController {
     @Autowired
     private OrdineRepository ordineRepository;
     @Autowired
-    private UserService userService;
+    private final UserService userService;
     @Autowired
     private TipologiaRepository tipologiaRepository;
 
     //--------------------------------------------
-    public UserController(EventoService eventoService){// aggiunto costruttore
+    public UserController(EventoService eventoService, UserService userService){// aggiunto costruttore
+
+        this.userService = userService;
         this.eventoService = eventoService;
+
     }
 
     @GetMapping({"/user", "/user/index", "/user/"})
