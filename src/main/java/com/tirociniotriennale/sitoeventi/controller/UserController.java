@@ -26,27 +26,34 @@ import java.util.Optional;
 
 @Controller
 public class UserController {
-    @Autowired
-    private EventoRepository eventoRepository;
-    @Autowired
-    private UtenteRepository utenteRepository;
-    @Autowired
-    private FaqRepository faqRepository;
+
+    private final EventoRepository eventoRepository;
+
+    private final UtenteRepository utenteRepository;
+    private final FaqRepository faqRepository;
 
     private final EventoService eventoService;
-    @Autowired
-    private OrdineRepository ordineRepository;
+
+    private final OrdineRepository ordineRepository;
 
     private final UserService userService;
-    @Autowired
-    private TipologiaRepository tipologiaRepository;
+
+    private final TipologiaRepository tipologiaRepository;
 
     //--------------------------------------------
     @Autowired
-    public UserController(EventoService eventoService, UserService userService){// aggiunto costruttore
+    public UserController(EventoService eventoService, UserService userService, FaqRepository faqRepository,
+                          EventoRepository eventoRepository, UtenteRepository utenteRepository, OrdineRepository ordineRepository,
+                          TipologiaRepository tipologiaRepository){
+        // iniezione tramite costruttore
 
+        this.eventoRepository = eventoRepository;
+        this.utenteRepository = utenteRepository;
+        this.faqRepository = faqRepository;
         this.userService = userService;
         this.eventoService = eventoService;
+        this.ordineRepository = ordineRepository;
+        this.tipologiaRepository = tipologiaRepository;
 
     }
 
