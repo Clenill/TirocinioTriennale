@@ -367,19 +367,20 @@ public class UserController {
         //recupero l'ordine tramite l'id
         Optional<Ordine> ordineScelto = ordineRepository.findById(id);
         Ordine ordinescelto = ordineScelto.get();
-        BigDecimal biglietti = new BigDecimal(ordinescelto.getBiglietti());
-        BigDecimal prezzo = ordinescelto.getEvento().getPrezzo();
-        BigDecimal pagamento = biglietti.multiply(prezzo);
-        dei.addObject("pagamento", pagamento);
+
         dei.addObject("ordinescelto", ordinescelto);
 
         // Aggiorna il contenuto HTML con i dettagli dell'ordine
         String htmlContent = "<html><body>"
+                + "<img src='classpath:/static/images/logo.png' alt='Logo' width='210' height='80'>"
                 + "<h2>Dettagli Ordine:</h2>"
                 + "<p>Id Ordine: " + ordinescelto.getIdordine() + "</p>"
+                + "<p>Ordine effettuato da: " + ordinescelto.getUtente().getUser() + "</p>"
                 + "<p>Nome Evento: " + ordinescelto.getEvento().getNomeevento() + "</p>"
+                + "<p>L'evento si svolgerà il: " + ordinescelto.getEvento().getLocalDate() + "</p>"
+                + "<p>L'evento avrà luogo a: " + ordinescelto.getEvento().getLuogoevento() + "</p>"
                 + "<p>Numero Biglietti: " + ordinescelto.getBiglietti() + "</p>"
-                + "<p>Pagamento: " + pagamento + "</p>"
+                + "<p>Pagamento: " + ordinescelto.getTotpagamento() + "</p>"
                 + "</body></html>";
 
         // Chiamata alla funzione di conversione HTML-to-PDF

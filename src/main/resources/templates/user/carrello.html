@@ -101,7 +101,7 @@
                     <div th:if="${#lists.size(ordiniutente) > 0}">
                     <form th:action="@{/user/procedipagamento}" method="post">
                         <input type="hidden" name="nomeutente" th:value="${nomeutente}" />
-                        <button type="submit">Procedi al pagamento</button>
+                        <button type="submit" class="pulsanteformok">Procedi al pagamento</button>
                     </form>
                     </div>
                 </td>
