@@ -6,6 +6,7 @@ import com.tirociniotriennale.sitoeventi.service.UserService;
 import com.tirociniotriennale.sitoeventi.util.HtmlToPdfConverter;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +23,11 @@ import java.io.IOException;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Optional;
+
+import static java.util.Spliterators.iterator;
 
 @Controller
 public class UserController {
@@ -206,6 +211,44 @@ public class UserController {
         return "redirect:/user/modificadatiutente";
 
     }
+    //carrello
+    @GetMapping({"/user/carrello"})
+    public ModelAndView carrelloUser(Model model){
+        ModelAndView carr = new ModelAndView("/user/carrello");
+        String username = null;
+        BigDecimal totaledapagare = new BigDecimal(0);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()){
+            Object principal = authentication.getPrincipal();
+            if(principal instanceof UserDetails){
+                UserDetails userDetails = (UserDetails) principal;
+                username = userDetails.getUsername();
+                Collection<? extends GrantedAuthority> collectionautorita = userDetails.getAuthorities();
+                String primaAut = collectionautorita.iterator().next().getAuthority();
+                model.addAttribute("autorita", primaAut);
+                model.addAttribute("nomeutente", username);
+            }
+        }
+        // cerco l'utente tramite l'username e poi provvedo a reperire tutti gli ordini
+        Optional<Utente> utenteloggato = utenteRepository.findById(username);
+        Utente utentelog = utenteloggato.get();
+
+        //prelevo gli ordini, quelli non ancora pagati.
+        Iterable<Ordine> ordininonpagati = ordineRepository.findByUtenteAndPagatoFalse(utentelog);
+
+        for(Ordine ordine : ordininonpagati){
+            totaledapagare = totaledapagare.add(BigDecimal.valueOf(ordine.getTotpagamento()));
+        }
+
+        model.addAttribute("ordiniutente", ordininonpagati);
+        model.addAttribute("totaledapagare", totaledapagare);
+
+        return carr;
+
+    }
+
+
+
     //tasto cerca
 
     @GetMapping({"/user/cerca"})
@@ -228,11 +271,12 @@ public class UserController {
 
             }
         }
-        Iterable<Evento> eventiPerNome = eventoRepository.findByNomeevento(search);
+        Iterable<Evento> eventiPerNome = eventoService.cercaPerNome(search);
 
-        if (!eventiPerNome.iterator().hasNext()) {
+        if (eventiPerNome == null) {
             // L'iterable è vuoto, aggiungo un messaggio al model
             model.addAttribute("messaggio", "Nessun evento trovato per la ricerca: " + search);
+            eventiPerNome = Collections.emptyList();
         }
 
         mava.addObject("eventicercati", eventiPerNome);
@@ -271,11 +315,17 @@ public class UserController {
         eventoRepository.save(eventoacquisto);
         ordine.setEvento(eventoacquisto);
         ordine.setUtente(utenteOrdine);
-        ordineRepository.save(ordine);
-        redirectAttributes.addFlashAttribute("messaggio", "Ordine effettuato con Successo!");
+        //setto pagato su false in modo da poter vedere l'ordine pendente nel carrello
+        ordine.setPagato(false);
+        //prelevo i biglietti e il prezzo e lo converto in float
         BigDecimal biglietti = new BigDecimal(ordine.getBiglietti());
         BigDecimal prezzo = ordine.getEvento().getPrezzo();
-        BigDecimal pagamento = biglietti.multiply(prezzo);
+        BigDecimal importototale = prezzo.multiply(biglietti);
+        float pagamento = importototale.floatValue();
+        ordine.setTotpagamento(pagamento);
+
+        ordineRepository.save(ordine);
+        redirectAttributes.addFlashAttribute("messaggio", "Ordine effettuato con Successo!");
 
 
         return "redirect:/user/evento/"+eventId;
@@ -291,12 +341,13 @@ public class UserController {
         model.addAttribute("nomeutente", username);
         Optional<Utente> utente = utenteRepository.findById(username);
         Iterable<Ordine> ordineUtente = ordineRepository.findByUtente(utente.get());
+        Iterable<Ordine> ordinieffettuati = ordineRepository.findByUtenteAndPagatoTrue(utente.get());
         if (!ordineUtente.iterator().hasNext()) {
             // L'iterable è vuoto, aggiungo un messaggio al model
             model.addAttribute("messaggio", "Nessun ordine trovato ");
             return lpu;
         }
-        lpu.addObject("ordiniutente", ordineUtente);
+        lpu.addObject("ordiniutente", ordinieffettuati);
 
         return lpu;
 
@@ -373,6 +424,27 @@ public class UserController {
 
         fep.addObject("tipologie", tipologiaRepository.findAll());
         return fep;
+    }
+
+    @PostMapping("/user/procedipagamento")
+    public String procedipagamento(@RequestParam("nomeutente") String nomeutente, RedirectAttributes redirectAttributes){
+        //prelevo l'oggetto utente
+        Optional<Utente> utentepagante = utenteRepository.findById(nomeutente);
+        Iterable<Ordine> ordinipendenti = ordineRepository.findByUtenteAndPagatoFalse(utentepagante.get());
+
+        // totale da pagare
+        for(Ordine ordine : ordinipendenti){
+            ordine.setPagato(true);
+            ordineRepository.save(ordine);
+        }
+
+        if(ordinipendenti.iterator().hasNext()){
+            redirectAttributes.addFlashAttribute("messaggio", "Pagamento effettuato con successo!");
+        }else {
+            redirectAttributes.addFlashAttribute("messaggiored", "Impossibile procedere con il pagamento!");
+        }
+
+        return "redirect:/user/carrello";
     }
 
 }

@@ -13,13 +13,21 @@ public class Ordine {
 	
 	@Column(name = "biglietti", nullable = false)
 	private int biglietti;
+
+    @Column(name = "totpagamento")
+    private double totpagamento;
+
+    @Column(name = "pagato", nullable = false)
+    private boolean pagato;
 	
 	public Ordine() {
 	}
 	
-	public Ordine(int idordine, int biglietti) {
+	public Ordine(int idordine, int biglietti, double totpagamento, boolean pagato) {
 		this.idordine = idordine;
 		this.biglietti = biglietti;
+        this.totpagamento = totpagamento;
+        this.pagato = pagato;
 	}
 	
 	//Getters e Setters
@@ -39,6 +47,23 @@ public class Ordine {
     }
     public void setBiglietti(int biglietti) {
     	this.biglietti = biglietti;
+    }
+
+    public double getTotpagamento() {
+
+        return totpagamento;
+    }
+    public void setTotpagamento(double totpagamento) {
+
+        this.totpagamento = totpagamento;
+    }
+
+    public boolean getPagato(){
+        return pagato;
+    }
+
+    public void setPagato(boolean pagato){
+        this.pagato = pagato;
     }
     
     
